@@ -6,14 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants.dart';
 import '../../util/error_snackbar.dart';
-import '../../util/ext/async_snapshot.dart';
 import '../app_theme.dart';
-import '../component/article_item.dart';
-import '../component/container_with_loading.dart';
+import '../component/home_item.dart';
 import '../component/image.dart';
-import '../loading_state_view_model.dart';
 import '../user_view_model.dart';
-import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -47,38 +43,77 @@ class HomePage extends StatelessWidget {
                 onPressed: () => Get.toNamed(Constants.pageSignIn))
           ],
         ),
-        body: ContainerWithLoading(
-          child: HookBuilder(
-            builder: (context) {
-              final homeViewModel = context.read(homeViewModelProvider);
-              final news = useProvider(
-                  homeViewModelProvider.select((value) => value.news));
-              final snapshot = useFuture(useMemoized(() {
-                return context
-                    .read(loadingStateProvider)
-                    .whileLoading(homeViewModel.fetchNews);
-              }, [news.toString()]));
-
-              // Not yet load the contents.
-              if (!snapshot.isDone) return Container();
-
-              return news.when(success: (data) {
-                if (data.articles.isEmpty) {
-                  return const Text('Empty screen');
-                }
-                return RefreshIndicator(
-                  onRefresh: () async => homeViewModel.fetchNews(),
-                  child: ListView.builder(
-                    itemCount: data.articles.length,
-                    itemBuilder: (_, index) {
-                      return ArticleItem(data.articles[index]);
-                    },
-                  ),
-                );
-              }, failure: (e) {
-                return Text('Error Screen: $e');
-              });
-            },
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 40, 10, 40),
+          child: Container(
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        child: InkWell(
+                            onTap: () => Get.toNamed(Constants.pageDeposit),
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: Container(
+                              width: 200,
+                              height: 150,
+                              child: const Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child:
+                                      HomeItem(title: "入库", icon: Icons.inbox)),
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        child: InkWell(
+                            onTap: () => Get.toNamed(Constants.pageSignIn),
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: Container(
+                              width: 200,
+                              height: 150,
+                              child: const Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: HomeItem(
+                                      title: "出库", icon: Icons.outbox)),
+                            )),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        child: InkWell(
+                            onTap: () => Get.toNamed(Constants.pageSignIn),
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: Container(
+                              width: 200,
+                              height: 150,
+                              child: const Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: HomeItem(
+                                      title: "统计", icon: Icons.bubble_chart)),
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }

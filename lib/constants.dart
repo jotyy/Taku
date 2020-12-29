@@ -50,6 +50,9 @@ class Constants {
   static const String pageHome = '/home';
   static const String pageSignIn = '/signIn';
   static const String pageDetail = '/detail';
+  static const String pageDeposit = "/deposit";
+  static const String pageWithdraw = "/withdraw";
+  static const String pageStatistic = "/statistic";
 
   static Constants _instance;
 
