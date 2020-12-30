@@ -35,26 +35,26 @@ const $Result = _$ResultTearOff();
 /// @nodoc
 mixin _$Result<T> {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result success(T data),
-    @required Result failure(AppError error),
+  TResult when<TResult extends Object>({
+    @required TResult success(T data),
+    @required TResult failure(AppError error),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result success(T data),
-    Result failure(AppError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(T data),
+    TResult failure(AppError error),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result success(Success<T> value),
-    @required Result failure(Failure<T> value),
+  TResult map<TResult extends Object>({
+    @required TResult success(Success<T> value),
+    @required TResult failure(Failure<T> value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result success(Success<T> value),
-    Result failure(Failure<T> value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult success(Success<T> value),
+    TResult failure(Failure<T> value),
+    @required TResult orElse(),
   });
 }
 
@@ -137,9 +137,9 @@ class _$Success<T> extends Success<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result success(T data),
-    @required Result failure(AppError error),
+  TResult when<TResult extends Object>({
+    @required TResult success(T data),
+    @required TResult failure(AppError error),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -148,10 +148,10 @@ class _$Success<T> extends Success<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result success(T data),
-    Result failure(AppError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(T data),
+    TResult failure(AppError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -162,9 +162,9 @@ class _$Success<T> extends Success<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result success(Success<T> value),
-    @required Result failure(Failure<T> value),
+  TResult map<TResult extends Object>({
+    @required TResult success(Success<T> value),
+    @required TResult failure(Failure<T> value),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -173,10 +173,10 @@ class _$Success<T> extends Success<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result success(Success<T> value),
-    Result failure(Failure<T> value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult success(Success<T> value),
+    TResult failure(Failure<T> value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -260,9 +260,9 @@ class _$Failure<T> extends Failure<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result success(T data),
-    @required Result failure(AppError error),
+  TResult when<TResult extends Object>({
+    @required TResult success(T data),
+    @required TResult failure(AppError error),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -271,10 +271,10 @@ class _$Failure<T> extends Failure<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result success(T data),
-    Result failure(AppError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(T data),
+    TResult failure(AppError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (failure != null) {
@@ -285,9 +285,9 @@ class _$Failure<T> extends Failure<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result success(Success<T> value),
-    @required Result failure(Failure<T> value),
+  TResult map<TResult extends Object>({
+    @required TResult success(Success<T> value),
+    @required TResult failure(Failure<T> value),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -296,10 +296,10 @@ class _$Failure<T> extends Failure<T> with DiagnosticableTreeMixin {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result success(Success<T> value),
-    Result failure(Failure<T> value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult success(Success<T> value),
+    TResult failure(Failure<T> value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (failure != null) {
