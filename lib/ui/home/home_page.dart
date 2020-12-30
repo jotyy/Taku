@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,7 +7,6 @@ import '../../constants.dart';
 import '../../util/error_snackbar.dart';
 import '../app_theme.dart';
 import '../component/home_item.dart';
-import '../component/image.dart';
 
 class HomePage extends StatelessWidget {
   @override

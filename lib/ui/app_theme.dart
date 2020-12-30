@@ -52,8 +52,17 @@ const buttonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const accentColor = Color(0xff17c063);
+const lPrimaryColor = Color(0xff344955);
+const lPrimaryColorDark = Color(0xff2f32f34);
+const lPrimaryColorLight = Color(0xff4a6572);
+const accentColor = Color(0xfff9aa33);
 const errorColor = Color(0xffff5544);
+
+const cardTheme = CardTheme(
+  clipBehavior: Clip.antiAlias,
+  elevation: 2,
+  shadowColor: Color(0x26f9aa33),
+);
 
 ThemeData get lightTheme {
   return ThemeData.light().copyWith(
@@ -63,8 +72,12 @@ ThemeData get lightTheme {
       headline1: headline1,
       button: buttonTextStyle,
     ),
+    primaryColor: lPrimaryColor,
+    primaryColorDark: lPrimaryColorDark,
+    primaryColorLight: lPrimaryColorLight,
     accentColor: accentColor,
     errorColor: errorColor,
+    cardTheme: cardTheme
   );
 }
 

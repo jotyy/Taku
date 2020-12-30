@@ -8,17 +8,21 @@ class DepositDetailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-          Text(value),
-        ],
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              name,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            Text(value),
+          ],
+        ),
       ),
     );
   }

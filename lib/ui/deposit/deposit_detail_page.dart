@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../data/local/app_database.dart';
 import '../component/deposit_detail_item.dart';
 
 class DepositDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Deposit arguments = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -14,6 +17,15 @@ class DepositDetailPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Hero(
+              tag: "${arguments.id}",
+              child: const CircleAvatar(
+                child: Icon(Icons.ac_unit),
+              ),
+            ),
+          ),
           const DepositDetailItem(
             name: "名称",
             value: "Materila001",

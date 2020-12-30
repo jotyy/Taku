@@ -11,45 +11,41 @@ class DepositListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-        decoration: const BoxDecoration(
-          color: Colors.black38,
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
+      child: Card(
         child: InkWell(
-          onTap: () => Get.toNamed(Constants.pageDepositDetail),
+          onTap: () =>
+              Get.toNamed(Constants.pageDepositDetail, arguments: deposit),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  child: Icon(Icons.ac_unit),
-                ),
-                Expanded(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("${deposit.name}",
-                          style: Theme.of(context).textTheme.subtitle1),
-                      const SizedBox(height: 5.0),
-                      Text(
-                        "${deposit.description}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            .copyWith(color: Colors.white60),
-                      )
-                    ],
+                Hero(
+                  tag: "${deposit.id}",
+                  child: const CircleAvatar(
+                    child: Icon(Icons.ac_unit),
                   ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("${deposit.name}",
+                        style: Theme.of(context).textTheme.subtitle1),
+                    const SizedBox(height: 5.0),
+                    Text("${deposit.description}",
+                        style: Theme.of(context).textTheme.caption)
+                  ],
                 ))
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
