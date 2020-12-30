@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../local/theme_data_source.dart';
+import '../local/theme/theme_data_source.dart';
 import 'theme_repository.dart';
 
 class ThemeRepositoryImpl implements ThemeRepository {
