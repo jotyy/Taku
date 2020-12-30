@@ -7,7 +7,7 @@ import '../component/deposit_detail_item.dart';
 class DepositDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Deposit arguments = Get.arguments;
+    final Commodity arguments = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -5,11 +5,11 @@ import 'package:moor/moor.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import 'deposit/table/deposit.table.dart';
+import 'commodity/table/commodity.table.dart';
 
 part 'app_database.g.dart';
 
-@UseMoor(tables: [Deposits])
+@UseMoor(tables: [Commoditys])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

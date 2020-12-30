@@ -1,11 +1,11 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'deposit.dao.dart';
+part of 'commodity.dao.dart';
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$DepositDaoMixin on DatabaseAccessor<AppDatabase> {
-  $DepositsTable get deposits => attachedDatabase.deposits;
+mixin _$CommodityDaoMixin on DatabaseAccessor<AppDatabase> {
+  $CommoditysTable get commoditys => attachedDatabase.commoditys;
 }

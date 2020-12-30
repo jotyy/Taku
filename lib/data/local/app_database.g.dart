@@ -7,7 +7,7 @@ part of 'app_database.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class Deposit extends DataClass implements Insertable<Deposit> {
+class Commodity extends DataClass implements Insertable<Commodity> {
   final int id;
   final String name;
   final String code;
@@ -15,7 +15,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
   final int status;
   final String depositBy;
   final DateTime depositAt;
-  Deposit(
+  Commodity(
       {@required this.id,
       @required this.name,
       @required this.code,
@@ -23,13 +23,13 @@ class Deposit extends DataClass implements Insertable<Deposit> {
       @required this.status,
       @required this.depositBy,
       @required this.depositAt});
-  factory Deposit.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Commodity.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return Deposit(
+    return Commodity(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
@@ -69,8 +69,8 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     return map;
   }
 
-  DepositsCompanion toCompanion(bool nullToAbsent) {
-    return DepositsCompanion(
+  CommoditysCompanion toCompanion(bool nullToAbsent) {
+    return CommoditysCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
@@ -88,10 +88,10 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     );
   }
 
-  factory Deposit.fromJson(Map<String, dynamic> json,
+  factory Commodity.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return Deposit(
+    return Commodity(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       code: serializer.fromJson<String>(json['code']),
@@ -115,7 +115,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     };
   }
 
-  Deposit copyWith(
+  Commodity copyWith(
           {int id,
           String name,
           String code,
@@ -123,7 +123,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
           int status,
           String depositBy,
           DateTime depositAt}) =>
-      Deposit(
+      Commodity(
         id: id ?? this.id,
         name: name ?? this.name,
         code: code ?? this.code,
@@ -134,7 +134,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
       );
   @override
   String toString() {
-    return (StringBuffer('Deposit(')
+    return (StringBuffer('Commodity(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('code: $code, ')
@@ -160,7 +160,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is Deposit &&
+      (other is Commodity &&
           other.id == this.id &&
           other.name == this.name &&
           other.code == this.code &&
@@ -170,7 +170,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
           other.depositAt == this.depositAt);
 }
 
-class DepositsCompanion extends UpdateCompanion<Deposit> {
+class CommoditysCompanion extends UpdateCompanion<Commodity> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> code;
@@ -178,7 +178,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
   final Value<int> status;
   final Value<String> depositBy;
   final Value<DateTime> depositAt;
-  const DepositsCompanion({
+  const CommoditysCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.code = const Value.absent(),
@@ -187,7 +187,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
     this.depositBy = const Value.absent(),
     this.depositAt = const Value.absent(),
   });
-  DepositsCompanion.insert({
+  CommoditysCompanion.insert({
     this.id = const Value.absent(),
     @required String name,
     @required String code,
@@ -199,7 +199,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
         code = Value(code),
         description = Value(description),
         depositBy = Value(depositBy);
-  static Insertable<Deposit> custom({
+  static Insertable<Commodity> custom({
     Expression<int> id,
     Expression<String> name,
     Expression<String> code,
@@ -219,7 +219,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
     });
   }
 
-  DepositsCompanion copyWith(
+  CommoditysCompanion copyWith(
       {Value<int> id,
       Value<String> name,
       Value<String> code,
@@ -227,7 +227,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
       Value<int> status,
       Value<String> depositBy,
       Value<DateTime> depositAt}) {
-    return DepositsCompanion(
+    return CommoditysCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       code: code ?? this.code,
@@ -267,7 +267,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
 
   @override
   String toString() {
-    return (StringBuffer('DepositsCompanion(')
+    return (StringBuffer('CommoditysCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('code: $code, ')
@@ -280,10 +280,11 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
   }
 }
 
-class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
+class $CommoditysTable extends Commoditys
+    with TableInfo<$CommoditysTable, Commodity> {
   final GeneratedDatabase _db;
   final String _alias;
-  $DepositsTable(this._db, [this._alias]);
+  $CommoditysTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -353,13 +354,13 @@ class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
   List<GeneratedColumn> get $columns =>
       [id, name, code, description, status, depositBy, depositAt];
   @override
-  $DepositsTable get asDslTable => this;
+  $CommoditysTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'deposits';
+  String get $tableName => _alias ?? 'commoditys';
   @override
-  final String actualTableName = 'deposits';
+  final String actualTableName = 'commoditys';
   @override
-  VerificationContext validateIntegrity(Insertable<Deposit> instance,
+  VerificationContext validateIntegrity(Insertable<Commodity> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -406,23 +407,23 @@ class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Deposit map(Map<String, dynamic> data, {String tablePrefix}) {
+  Commodity map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Deposit.fromData(data, _db, prefix: effectivePrefix);
+    return Commodity.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $DepositsTable createAlias(String alias) {
-    return $DepositsTable(_db, alias);
+  $CommoditysTable createAlias(String alias) {
+    return $CommoditysTable(_db, alias);
   }
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  $DepositsTable _deposits;
-  $DepositsTable get deposits => _deposits ??= $DepositsTable(this);
+  $CommoditysTable _commoditys;
+  $CommoditysTable get commoditys => _commoditys ??= $CommoditysTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [deposits];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [commoditys];
 }

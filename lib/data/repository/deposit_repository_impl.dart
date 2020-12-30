@@ -1,20 +1,19 @@
 import '../local/app_database.dart';
-import '../local/deposit/deposit_local_data_source.dart';
+import '../local/commodity/commodity_local_data_source.dart';
+import 'commodity_repository.dart';
 
-import 'deposit_repository.dart';
+class CommodityRepositoryImpl extends CommodityRepository {
+  final CommodityLocalDataSource localSource;
 
-class DepositRepositoryImpl extends DepositRepository {
-  final DepositLocalDataSource localSource;
-
-  DepositRepositoryImpl(this.localSource);
+  CommodityRepositoryImpl(this.localSource);
 
   @override
-  Future addDeposit(DepositsCompanion deposit) {
-    return localSource.addDeposit(deposit);
+  Future addCommodity(CommoditysCompanion commodity) {
+    return localSource.addCommodity(commodity);
   }
 
   @override
-  Future<List<Deposit>> getDeposits() {
-    return localSource.getDeposits();
+  Future<List<Commodity>> getCommodities() {
+    return localSource.getCommodities();
   }
 }

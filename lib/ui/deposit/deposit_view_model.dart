@@ -3,30 +3,31 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../data/local/app_database.dart';
 import '../../data/model/result.dart';
-import '../../data/provider/deposit_repository_provider.dart';
-import '../../data/repository/deposit_repository.dart';
+import '../../data/provider/commodity_repository_provider.dart';
+import '../../data/repository/commodity_repository.dart';
 
 final depositViewModelProvider = ChangeNotifierProvider(
-    (ref) => DepositViewModel(ref.read(depositRepositoryProvider)));
+    (ref) => DepositViewModel(ref.read(commodityRepositoryProvider)));
 
 class DepositViewModel extends ChangeNotifier {
-  final DepositRepository _depositRepository;
+  final CommodityRepository _depositRepository;
 
   DepositViewModel(this._depositRepository);
 
-  Result<List<Deposit>> _deposits;
-  Result<List<Deposit>> get deposits => _deposits;
+  Result<List<Commodity>> _deposits;
+
+  Result<List<Commodity>> get deposits => _deposits;
 
   Future fetchDeposits() {
     return _depositRepository
-        .getDeposits()
+        .getCommodities()
         .then((value) => _deposits = Result.success(data: value))
         .whenComplete(notifyListeners);
   }
 
-  Future addDeposit(DepositsCompanion deposit) {
+  Future addDeposit(CommoditysCompanion deposit) {
     return _depositRepository
-        .addDeposit(deposit)
+        .addCommodity(deposit)
         .then((value) => fetchDeposits())
         .whenComplete(notifyListeners);
   }

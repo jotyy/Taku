@@ -5,9 +5,9 @@ import '../../constants.dart';
 import '../../data/local/app_database.dart';
 
 class DepositListItem extends StatelessWidget {
-  final Deposit deposit;
+  final Commodity commodity;
 
-  const DepositListItem({Key key, this.deposit}) : super(key: key);
+  const DepositListItem({Key key, this.commodity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,14 @@ class DepositListItem extends StatelessWidget {
       child: Card(
         child: InkWell(
           onTap: () =>
-              Get.toNamed(Constants.pageDepositDetail, arguments: deposit),
+              Get.toNamed(Constants.pageDepositDetail, arguments: commodity),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Hero(
-                  tag: "${deposit.id}",
+                  tag: "${commodity.id}",
                   child: const CircleAvatar(
                     child: Icon(Icons.ac_unit),
                   ),
@@ -34,10 +34,10 @@ class DepositListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("${deposit.name}",
+                    Text("${commodity.name}",
                         style: Theme.of(context).textTheme.subtitle1),
                     const SizedBox(height: 5.0),
-                    Text("${deposit.description}",
+                    Text("${commodity.description}",
                         style: Theme.of(context).textTheme.caption)
                   ],
                 ))

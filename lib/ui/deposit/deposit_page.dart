@@ -11,7 +11,7 @@ import '../component/deposit_list_item.dart';
 import '../loading_state_view_model.dart';
 import 'deposit_view_model.dart';
 
-const mockDeposit = DepositsCompanion(
+const mockItem = CommoditysCompanion(
   name: moor.Value("Item1"),
   code: moor.Value("CO-100020909091"),
   description: moor.Value("this is our first item"),
@@ -68,7 +68,7 @@ class DepositPage extends StatelessWidget {
                           itemCount: data.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (_, index) {
-                            return DepositListItem(deposit: data[index]);
+                            return DepositListItem(commodity: data[index]);
                           }),
                       onRefresh: () async => viewModel.fetchDeposits(),
                     );
@@ -83,7 +83,7 @@ class DepositPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.amber,
-          onPressed: () => viewModel.addDeposit(mockDeposit),
+          onPressed: () => viewModel.addDeposit(mockItem),
           child: const Icon(Icons.qr_code_scanner, color: Colors.black45)),
     );
   }
