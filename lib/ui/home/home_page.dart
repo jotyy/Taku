@@ -9,7 +9,6 @@ import '../../util/error_snackbar.dart';
 import '../app_theme.dart';
 import '../component/home_item.dart';
 import '../component/image.dart';
-import '../user_view_model.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -32,10 +31,8 @@ class HomePage extends StatelessWidget {
             ),
             IconButton(
                 icon: HookBuilder(builder: (context) {
-                  final user = useProvider(
-                      userViewModelProvider.select((value) => value.user));
                   return CircleAvatar(
-                    backgroundImage: loadProfileImage(user?.photoURL),
+                    backgroundImage: loadProfileImage("user?.photoURL"),
                     backgroundColor: Colors.transparent,
                     radius: 12,
                   );
