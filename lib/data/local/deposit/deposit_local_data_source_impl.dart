@@ -8,14 +8,17 @@ class DepositLocalDataSourceImpl extends DepositLocalDataSource {
   DepositLocalDataSourceImpl(this.dao);
 
   @override
-  Future addDeposit(Deposit deposit) {}
+  Future addDeposit(DepositsCompanion deposit) {
+    return dao.insertDeposit(deposit);
+  }
 
   @override
-  Future<Deposit> getDepositById(int id) {}
+  Future<List<Deposit>> getDeposits() {
+    return dao.getDeposits();
+  }
 
   @override
-  Future<List<Deposit>> getDepositHistory() {}
-
-  @override
-  Future removeDeposit(int id) {}
+  Future removeDeposit(int id) {
+    return dao.deleteDeposit(id);
+  }
 }

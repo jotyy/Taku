@@ -1,5 +1,6 @@
-import 'package:app/ui/component/deposit_detail_item.dart';
 import 'package:flutter/material.dart';
+
+import '../component/deposit_detail_item.dart';
 
 class DepositDetailPage extends StatelessWidget {
   @override

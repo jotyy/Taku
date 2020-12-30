@@ -1,11 +1,28 @@
-import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moor/moor.dart' as moor;
+
+import '../../data/local/app_database.dart';
+import '../component/container_with_loading.dart';
+import '../component/deposit_list_item.dart';
+import '../loading_state_view_model.dart';
+import 'deposit_view_model.dart';
+
+const mockDeposit = DepositsCompanion(
+  name: moor.Value("Item1"),
+  code: moor.Value("CO-100020909091"),
+  description: moor.Value("this is our first item"),
+  depositBy: moor.Value("Jotyy"),
+);
 
 class DepositPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read(depositViewModelProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.of(context).deposit,
@@ -29,61 +46,45 @@ class DepositPage extends StatelessWidget {
                     prefixIcon: Icon(Icons.search_rounded)),
               ),
             ),
-            Expanded(child: _buildItemList(context))
+            Expanded(
+              child: ContainerWithLoading(
+                child: HookBuilder(builder: (context) {
+                  final deposits = useProvider(depositViewModelProvider
+                      .select((value) => value.deposits));
+                  final snapshot = useFuture(useMemoized(() {
+                    return context
+                        .read(loadingStateProvider)
+                        .whileLoading(viewModel.fetchDeposits);
+                  }, [deposits.toString()]));
+
+                  if (snapshot.isBlank) return Container();
+
+                  return deposits.when(success: (data) {
+                    if (data.isEmpty) {
+                      return const Text('Empty screen');
+                    }
+                    return RefreshIndicator(
+                      child: ListView.builder(
+                          itemCount: data.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (_, index) {
+                            return DepositListItem(deposit: data[index]);
+                          }),
+                      onRefresh: () async => viewModel.fetchDeposits(),
+                    );
+                  }, failure: (e) {
+                    return Text('Error: $e');
+                  });
+                }),
+              ),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.amber,
-          onPressed: () {},
+          onPressed: () => viewModel.addDeposit(mockDeposit),
           child: const Icon(Icons.qr_code_scanner, color: Colors.black45)),
     );
-  }
-
-  Widget _buildItemList(BuildContext context) {
-    return ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return Container(
-              margin: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-              decoration: const BoxDecoration(
-                color: Colors.black38,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              child: InkWell(
-                onTap: () => Get.toNamed(Constants.pageDepositDetail),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        child: Icon(Icons.ac_unit),
-                      ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("物品 $index",
-                                style: Theme.of(context).textTheme.subtitle1),
-                            const SizedBox(height: 5.0),
-                            Text(
-                              "这是一片雪花",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(color: Colors.white60),
-                            )
-                          ],
-                        ),
-                      ))
-                    ],
-                  ),
-                ),
-              ));
-        });
   }
 }

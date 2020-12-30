@@ -30,13 +30,8 @@ class HomePage extends StatelessWidget {
               }),
             ),
             IconButton(
-                icon: HookBuilder(builder: (context) {
-                  return CircleAvatar(
-                    backgroundImage: loadProfileImage("user?.photoURL"),
-                    backgroundColor: Colors.transparent,
-                    radius: 12,
-                  );
-                }),
+                // ignore: prefer_const_constructors
+                icon: Icon(Icons.person),
                 onPressed: () => Get.toNamed(Constants.pageSignIn))
           ],
         ),

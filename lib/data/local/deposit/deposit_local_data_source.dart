@@ -1,8 +1,7 @@
 import '../app_database.dart';
 
 abstract class DepositLocalDataSource {
-  Future<Deposit> getDepositById(int id);
-  Future<List<Deposit>> getDepositHistory();
-  Future addDeposit(Deposit deposit);
+  Future<List<Deposit>> getDeposits();
+  Future addDeposit(DepositsCompanion deposit);
   Future removeDeposit(int id);
 }
