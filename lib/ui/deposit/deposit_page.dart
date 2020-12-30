@@ -1,5 +1,7 @@
+import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:get/get.dart';
 
 class DepositPage extends StatelessWidget {
   @override
@@ -44,39 +46,42 @@ class DepositPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
               margin: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.black38,
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      child: Icon(Icons.ac_unit),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("物品 $index",
-                              style: Theme.of(context).textTheme.subtitle1),
-                          const SizedBox(height: 5.0),
-                          Text(
-                            "这是一片雪花",
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                .copyWith(color: Colors.white60),
-                          )
-                        ],
+              child: InkWell(
+                onTap: () => Get.toNamed(Constants.pageDepositDetail),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        child: Icon(Icons.ac_unit),
                       ),
-                    ))
-                  ],
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("物品 $index",
+                                style: Theme.of(context).textTheme.subtitle1),
+                            const SizedBox(height: 5.0),
+                            Text(
+                              "这是一片雪花",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  .copyWith(color: Colors.white60),
+                            )
+                          ],
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
               ));
         });

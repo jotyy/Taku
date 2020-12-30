@@ -53,6 +53,7 @@ class Constants {
   static const String pageDeposit = "/deposit";
   static const String pageWithdraw = "/withdraw";
   static const String pageStatistic = "/statistic";
+  static const String pageDepositDetail = "/depositDetail";
 
   static Constants _instance;
 

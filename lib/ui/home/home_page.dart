@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       child: Card(
                         child: InkWell(
-                            onTap: () => Get.toNamed(Constants.pageSignIn),
+                            onTap: () => Get.toNamed(Constants.pageStatistic),
                             borderRadius: BorderRadius.circular(4.0),
                             child: Container(
                               width: 200,

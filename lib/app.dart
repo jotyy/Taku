@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants.dart';
 import 'ui/app_theme.dart';
+import 'ui/deposit/deposit_detail_page.dart';
 import 'ui/deposit/deposit_page.dart';
 import 'ui/detail/detail_page.dart';
 import 'ui/home/home_page.dart';
@@ -35,6 +36,7 @@ class App extends HookWidget {
         Constants.pageDeposit: (context) => DepositPage(),
         Constants.pageWithdraw: (context) => WithdrawPage(),
         Constants.pageStatistic: (context) => StatisticPage(),
+        Constants.pageDepositDetail: (context) => DepositDetailPage(),
       },
     );
   }
