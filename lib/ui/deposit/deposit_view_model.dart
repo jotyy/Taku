@@ -24,11 +24,4 @@ class DepositViewModel extends ChangeNotifier {
         .then((value) => _commodities = Result.success(data: value))
         .whenComplete(notifyListeners);
   }
-
-  Future addCommodity(CommoditysCompanion deposit) {
-    return _commodityRepository
-        .addCommodity(deposit)
-        .then((value) => fetchCommodities())
-        .whenComplete(notifyListeners);
-  }
 }

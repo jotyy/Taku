@@ -5,16 +5,16 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRScanner extends StatefulWidget {
-  const QRScanner({
+class QRScannerPage extends StatefulWidget {
+  const QRScannerPage({
     Key key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRScannerState();
+  State<StatefulWidget> createState() => _QRScannerPageState();
 }
 
-class _QRScannerState extends State<QRScanner> {
+class _QRScannerPageState extends State<QRScannerPage> {
   Barcode result;
   bool isFlashOn = false;
   QRViewController controller;

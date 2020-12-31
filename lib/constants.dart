@@ -55,6 +55,7 @@ class Constants {
   static const String pageStatistic = "/statistic";
   static const String pageDepositDetail = "/depositDetail";
   static const String pageQRScanner = "/qrScanner";
+  static const String pageInputCommodity = "/inputCommodity";
 
   static Constants _instance;
 

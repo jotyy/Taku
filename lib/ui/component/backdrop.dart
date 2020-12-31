@@ -78,7 +78,7 @@ class _BackdropState extends State<Backdrop>
         children: [
           IconButton(
               icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: () => _toggleBackdropLayerVisibility),
+              onPressed: _toggleBackdropLayerVisibility),
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.color_lens, color: Colors.white),
@@ -101,7 +101,7 @@ class _BackdropState extends State<Backdrop>
   Widget get _fab {
     return FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => Get.toNamed(Constants.pageQRScanner));
+        onPressed: () => Get.toNamed(Constants.pageInputCommodity));
   }
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
