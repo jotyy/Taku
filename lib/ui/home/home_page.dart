@@ -32,7 +32,9 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(Constants.pageQRScanner);
+          },
           child: const Icon(Icons.qr_code_scanner),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

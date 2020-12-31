@@ -52,6 +52,9 @@ dependencies:
   # Convert between Enum and String
   enum_to_string: ^1.0.14
 
+  # For qrcode 
+  qr_code_scanner: ^0.2.1
+
   # For UIs
   gap: ^1.2.0
   cupertino_icons: ^1.0.0

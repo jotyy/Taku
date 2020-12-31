@@ -10,6 +10,7 @@ import 'ui/deposit/deposit_detail_page.dart';
 import 'ui/deposit/deposit_page.dart';
 import 'ui/detail/detail_page.dart';
 import 'ui/home/home_page.dart';
+import 'ui/scanner/qr_scanner.dart';
 import 'ui/signIn/sign_in_page.dart';
 import 'ui/statistic/statistic_page.dart';
 import 'ui/withdraw/withdraw_page.dart';
@@ -37,6 +38,7 @@ class App extends HookWidget {
         Constants.pageWithdraw: (context) => WithdrawPage(),
         Constants.pageStatistic: (context) => StatisticPage(),
         Constants.pageDepositDetail: (context) => DepositDetailPage(),
+        Constants.pageQRScanner: (context) => const QRScanner(),
       },
     );
   }
