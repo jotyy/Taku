@@ -53,7 +53,7 @@ const buttonTextStyle = TextStyle(
 );
 
 const lPrimaryColor = Color(0xff344955);
-const lPrimaryColorDark = Color(0xff2f32f34);
+const lPrimaryColorDark = Color(0xff232f34);
 const lPrimaryColorLight = Color(0xff4a6572);
 const lShadowColor = Color(0x26344955);
 const accentColor = Color(0xfff9aa33);
@@ -80,6 +80,7 @@ ThemeData get lightTheme {
     errorColor: errorColor,
     cardTheme: cardTheme,
     shadowColor: lShadowColor,
+    bottomAppBarColor: lPrimaryColor,
   );
 }
 

@@ -23,8 +23,8 @@ class PieChartSample1State extends State {
             ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Text(
                     '分布占比',
                     style: TextStyle(
@@ -112,7 +112,7 @@ class PieChartSample1State extends State {
       4,
       (i) {
         final isTouched = i == touchedIndex;
-        final double opacity = isTouched ? 1 : 0.6;
+        final opacity = isTouched ? 1 : 0.6;
         switch (i) {
           case 0:
             return PieChartSectionData(
@@ -120,10 +120,10 @@ class PieChartSample1State extends State {
               value: 25,
               title: '',
               radius: 80,
-              titleStyle: TextStyle(
+              titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xff044d7c)),
+                  color: Color(0xff044d7c)),
               titlePositionPercentageOffset: 0.55,
             );
           case 1:
@@ -132,10 +132,10 @@ class PieChartSample1State extends State {
               value: 25,
               title: '',
               radius: 65,
-              titleStyle: TextStyle(
+              titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xff90672d)),
+                  color: Color(0xff90672d)),
               titlePositionPercentageOffset: 0.55,
             );
           case 2:
@@ -144,10 +144,10 @@ class PieChartSample1State extends State {
               value: 25,
               title: '',
               radius: 60,
-              titleStyle: TextStyle(
+              titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xff4c3788)),
+                  color: Color(0xff4c3788)),
               titlePositionPercentageOffset: 0.6,
             );
           case 3:
@@ -156,10 +156,10 @@ class PieChartSample1State extends State {
               value: 25,
               title: '',
               radius: 70,
-              titleStyle: TextStyle(
+              titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xff0c7f55)),
+                  color: Color(0xff0c7f55)),
               titlePositionPercentageOffset: 0.55,
             );
           default:

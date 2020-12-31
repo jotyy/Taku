@@ -42,20 +42,20 @@ class BarChartSample1State extends State<BarChartSample1> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     '入库统计',
                     style: TextStyle(
-                        color: const Color(0xff0f4a3c),
+                        color: Color(0xff0f4a3c),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 4,
                   ),
-                  Text(
+                  const Text(
                     '近一周入库数据',
                     style: TextStyle(
-                        color: const Color(0xff379982),
+                        color: Color(0xff379982),
                         fontSize: 12,
                         fontWeight: FontWeight.bold),
                   ),
@@ -180,8 +180,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                   weekDay = 'Sunday';
                   break;
               }
-              return BarTooltipItem(weekDay + '\n' + (rod.y - 1).toString(),
-                  TextStyle(color: Colors.yellow));
+              return BarTooltipItem('$weekDay\n${rod.y - 1}',
+                  const TextStyle(color: Colors.yellow));
             }),
         touchCallback: (barTouchResponse) {
           setState(() {
@@ -202,7 +202,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           getTextStyles: (value) => const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
-          getTitles: (double value) {
+          getTitles: (value) {
             switch (value.toInt()) {
               case 0:
                 return 'M';
@@ -246,7 +246,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           getTextStyles: (value) => const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
-          getTitles: (double value) {
+          getTitles: (value) {
             switch (value.toInt()) {
               case 0:
                 return 'M';

@@ -17,21 +17,21 @@ class _SignInPageState extends State<SignInPage> {
           '手机号',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.phone_android,
                 color: Colors.white,
               ),
@@ -52,21 +52,21 @@ class _SignInPageState extends State<SignInPage> {
           '密码',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
             obscureText: true,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.white,
               ),
@@ -84,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
       alignment: Alignment.centerRight,
       child: FlatButton(
         onPressed: () => print('Forgot Password Button Pressed'),
-        padding: EdgeInsets.only(right: 0.0),
+        padding: const EdgeInsets.only(right: 0.0),
         child: Text(
           '忘记密码?',
           style: kLabelStyle.copyWith(fontSize: 12),
@@ -122,17 +122,17 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () => print('Login Button Pressed'),
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
+        child: const Text(
           '进入',
           style: TextStyle(
             color: Color(0xFF434343),
@@ -150,7 +150,7 @@ class _SignInPageState extends State<SignInPage> {
     return GestureDetector(
       onTap: () => print('Sign Up Button Pressed'),
       child: RichText(
-        text: TextSpan(
+        text: const TextSpan(
           children: [
             TextSpan(
               text: '还没有账号? ',
@@ -186,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -203,8 +203,8 @@ class _SignInPageState extends State<SignInPage> {
               Container(
                 height: double.infinity,
                 child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 40.0,
                     vertical: 120.0,
                   ),
@@ -213,7 +213,7 @@ class _SignInPageState extends State<SignInPage> {
                     children: <Widget>[
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             '登录',
                             style: TextStyle(
                               color: Colors.white,
@@ -225,16 +225,16 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 30.0),
                       _buildEmailTF(),
-                      SizedBox(
+                      const SizedBox(
                         height: 30.0,
                       ),
                       _buildPasswordTF(),
                       _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
                       _buildLoginBtn(),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       _buildSignupBtn(),
@@ -250,22 +250,22 @@ class _SignInPageState extends State<SignInPage> {
   }
 }
 
-final kHintTextStyle = TextStyle(
+final kHintTextStyle = const TextStyle(
   color: Colors.white54,
   fontFamily: 'OpenSans',
 );
 
-final kLabelStyle = TextStyle(
+final kLabelStyle = const TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF676767),
+  color: const Color(0xFF676767),
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: [
-    BoxShadow(
+    const BoxShadow(
       color: Colors.white10,
       blurRadius: 6.0,
       offset: Offset(0, 2),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -15,7 +16,7 @@ class QRScanner extends StatefulWidget {
 
 class _QRScannerState extends State<QRScanner> {
   Barcode result;
-  var isFlashOn = false;
+  bool isFlashOn = false;
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -35,14 +36,14 @@ class _QRScannerState extends State<QRScanner> {
       body: Stack(
         children: <Widget>[
           Expanded(child: _buildQrView(context)),
-          const Positioned(
+          Positioned(
             top: 120,
             left: 0,
             right: 0,
             child: Text(
-              '请扫描二维码',
+              L10n.of(context).scanCode,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
