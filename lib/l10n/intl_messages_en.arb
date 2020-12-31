@@ -44,10 +44,14 @@
   "@setting": {},
   "personalCenter": "Profile",
   "@personalCenter": {},
+  "inputCommodity": "Input Commodity",
+  "@inputCommodity": {},
   "depositHistory": "Deposit Records",
   "@depositHistory": {},
   "withdrawHistory": "Withdraw Records",
   "@withdrawHistory": {},
+  "printCode": "Print BarCode",
+  "@printCode": {},
   "switchTheme": "Theme",
   "@switchTheme": {} 
 }

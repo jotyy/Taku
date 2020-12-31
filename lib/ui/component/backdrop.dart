@@ -30,9 +30,9 @@ class _BackdropState extends State<Backdrop>
 
   @override
   void initState() {
-    super.initState();
     _controller = AnimationController(
         duration: const Duration(milliseconds: 300), value: 1.0, vsync: this);
+    super.initState();
   }
 
   @override
@@ -41,8 +41,6 @@ class _BackdropState extends State<Backdrop>
 
     if (!_frontLayerVisible) {
       _controller.fling(velocity: _kFlingVelocity);
-    } else {
-      _toggleBackdropLayerVisibility();
     }
   }
 
@@ -80,7 +78,7 @@ class _BackdropState extends State<Backdrop>
         children: [
           IconButton(
               icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: _toggleBackdropLayerVisibility),
+              onPressed: () => _toggleBackdropLayerVisibility),
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.color_lens, color: Colors.white),
@@ -102,7 +100,7 @@ class _BackdropState extends State<Backdrop>
 
   Widget get _fab {
     return FloatingActionButton(
-        child: const Icon(Icons.qr_code_scanner),
+        child: const Icon(Icons.add),
         onPressed: () => Get.toNamed(Constants.pageQRScanner));
   }
 
@@ -111,9 +109,8 @@ class _BackdropState extends State<Backdrop>
     const layerMarginTop = 48.0;
 
     var layerAnimation = RelativeRectTween(
-      begin:
-          RelativeRect.fromLTRB(0.0, layerSize.height, 0.0, -layerSize.height),
-      end: const RelativeRect.fromLTRB(0.0, layerMarginTop, 0.0, 0.0),
+      begin: const RelativeRect.fromLTRB(0.0, layerMarginTop, 0.0, 0.0),
+      end: RelativeRect.fromLTRB(0.0, layerSize.height, 0.0, -layerSize.height),
     ).animate(_controller.view);
 
     return Stack(

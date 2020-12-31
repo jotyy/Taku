@@ -35,7 +35,7 @@ class _QRScannerState extends State<QRScanner> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Expanded(child: _buildQrView(context)),
+          Container(child: _buildQrView(context)),
           Positioned(
             top: 120,
             left: 0,

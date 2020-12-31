@@ -18,17 +18,17 @@ class DepositViewModel extends ChangeNotifier {
 
   Result<List<Commodity>> get commodities => _commodities;
 
-  Future fetchDeposits() {
+  Future fetchCommodities() {
     return _commodityRepository
         .getCommodities()
         .then((value) => _commodities = Result.success(data: value))
         .whenComplete(notifyListeners);
   }
 
-  Future addDeposit(CommoditysCompanion deposit) {
+  Future addCommodity(CommoditysCompanion deposit) {
     return _commodityRepository
         .addCommodity(deposit)
-        .then((value) => fetchDeposits())
+        .then((value) => fetchCommodities())
         .whenComplete(notifyListeners);
   }
 }

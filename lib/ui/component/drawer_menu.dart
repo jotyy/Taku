@@ -8,7 +8,7 @@ enum MenuSection {
   personalCenter,
   depositHistory,
   withdrawHistory,
-  switchTheme,
+  printCode,
 }
 
 class DrawerMenu extends StatelessWidget {
@@ -33,8 +33,8 @@ class DrawerMenu extends StatelessWidget {
       case MenuSection.withdrawHistory:
         return L10n.of(context).withdrawHistory;
         break;
-      case MenuSection.switchTheme:
-        return L10n.of(context).switchTheme;
+      case MenuSection.printCode:
+        return L10n.of(context).printCode;
         break;
       default:
         return "";

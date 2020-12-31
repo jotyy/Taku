@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moor/moor.dart' as moor;
 
+import '../../constants.dart';
 import '../../data/local/app_database.dart';
 import '../component/container_with_loading.dart';
 import '../component/deposit_list_item.dart';
@@ -54,7 +55,7 @@ class DepositPage extends StatelessWidget {
                   final snapshot = useFuture(useMemoized(() {
                     return context
                         .read(loadingStateProvider)
-                        .whileLoading(viewModel.fetchDeposits);
+                        .whileLoading(viewModel.fetchCommodities);
                   }, [commodities.toString()]));
 
                   if (snapshot.isBlank) return Container();
@@ -70,7 +71,7 @@ class DepositPage extends StatelessWidget {
                           itemBuilder: (_, index) {
                             return DepositListItem(commodity: data[index]);
                           }),
-                      onRefresh: () async => viewModel.fetchDeposits(),
+                      onRefresh: () async => viewModel.fetchCommodities(),
                     );
                   }, failure: (e) {
                     return Text('Error: $e');
@@ -82,8 +83,8 @@ class DepositPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => viewModel.addDeposit(mockItem),
-          child: const Icon(Icons.qr_code_scanner, color: Colors.black45)),
+          onPressed: () => Get.toNamed(Constants.pageQRScanner),
+          child: const Icon(Icons.qr_code_scanner)),
     );
   }
 }

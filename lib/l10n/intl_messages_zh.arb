@@ -44,10 +44,14 @@
   "@setting": {},
   "personalCenter": "个人中心",
   "@personalCenter": {},
+  "inputCommodity": "录入货品",
+  "@inputCommodity": {},
   "depositHistory": "入库记录",
   "@depositHistory": {},
   "withdrawHistory": "出库记录",
   "@withdrawHistory": {},
+  "printCode": "打印条码",
+  "@printCode": {},
   "switchTheme": "切换主题",
   "@switchTheme": {} 
 }
