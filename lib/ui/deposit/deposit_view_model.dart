@@ -10,23 +10,23 @@ final depositViewModelProvider = ChangeNotifierProvider(
     (ref) => DepositViewModel(ref.read(commodityRepositoryProvider)));
 
 class DepositViewModel extends ChangeNotifier {
-  final CommodityRepository _depositRepository;
+  final CommodityRepository _commodityRepository;
 
-  DepositViewModel(this._depositRepository);
+  DepositViewModel(this._commodityRepository);
 
-  Result<List<Commodity>> _deposits;
+  Result<List<Commodity>> _commodities;
 
-  Result<List<Commodity>> get deposits => _deposits;
+  Result<List<Commodity>> get commodities => _commodities;
 
   Future fetchDeposits() {
-    return _depositRepository
+    return _commodityRepository
         .getCommodities()
-        .then((value) => _deposits = Result.success(data: value))
+        .then((value) => _commodities = Result.success(data: value))
         .whenComplete(notifyListeners);
   }
 
   Future addDeposit(CommoditysCompanion deposit) {
-    return _depositRepository
+    return _commodityRepository
         .addCommodity(deposit)
         .then((value) => fetchDeposits())
         .whenComplete(notifyListeners);

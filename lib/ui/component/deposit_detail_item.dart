@@ -10,7 +10,7 @@ class DepositDetailItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(

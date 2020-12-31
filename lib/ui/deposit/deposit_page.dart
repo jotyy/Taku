@@ -49,17 +49,17 @@ class DepositPage extends StatelessWidget {
             Expanded(
               child: ContainerWithLoading(
                 child: HookBuilder(builder: (context) {
-                  final deposits = useProvider(depositViewModelProvider
-                      .select((value) => value.deposits));
+                  final commodities = useProvider(depositViewModelProvider
+                      .select((value) => value.commodities));
                   final snapshot = useFuture(useMemoized(() {
                     return context
                         .read(loadingStateProvider)
                         .whileLoading(viewModel.fetchDeposits);
-                  }, [deposits.toString()]));
+                  }, [commodities.toString()]));
 
                   if (snapshot.isBlank) return Container();
 
-                  return deposits.when(success: (data) {
+                  return commodities.when(success: (data) {
                     if (data.isEmpty) {
                       return const Text('Empty screen');
                     }
@@ -82,7 +82,6 @@ class DepositPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.amber,
           onPressed: () => viewModel.addDeposit(mockItem),
           child: const Icon(Icons.qr_code_scanner, color: Colors.black45)),
     );

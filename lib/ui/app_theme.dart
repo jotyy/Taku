@@ -55,6 +55,7 @@ const buttonTextStyle = TextStyle(
 const lPrimaryColor = Color(0xff344955);
 const lPrimaryColorDark = Color(0xff2f32f34);
 const lPrimaryColorLight = Color(0xff4a6572);
+const lShadowColor = Color(0x26344955);
 const accentColor = Color(0xfff9aa33);
 const errorColor = Color(0xffff5544);
 
@@ -77,7 +78,8 @@ ThemeData get lightTheme {
     primaryColorLight: lPrimaryColorLight,
     accentColor: accentColor,
     errorColor: errorColor,
-    cardTheme: cardTheme
+    cardTheme: cardTheme,
+    shadowColor: lShadowColor,
   );
 }
 
