@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moor/moor.dart' as moor;
 
-import '../../constants.dart';
-import '../../data/local/app_database.dart';
-import '../component/container_with_loading.dart';
-import '../component/deposit_list_item.dart';
-import '../loading_state_view_model.dart';
+import '../../../constants.dart';
+import '../../../data/local/app_database.dart';
+import '../../component/container_with_loading.dart';
+import '../../component/deposit_list_item.dart';
+import '../../loading_state_view_model.dart';
 import 'deposit_view_model.dart';
 
 const mockItem = CommoditysCompanion(

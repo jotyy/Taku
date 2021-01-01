@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../component/bar_chart_sample.dart';
-import '../component/pie_chart_sample.dart';
+import '../../component/bar_chart_sample.dart';
+import '../../component/pie_chart_sample.dart';
 
 class StatisticPage extends StatelessWidget {
   @override

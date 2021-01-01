@@ -116,7 +116,7 @@ Flutter Architecture Blueprints is a project that introduces MVVM architecture a
 |:---:|---|---|---|
 | ✅ | Theme | Dynamically Switch between light and dark themes | [app_theme.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/main/lib/app.dart#L22-L24) |
 | ✅ | Font | Using [Google font](https://pub.dev/packages/google_fonts) | [app_theme.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/main/lib/ui/app_theme.dart#L62) |
-| ✅ | Transition | Simple animation between screens using [Hero](https://flutter.dev/docs/development/ui/animations/hero-animations) | [article_item.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/be26dc3f7ff27ee2710326abe8ed09893a35386c/lib/ui/component/article_item.dart#L28), [detail_page.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/be26dc3f7ff27ee2710326abe8ed09893a35386c/lib/ui/detail/datail_page.dart#L13-L24) |
+| ✅ | Transition | Simple animation between screens using [Hero](https://flutter.dev/docs/development/ui/animations/hero-animations) | [article_item.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/be26dc3f7ff27ee2710326abe8ed09893a35386c/lib/ui/component/article_item.dart#L28), [detail_page.dart](https://github.com/wasabeef/flutter-architecture-blueprints/blob/be26dc3f7ff27ee2710326abe8ed09893a35386c/lib/ui/page/detail/datail_page.dart#L13-L24) |
 
 #### Testing
 |Working status|Category|Description|Codes|

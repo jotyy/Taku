@@ -92,7 +92,7 @@ class _BackdropState extends State<Backdrop>
           ),
           IconButton(
               icon: const Icon(Icons.settings, color: Colors.white),
-              onPressed: () {})
+              onPressed: () => Get.toNamed(Constants.pageSetting))
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:app/ui/page/setting/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,15 +7,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants.dart';
 import 'ui/app_theme.dart';
-import 'ui/commodity/input_commodity_page.dart';
-import 'ui/deposit/deposit_detail_page.dart';
-import 'ui/deposit/deposit_page.dart';
-import 'ui/detail/detail_page.dart';
-import 'ui/home/home_page.dart';
-import 'ui/scanner/qr_scanner_page.dart';
-import 'ui/signIn/sign_in_page.dart';
-import 'ui/statistic/statistic_page.dart';
-import 'ui/withdraw/withdraw_page.dart';
+import 'ui/page/commodity/input_commodity_page.dart';
+import 'ui/page/deposit/deposit_detail_page.dart';
+import 'ui/page/deposit/deposit_page.dart';
+import 'ui/page/detail/detail_page.dart';
+import 'ui/page/home/home_page.dart';
+import 'ui/page/scanner/qr_scanner_page.dart';
+import 'ui/page/signIn/sign_in_page.dart';
+import 'ui/page/statistic/statistic_page.dart';
+import 'ui/page/withdraw/withdraw_page.dart';
 
 class App extends HookWidget {
   @override
@@ -34,7 +35,7 @@ class App extends HookWidget {
       routes: {
         Constants.pageHome: (context) => HomePage(),
         Constants.pageSignIn: (context) => SignInPage(),
-        Constants.pageDetail: (context) => DetailPage(),
+        Constants.pageSetting: (context) => SettingPage(),
         Constants.pageDeposit: (context) => DepositPage(),
         Constants.pageWithdraw: (context) => WithdrawPage(),
         Constants.pageStatistic: (context) => StatisticPage(),

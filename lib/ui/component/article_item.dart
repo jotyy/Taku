@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../constants.dart';
 import '../../data/model/article.dart';
-import 'network_image.dart';
+import '../widgets/network_image.dart';
 
 class ArticleItem extends StatelessWidget {
   const ArticleItem(this._article);

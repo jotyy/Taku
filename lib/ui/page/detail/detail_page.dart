@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../data/model/article.dart';
-import '../component/network_image.dart';
+import '../../../data/model/article.dart';
+import '../../widgets/network_image.dart';
 
 class DetailPage extends StatelessWidget {
   @override

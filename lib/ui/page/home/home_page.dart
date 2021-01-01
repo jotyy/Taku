@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:get/get.dart';
 
-import '../../constants.dart';
-import '../component/backdrop.dart';
-import '../component/drawer_menu.dart';
-import '../component/home_item.dart';
+import '../../../constants.dart';
+import '../../component/backdrop.dart';
+import '../../component/drawer_menu.dart';
+import '../../component/home_item.dart';
 
 class HomePage extends StatelessWidget {
   @override

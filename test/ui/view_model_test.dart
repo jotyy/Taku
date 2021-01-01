@@ -4,7 +4,7 @@ import 'package:app/data/provider/dio_provider.dart';
 import 'package:app/data/provider/news_data_source_provider.dart';
 import 'package:app/data/provider/news_repository_provider.dart';
 import 'package:app/data/remote/app_dio.dart';
-import 'package:app/ui/home/home_view_model.dart';
+import 'package:app/ui/page/home/home_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

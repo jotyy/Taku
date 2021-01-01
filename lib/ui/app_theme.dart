@@ -71,7 +71,6 @@ ThemeData get lightTheme {
     textTheme:
         GoogleFonts.notoSansTextTheme(ThemeData.light().textTheme).copyWith(
       headline1: headline1,
-      button: buttonTextStyle,
     ),
     primaryColor: lPrimaryColor,
     primaryColorDark: lPrimaryColorDark,

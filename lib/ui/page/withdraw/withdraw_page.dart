@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../component/container_with_loading.dart';
-import '../component/deposit_list_item.dart';
-import '../loading_state_view_model.dart';
+import '../../component/container_with_loading.dart';
+import '../../component/deposit_list_item.dart';
+import '../../loading_state_view_model.dart';
 import 'withdraw_view_model.dart';
 
 class WithdrawPage extends StatelessWidget {
