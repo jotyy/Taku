@@ -20,6 +20,7 @@ class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
   SvgGenImage get firebase => const SvgGenImage('assets/svgs/firebase.svg');
+  SvgGenImage get icScanner => const SvgGenImage('assets/svgs/ic_scanner.svg');
 }
 
 class Assets {

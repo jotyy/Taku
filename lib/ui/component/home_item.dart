@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 /// Item of home page
 class HomeItem extends StatelessWidget {
@@ -49,9 +50,7 @@ class HomeItem extends StatelessWidget {
                       )),
                     ),
                   ),
-                  const SizedBox(
-                    width: 30.0,
-                  ),
+                  const Gap(30.0),
                   Text(
                     title,
                     style: Theme.of(context).textTheme.headline6,

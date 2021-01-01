@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
@@ -28,7 +29,7 @@ class DepositListItem extends StatelessWidget {
                     child: Icon(Icons.ac_unit),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const Gap(12),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,7 @@ class DepositListItem extends StatelessWidget {
                   children: [
                     Text("${commodity.name}",
                         style: Theme.of(context).textTheme.subtitle1),
-                    const SizedBox(height: 5.0),
+                    const Gap(5),
                     Text("${commodity.description}",
                         style: Theme.of(context).textTheme.caption)
                   ],

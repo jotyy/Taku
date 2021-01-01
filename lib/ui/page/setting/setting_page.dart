@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../component/setting_item.dart';
-import '../../widgets/gaps.dart';
 import '../../widgets/my_scoll_view.dart';
 
 class SettingPage extends StatelessWidget {
@@ -17,7 +17,7 @@ class SettingPage extends StatelessWidget {
 
   List<Widget> get _buildBody {
     return [
-      Gaps.vGap16,
+      const Gap(16),
       SettingItem(
         title: '清除缓存',
         hintText: '12MB',

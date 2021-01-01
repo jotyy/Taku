@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _SignInPageState extends State<SignInPage> {
           '手机号',
           style: kLabelStyle,
         ),
-        const SizedBox(height: 10.0),
+        const Gap(10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -52,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
           '密码',
           style: kLabelStyle,
         ),
-        const SizedBox(height: 10.0),
+        const Gap(10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -225,18 +226,14 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30.0),
+                      const Gap(30.0),
                       _buildEmailTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
+                      const Gap(30.0),
                       _buildPasswordTF(),
                       _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
                       _buildLoginBtn(),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const Gap(40.0),
                       _buildSignupBtn(),
                     ],
                   ),

@@ -18,7 +18,8 @@ class InputCommodityViewModel extends ChangeNotifier {
 
   Result<bool> get submitSuccess => _submitSuccess;
 
-  Future submitCommodity(CommoditysCompanion commodity) {
+  Future submitCommodity() {
+    final commodity = const CommoditysCompanion();
     return _commodityRepository
         .addCommodity(commodity)
         .then((value) => const Result.success(data: true))

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 
 import '../../util/number_text_input_formatter.dart';
-import 'gaps.dart';
 
 /// 封装输入框
 class TextFieldItem extends StatelessWidget {
@@ -27,7 +27,7 @@ class TextFieldItem extends StatelessWidget {
     final child = Row(
       children: <Widget>[
         Text(title),
-        Gaps.hGap16,
+        const Gap(16),
         Expanded(
           child: Semantics(
             label: hintText.isEmpty ? '请输入$title' : hintText,
@@ -36,7 +36,7 @@ class TextFieldItem extends StatelessWidget {
               keyboardType: keyboardType,
               inputFormatters: _getInputFormatters(),
               controller: controller,
-              //style: TextStyles.textDark14,
+              style: Theme.of(context).textTheme.bodyText1,
               decoration: InputDecoration(
                 hintText: hintText,
                 border: InputBorder.none, //去掉下划线
@@ -45,7 +45,7 @@ class TextFieldItem extends StatelessWidget {
             ),
           ),
         ),
-        Gaps.hGap16
+        const Gap(16)
       ],
     );
 

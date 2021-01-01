@@ -89,7 +89,6 @@ ThemeData get darkTheme {
     textTheme:
         GoogleFonts.notoSansTextTheme(ThemeData.dark().textTheme).copyWith(
       headline1: headline1,
-      button: buttonTextStyle,
     ),
     accentColor: accentColor,
     errorColor: errorColor,

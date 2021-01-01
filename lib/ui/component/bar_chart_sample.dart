@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class BarChartSample1 extends StatefulWidget {
   final List<Color> availableColors = [
@@ -49,9 +50,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const Gap(4),
                   const Text(
                     '近一周入库数据',
                     style: TextStyle(
@@ -59,9 +58,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                         fontSize: 12,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 38,
-                  ),
+                  const Gap(38),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -71,9 +68,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  const Gap(12),
                 ],
               ),
             ),

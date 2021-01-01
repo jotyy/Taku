@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -28,9 +29,7 @@ class Indicator extends StatelessWidget {
             color: color,
           ),
         ),
-        const SizedBox(
-          width: 4,
-        ),
+        const Gap(4),
         Text(
           text,
           style: TextStyle(

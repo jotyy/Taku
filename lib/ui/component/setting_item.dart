@@ -1,5 +1,5 @@
-import 'package:app/ui/widgets/gaps.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class SettingItem extends StatelessWidget {
   final String title;
@@ -24,7 +24,7 @@ class SettingItem extends StatelessWidget {
                 hintText,
                 style: Theme.of(context).textTheme.caption,
               ),
-              Gaps.hGap8,
+              Gap(8),
               const Icon(Icons.chevron_right),
             ],
           ),

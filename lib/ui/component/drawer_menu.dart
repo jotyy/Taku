@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:gap/gap.dart';
 
 enum MenuSection {
   personalCenter,
@@ -48,13 +49,13 @@ class DrawerMenu extends StatelessWidget {
         onTap: () => onCategoryTap(category),
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 30.0),
+            const Gap(30.0),
             Text(
               categoryString,
               style: theme.textTheme.subtitle1.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10.0),
+            const Gap(10.0),
             Container(
               width: 100.0,
               height: 1.0,

@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import 'indicator.dart';
 
@@ -18,9 +19,7 @@ class PieChartSample1State extends State {
       child: Card(
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 15,
-            ),
+            const Gap(15.0),
             Row(
               children: [
                 const Padding(
@@ -35,9 +34,7 @@ class PieChartSample1State extends State {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const Gap(10.0),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,9 +69,7 @@ class PieChartSample1State extends State {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 18,
-            ),
+            const Gap(20.0),
             Expanded(
               child: AspectRatio(
                 aspectRatio: 1,
