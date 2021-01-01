@@ -4,10 +4,10 @@ import 'package:moor/moor.dart';
 class Commoditys extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 1, max: 20)();
-  TextColumn get code => text().withLength(min: 1, max: 50)();
   TextColumn get description => text().withLength(min: 1, max: 50)();
+  RealColumn get price => real().withDefault(const Constant(0.0))();
+  TextColumn get code => text().withLength(min: 1, max: 50)();
   IntColumn get status => integer().withDefault(const Constant(0))();
-  TextColumn get depositBy => text().withLength(min: 1, max: 20)();
-  DateTimeColumn get depositAt =>
+  DateTimeColumn get createdAt =>
       dateTime().withDefault(Constant(DateTime.now()))();
 }
