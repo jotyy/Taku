@@ -3,5 +3,5 @@ import '../local/app_database.dart';
 abstract class CommodityRepository {
   Future<List<Commodity>> getCommodities();
 
-  Future addCommodity(CommoditysCompanion commodity);
+  Future addCommodity(CommoditiesCompanion commodity);
 }

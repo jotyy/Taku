@@ -6,11 +6,11 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import 'commodity/table/commodity.table.dart';
-import 'deposit/table/deposit.table.dart';
+import 'record/table/record.table.dart';
 
 part 'app_database.g.dart';
 
-@UseMoor(tables: [Commoditys, Deposits])
+@UseMoor(tables: [Commodities, Records])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

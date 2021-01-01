@@ -9,7 +9,7 @@ class DepositLocalDataSourceImpl extends CommodityLocalDataSource {
   DepositLocalDataSourceImpl(this.dao);
 
   @override
-  Future addCommodity(CommoditysCompanion commodity) {
+  Future addCommodity(CommoditiesCompanion commodity) {
     return dao.insertCommodity(commodity);
   }
 

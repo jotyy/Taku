@@ -25,7 +25,7 @@ class WithdrawViewModel extends ChangeNotifier {
         .whenComplete(notifyListeners);
   }
 
-  Future addCommodity(CommoditysCompanion deposit) {
+  Future addCommodity(CommoditiesCompanion deposit) {
     return _repository
         .addCommodity(deposit)
         .then((value) => fetchCommodities())

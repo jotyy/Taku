@@ -70,8 +70,8 @@ class Commodity extends DataClass implements Insertable<Commodity> {
     return map;
   }
 
-  CommoditysCompanion toCompanion(bool nullToAbsent) {
-    return CommoditysCompanion(
+  CommoditiesCompanion toCompanion(bool nullToAbsent) {
+    return CommoditiesCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       description: description == null && nullToAbsent
@@ -170,7 +170,7 @@ class Commodity extends DataClass implements Insertable<Commodity> {
           other.createdAt == this.createdAt);
 }
 
-class CommoditysCompanion extends UpdateCompanion<Commodity> {
+class CommoditiesCompanion extends UpdateCompanion<Commodity> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> description;
@@ -178,7 +178,7 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
   final Value<String> code;
   final Value<int> status;
   final Value<DateTime> createdAt;
-  const CommoditysCompanion({
+  const CommoditiesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.description = const Value.absent(),
@@ -187,7 +187,7 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
     this.status = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
-  CommoditysCompanion.insert({
+  CommoditiesCompanion.insert({
     this.id = const Value.absent(),
     @required String name,
     @required String description,
@@ -218,7 +218,7 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
     });
   }
 
-  CommoditysCompanion copyWith(
+  CommoditiesCompanion copyWith(
       {Value<int> id,
       Value<String> name,
       Value<String> description,
@@ -226,7 +226,7 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
       Value<String> code,
       Value<int> status,
       Value<DateTime> createdAt}) {
-    return CommoditysCompanion(
+    return CommoditiesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -266,7 +266,7 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
 
   @override
   String toString() {
-    return (StringBuffer('CommoditysCompanion(')
+    return (StringBuffer('CommoditiesCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -279,11 +279,11 @@ class CommoditysCompanion extends UpdateCompanion<Commodity> {
   }
 }
 
-class $CommoditysTable extends Commoditys
-    with TableInfo<$CommoditysTable, Commodity> {
+class $CommoditiesTable extends Commodities
+    with TableInfo<$CommoditiesTable, Commodity> {
   final GeneratedDatabase _db;
   final String _alias;
-  $CommoditysTable(this._db, [this._alias]);
+  $CommoditiesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -353,11 +353,11 @@ class $CommoditysTable extends Commoditys
   List<GeneratedColumn> get $columns =>
       [id, name, description, price, code, status, createdAt];
   @override
-  $CommoditysTable get asDslTable => this;
+  $CommoditiesTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'commoditys';
+  String get $tableName => _alias ?? 'commodities';
   @override
-  final String actualTableName = 'commoditys';
+  final String actualTableName = 'commodities';
   @override
   VerificationContext validateIntegrity(Insertable<Commodity> instance,
       {bool isInserting = false}) {
@@ -410,30 +410,30 @@ class $CommoditysTable extends Commoditys
   }
 
   @override
-  $CommoditysTable createAlias(String alias) {
-    return $CommoditysTable(_db, alias);
+  $CommoditiesTable createAlias(String alias) {
+    return $CommoditiesTable(_db, alias);
   }
 }
 
-class Deposit extends DataClass implements Insertable<Deposit> {
+class Record extends DataClass implements Insertable<Record> {
   final int id;
   final String code;
   final int amount;
   final int status;
   final DateTime depositAt;
-  Deposit(
+  Record(
       {@required this.id,
       @required this.code,
       @required this.amount,
       @required this.status,
       @required this.depositAt});
-  factory Deposit.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Record.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return Deposit(
+    return Record(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
@@ -463,8 +463,8 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     return map;
   }
 
-  DepositsCompanion toCompanion(bool nullToAbsent) {
-    return DepositsCompanion(
+  RecordsCompanion toCompanion(bool nullToAbsent) {
+    return RecordsCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
       amount:
@@ -477,10 +477,10 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     );
   }
 
-  factory Deposit.fromJson(Map<String, dynamic> json,
+  factory Record.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return Deposit(
+    return Record(
       id: serializer.fromJson<int>(json['id']),
       code: serializer.fromJson<String>(json['code']),
       amount: serializer.fromJson<int>(json['amount']),
@@ -500,9 +500,9 @@ class Deposit extends DataClass implements Insertable<Deposit> {
     };
   }
 
-  Deposit copyWith(
+  Record copyWith(
           {int id, String code, int amount, int status, DateTime depositAt}) =>
-      Deposit(
+      Record(
         id: id ?? this.id,
         code: code ?? this.code,
         amount: amount ?? this.amount,
@@ -511,7 +511,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
       );
   @override
   String toString() {
-    return (StringBuffer('Deposit(')
+    return (StringBuffer('Record(')
           ..write('id: $id, ')
           ..write('code: $code, ')
           ..write('amount: $amount, ')
@@ -529,7 +529,7 @@ class Deposit extends DataClass implements Insertable<Deposit> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is Deposit &&
+      (other is Record &&
           other.id == this.id &&
           other.code == this.code &&
           other.amount == this.amount &&
@@ -537,20 +537,20 @@ class Deposit extends DataClass implements Insertable<Deposit> {
           other.depositAt == this.depositAt);
 }
 
-class DepositsCompanion extends UpdateCompanion<Deposit> {
+class RecordsCompanion extends UpdateCompanion<Record> {
   final Value<int> id;
   final Value<String> code;
   final Value<int> amount;
   final Value<int> status;
   final Value<DateTime> depositAt;
-  const DepositsCompanion({
+  const RecordsCompanion({
     this.id = const Value.absent(),
     this.code = const Value.absent(),
     this.amount = const Value.absent(),
     this.status = const Value.absent(),
     this.depositAt = const Value.absent(),
   });
-  DepositsCompanion.insert({
+  RecordsCompanion.insert({
     this.id = const Value.absent(),
     @required String code,
     @required int amount,
@@ -558,7 +558,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
     this.depositAt = const Value.absent(),
   })  : code = Value(code),
         amount = Value(amount);
-  static Insertable<Deposit> custom({
+  static Insertable<Record> custom({
     Expression<int> id,
     Expression<String> code,
     Expression<int> amount,
@@ -574,13 +574,13 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
     });
   }
 
-  DepositsCompanion copyWith(
+  RecordsCompanion copyWith(
       {Value<int> id,
       Value<String> code,
       Value<int> amount,
       Value<int> status,
       Value<DateTime> depositAt}) {
-    return DepositsCompanion(
+    return RecordsCompanion(
       id: id ?? this.id,
       code: code ?? this.code,
       amount: amount ?? this.amount,
@@ -612,7 +612,7 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
 
   @override
   String toString() {
-    return (StringBuffer('DepositsCompanion(')
+    return (StringBuffer('RecordsCompanion(')
           ..write('id: $id, ')
           ..write('code: $code, ')
           ..write('amount: $amount, ')
@@ -623,10 +623,10 @@ class DepositsCompanion extends UpdateCompanion<Deposit> {
   }
 }
 
-class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
+class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   final GeneratedDatabase _db;
   final String _alias;
-  $DepositsTable(this._db, [this._alias]);
+  $RecordsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -678,13 +678,13 @@ class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
   @override
   List<GeneratedColumn> get $columns => [id, code, amount, status, depositAt];
   @override
-  $DepositsTable get asDslTable => this;
+  $RecordsTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'deposits';
+  String get $tableName => _alias ?? 'records';
   @override
-  final String actualTableName = 'deposits';
+  final String actualTableName = 'records';
   @override
-  VerificationContext validateIntegrity(Insertable<Deposit> instance,
+  VerificationContext validateIntegrity(Insertable<Record> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -717,25 +717,25 @@ class $DepositsTable extends Deposits with TableInfo<$DepositsTable, Deposit> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Deposit map(Map<String, dynamic> data, {String tablePrefix}) {
+  Record map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Deposit.fromData(data, _db, prefix: effectivePrefix);
+    return Record.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $DepositsTable createAlias(String alias) {
-    return $DepositsTable(_db, alias);
+  $RecordsTable createAlias(String alias) {
+    return $RecordsTable(_db, alias);
   }
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  $CommoditysTable _commoditys;
-  $CommoditysTable get commoditys => _commoditys ??= $CommoditysTable(this);
-  $DepositsTable _deposits;
-  $DepositsTable get deposits => _deposits ??= $DepositsTable(this);
+  $CommoditiesTable _commodities;
+  $CommoditiesTable get commodities => _commodities ??= $CommoditiesTable(this);
+  $RecordsTable _records;
+  $RecordsTable get records => _records ??= $RecordsTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [commoditys, deposits];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [commodities, records];
 }

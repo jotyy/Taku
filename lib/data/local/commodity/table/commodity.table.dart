@@ -1,7 +1,8 @@
 import 'package:moor/moor.dart';
 
 /// deposit table
-class Commoditys extends Table {
+@DataClassName('Commodity')
+class Commodities extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 1, max: 20)();
   TextColumn get description => text().withLength(min: 1, max: 50)();

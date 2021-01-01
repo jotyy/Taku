@@ -7,5 +7,5 @@ part of 'commodity.dao.dart';
 // **************************************************************************
 
 mixin _$CommodityDaoMixin on DatabaseAccessor<AppDatabase> {
-  $CommoditysTable get commoditys => attachedDatabase.commoditys;
+  $CommoditiesTable get commodities => attachedDatabase.commodities;
 }

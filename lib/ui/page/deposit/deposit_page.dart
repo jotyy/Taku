@@ -12,11 +12,10 @@ import '../../component/deposit_list_item.dart';
 import '../../loading_state_view_model.dart';
 import 'deposit_view_model.dart';
 
-const mockItem = CommoditysCompanion(
+const mockItem = CommoditiesCompanion(
   name: moor.Value("Item1"),
   code: moor.Value("CO-100020909091"),
   description: moor.Value("this is our first item"),
-  depositBy: moor.Value("Jotyy"),
 );
 
 class DepositPage extends StatelessWidget {

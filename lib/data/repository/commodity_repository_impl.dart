@@ -8,7 +8,7 @@ class CommodityRepositoryImpl extends CommodityRepository {
   CommodityRepositoryImpl(this.localSource);
 
   @override
-  Future addCommodity(CommoditysCompanion commodity) {
+  Future addCommodity(CommoditiesCompanion commodity) {
     return localSource.addCommodity(commodity);
   }
 

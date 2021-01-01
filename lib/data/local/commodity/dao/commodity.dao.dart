@@ -5,15 +5,15 @@ import '../table/commodity.table.dart';
 
 part 'commodity.dao.g.dart';
 
-@UseDao(tables: [Commoditys])
+@UseDao(tables: [Commodities])
 class CommodityDao extends DatabaseAccessor<AppDatabase>
     with _$CommodityDaoMixin {
   CommodityDao(AppDatabase db) : super(db);
 
-  Future<List<Commodity>> getCommodities() => select(commoditys).get();
+  Future<List<Commodity>> getCommodities() => select(commodities).get();
 
-  Future insertCommodity(CommoditysCompanion commodity) =>
-      into(commoditys).insert(commodity);
+  Future insertCommodity(CommoditiesCompanion commodity) =>
+      into(commodities).insert(commodity);
 
   Future deleteCommodity(int id) => deleteCommodity(id);
 }
