@@ -1,10 +1,7 @@
 import 'package:app/app.dart';
-import 'package:app/constants.dart';
 import 'package:app/data/model/result.dart';
 import 'package:app/ui/app_theme.dart';
-import 'package:app/ui/component/article_item.dart';
 import 'package:app/ui/component/loading.dart';
-import 'package:app/ui/page/detail/detail_page.dart';
 import 'package:app/ui/page/home/home_page.dart';
 import 'package:app/ui/page/home/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +12,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_test_utils/image_test_utils.dart';
 import 'package:mockito/mockito.dart';
 
-import '../data/dummy/dummy_article.dart';
 import '../data/dummy/dummy_news.dart';
 
 class MockAppTheme extends Mock implements AppTheme {}
@@ -68,25 +64,6 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.byWidget(page), findsOneWidget);
-    });
-  });
-
-  testWidgets('Article widget test', (tester) async {
-    final article = ArticleItem(dummyArticle);
-    await provideMockedNetworkImages(() async {
-      await tester.pumpWidget(GetMaterialApp(
-        home: article,
-        routes: {
-          Constants.pageDetail: (context) => DetailPage(),
-        },
-        navigatorObservers: [mockNavigatorObserver],
-      ));
-
-      expect(find.byWidget(article), findsOneWidget);
-      await tester.tap(find.byType(Hero));
-      await tester.pumpAndSettle();
-      verify(mockNavigatorObserver.didPush(any, any));
-      expect(find.byType(DetailPage), findsOneWidget);
     });
   });
 

@@ -1,4 +1,3 @@
-import 'package:app/ui/page/setting/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,9 +9,9 @@ import 'ui/app_theme.dart';
 import 'ui/page/commodity/input_commodity_page.dart';
 import 'ui/page/deposit/deposit_detail_page.dart';
 import 'ui/page/deposit/deposit_page.dart';
-import 'ui/page/detail/detail_page.dart';
 import 'ui/page/home/home_page.dart';
 import 'ui/page/scanner/qr_scanner_page.dart';
+import 'ui/page/setting/setting_page.dart';
 import 'ui/page/signIn/sign_in_page.dart';
 import 'ui/page/statistic/statistic_page.dart';
 import 'ui/page/withdraw/withdraw_page.dart';
