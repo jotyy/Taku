@@ -3,10 +3,15 @@ import '../app_database.dart';
 import 'commodity_local_data_source.dart';
 import 'dao/commodity.dao.dart';
 
-class DepositLocalDataSourceImpl extends CommodityLocalDataSource {
+class CommodityLocalDataSourceImpl extends CommodityLocalDataSource {
   final CommodityDao dao;
 
-  DepositLocalDataSourceImpl(this.dao);
+  CommodityLocalDataSourceImpl(this.dao);
+
+  @override
+  Future<Commodity> getCommodityByCode(String code) {
+    dao.getCommodityByCode(code);
+  }
 
   @override
   Future addCommodity(CommoditiesCompanion commodity) {
