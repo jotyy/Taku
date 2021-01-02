@@ -1,6 +1,6 @@
-import 'package:app/data/local/app_database.dart';
 import 'package:moor/moor.dart';
 
+import '../local/app_database.dart';
 import '../local/commodity/commodity_local_data_source.dart';
 import '../local/record/record_local_data_source.dart';
 import '../model/deposit_record.dart';
@@ -16,7 +16,7 @@ class DepositRepositoryImpl extends DepositRepository {
   @override
   Future<List<DepositRecord>> getRecords() async {
     final result = <DepositRecord>[];
-    final records = await _recordLocalSource.getRecords();
+    final records = await _recordLocalSource.getDepositRecords();
     for (var record in records) {
       result.add(DepositRecord(
           record: record,

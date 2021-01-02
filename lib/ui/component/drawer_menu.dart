@@ -4,29 +4,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 enum MenuSection {
-  personalCenter,
+  myCommodity,
   depositHistory,
   withdrawHistory,
   printCode,
 }
 
 class DrawerMenu extends StatelessWidget {
-  final MenuSection currentCategory;
-  final ValueChanged<MenuSection> onCategoryTap;
   final List<MenuSection> _categories = MenuSection.values;
-
-  const DrawerMenu({
-    Key key,
-    @required this.currentCategory,
-    @required this.onCategoryTap,
-  });
 
   String getSectionName(BuildContext context, MenuSection section) {
     switch (section) {
-      case MenuSection.personalCenter:
-        return L10n.of(context).personalCenter;
+      case MenuSection.myCommodity:
+        return L10n.of(context).myCommodity;
         break;
       case MenuSection.depositHistory:
         return L10n.of(context).depositHistory;
@@ -42,11 +35,11 @@ class DrawerMenu extends StatelessWidget {
     }
   }
 
-  Widget _buildCategory(MenuSection category, BuildContext context) {
-    final categoryString = getSectionName(context, category);
+  Widget _buildCategory(MenuSection section, BuildContext context) {
+    final categoryString = getSectionName(context, section);
     final theme = Theme.of(context);
     return GestureDetector(
-        onTap: () => onCategoryTap(category),
+        onTap: () => Get.toNamed("/${section.toString().replaceAll('MenuSection.', '')}"),
         child: Column(
           children: <Widget>[
             const Gap(30.0),

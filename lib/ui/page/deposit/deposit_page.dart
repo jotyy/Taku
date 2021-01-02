@@ -7,6 +7,7 @@ import 'package:moor/moor.dart' as moor;
 
 import '../../../constants.dart';
 import '../../../data/local/app_database.dart';
+import '../../../gen/assets.gen.dart';
 import '../../component/container_with_loading.dart';
 import '../../component/deposit_list_item.dart';
 import '../../loading_state_view_model.dart';
@@ -83,7 +84,7 @@ class DepositPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => Get.toNamed(Constants.pageQRScanner),
-          child: const Icon(Icons.qr_code_scanner)),
+          child: Assets.svgs.icScanner.svg(width: 24, height: 24)),
     );
   }
 }

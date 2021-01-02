@@ -19,7 +19,9 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
-  SvgGenImage get firebase => const SvgGenImage('assets/svgs/firebase.svg');
+  SvgGenImage get icHomeIn => const SvgGenImage('assets/svgs/ic_home_in.svg');
+  SvgGenImage get icHomeOut => const SvgGenImage('assets/svgs/ic_home_out.svg');
+  SvgGenImage get icList => const SvgGenImage('assets/svgs/ic_list.svg');
   SvgGenImage get icScanner => const SvgGenImage('assets/svgs/ic_scanner.svg');
 }
 

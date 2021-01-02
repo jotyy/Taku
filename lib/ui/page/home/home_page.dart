@@ -12,10 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Backdrop(
-      frontLayer: DrawerMenu(
-        currentCategory: MenuSection.personalCenter,
-        onCategoryTap: (value) {},
-      ),
+      frontLayer: DrawerMenu(),
       backLayer: _homeScreen(context),
     );
   }
