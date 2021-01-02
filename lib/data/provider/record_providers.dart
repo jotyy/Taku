@@ -1,5 +1,3 @@
-import 'package:app/data/repository/deposit_repository.dart';
-import 'package:app/data/repository/deposit_repository_impl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../local/record/dao/record.dao.dart';

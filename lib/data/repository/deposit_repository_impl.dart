@@ -1,3 +1,6 @@
+import 'package:app/data/local/app_database.dart';
+import 'package:moor/moor.dart';
+
 import '../local/commodity/commodity_local_data_source.dart';
 import '../local/record/record_local_data_source.dart';
 import '../model/deposit_record.dart';
@@ -22,4 +25,17 @@ class DepositRepositoryImpl extends DepositRepository {
     }
     return result;
   }
+
+  @override
+  Future addRecord(String code, int amount) {
+    final params = RecordsCompanion(
+      code: Value(code),
+      amount: Value(amount),
+    );
+
+    _recordLocalSource.addRecord(params);
+  }
+
+  @override
+  Future deleteRecord(int id) => _recordLocalSource.deleteRecord(id);
 }

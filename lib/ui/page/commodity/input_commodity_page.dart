@@ -1,9 +1,9 @@
-import 'package:app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../gen/assets.gen.dart';
 import '../../widgets/my_button.dart';
 import '../../widgets/my_scoll_view.dart';
 import '../../widgets/text_field_item.dart';

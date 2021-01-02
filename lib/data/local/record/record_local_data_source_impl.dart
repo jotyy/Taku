@@ -8,12 +8,11 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
   RecordLocalSourceImpl(this._recordDao);
 
   @override
-  Future addRecord(RecordsCompanion record) {
-    _recordDao.insertRecord(record);
-  }
+  Future addRecord(RecordsCompanion record) => _recordDao.insertRecord(record);
 
   @override
-  Future<List<Record>> getRecords() {
-    _recordDao.getRecords();
-  }
+  Future<List<Record>> getRecords() => _recordDao.getRecords();
+
+  @override
+  Future deleteRecord(int id) => _recordDao.deleteRecord(id);
 }

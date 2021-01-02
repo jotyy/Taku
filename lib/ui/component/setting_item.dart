@@ -24,7 +24,7 @@ class SettingItem extends StatelessWidget {
                 hintText,
                 style: Theme.of(context).textTheme.caption,
               ),
-              Gap(8),
+              const Gap(8),
               const Icon(Icons.chevron_right),
             ],
           ),
