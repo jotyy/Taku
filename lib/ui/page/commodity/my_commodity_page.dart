@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../component/commodity_list_item.dart';
 import '../../component/container_with_loading.dart';
+import '../../component/search_input_box.dart';
 import '../../loading_state_view_model.dart';
-import '../../widgets/my_scoll_view.dart';
 import 'commodity_view_model.dart';
 
 class MyCommodityPage extends StatelessWidget {
@@ -25,7 +25,10 @@ class MyCommodityPage extends StatelessWidget {
     final viewModel = context.read(commodityViewModelProvider);
     return ContainerWithLoading(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SearchInputBox(onTextChange: viewModel.fetchCommoditiesByName),
           Expanded(
             child: HookBuilder(builder: (context) {
               final commodities = useProvider(commodityViewModelProvider

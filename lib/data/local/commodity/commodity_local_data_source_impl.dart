@@ -10,7 +10,12 @@ class CommodityLocalDataSourceImpl extends CommodityLocalDataSource {
 
   @override
   Future<Commodity> getCommodityByCode(String code) {
-    dao.getCommodityByCode(code);
+    return dao.getCommodityByCode(code);
+  }
+
+  @override
+  Future<List<Commodity>> getCommoditiesByName(String name) {
+    return dao.getCommodityByName(name);
   }
 
   @override

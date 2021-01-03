@@ -33,7 +33,7 @@ class DepositRepositoryImpl extends DepositRepository {
       amount: Value(amount),
     );
 
-    _recordLocalSource.addRecord(params);
+    return _recordLocalSource.addRecord(params);
   }
 
   @override

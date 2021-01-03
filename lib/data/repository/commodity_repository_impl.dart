@@ -16,4 +16,14 @@ class CommodityRepositoryImpl extends CommodityRepository {
   Future<List<Commodity>> getCommodities() {
     return localSource.getCommodities();
   }
+
+  @override
+  Future<List<Commodity>> getCommoditiesByName(String name) {
+    return localSource.getCommoditiesByName(name);
+  }
+
+  @override
+  Future<Commodity> getCommoditiyByCode(String code) {
+    return localSource.getCommodityByCode(code);
+  }
 }

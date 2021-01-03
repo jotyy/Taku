@@ -19,6 +19,10 @@ class SettingPage extends StatelessWidget {
     return [
       const Gap(16),
       SettingItem(
+        title: '检查更新',
+        onPressed: () {},
+      ),
+      SettingItem(
         title: '清除缓存',
         hintText: '12MB',
         onPressed: () {},

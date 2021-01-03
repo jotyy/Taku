@@ -13,6 +13,9 @@ class CommodityDao extends DatabaseAccessor<AppDatabase>
   Future<Commodity> getCommodityByCode(String code) =>
       (select(commodities)..where((c) => c.code.equals(code))).getSingle();
 
+  Future<List<Commodity>> getCommodityByName(String name) =>
+      (select(commodities)..where((c) => c.name.like("%$name%"))).get();
+
   Future<List<Commodity>> getCommodities() => select(commodities).get();
 
   Future insertCommodity(CommoditiesCompanion commodity) =>

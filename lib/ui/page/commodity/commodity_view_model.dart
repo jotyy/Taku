@@ -26,6 +26,14 @@ class CommodityViewModel extends ChangeNotifier {
         .whenComplete(notifyListeners);
   }
 
+  Future fetchCommoditiesByName(String name) {
+    return _commodityRepository.getCommoditiesByName(name).then((value) {
+      if (name.isNotEmpty) {
+        _commodities = Result.success(data: value);
+      }
+    }).whenComplete(notifyListeners);
+  }
+
   Future addCommodity(String name, String desc, String price, String code) {
     final commodity = CommoditiesCompanion(
       name: Value(name),
