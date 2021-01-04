@@ -51,6 +51,9 @@ class Constants {
   static const String pageSignIn = '/signIn';
   static const String pageSetting = '/setting';
   static const String pageMyCommodity = '/myCommodity';
+  static const String pageDepositHistory = '/depositHistory';
+  static const String pageWithdrawHistory = '/withdrawHistory';
+  static const String pagePrintBarCode = '/printBarCode';
   static const String pageDeposit = "/deposit";
   static const String pageWithdraw = "/withdraw";
   static const String pageStatistic = "/statistic";

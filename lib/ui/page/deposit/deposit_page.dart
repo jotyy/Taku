@@ -13,12 +13,6 @@ import '../../component/deposit_list_item.dart';
 import '../../loading_state_view_model.dart';
 import 'deposit_view_model.dart';
 
-const mockItem = CommoditiesCompanion(
-  name: moor.Value("Item1"),
-  code: moor.Value("CO-100020909091"),
-  description: moor.Value("this is our first item"),
-);
-
 class DepositPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,36 +42,7 @@ class DepositPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ContainerWithLoading(
-                child: HookBuilder(builder: (context) {
-                  final commodities = useProvider(depositViewModelProvider
-                      .select((value) => value.commodities));
-                  final snapshot = useFuture(useMemoized(() {
-                    return context
-                        .read(loadingStateProvider)
-                        .whileLoading(viewModel.fetchCommodities);
-                  }, [commodities.toString()]));
-
-                  if (snapshot.isBlank) return Container();
-
-                  return commodities.when(success: (data) {
-                    if (data.isEmpty) {
-                      return const Text('Empty screen');
-                    }
-                    return RefreshIndicator(
-                      child: ListView.builder(
-                          itemCount: data.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (_, index) {
-                            return DepositListItem(commodity: data[index]);
-                          }),
-                      onRefresh: () async => viewModel.fetchCommodities(),
-                    );
-                  }, failure: (e) {
-                    return Text('Error: $e');
-                  });
-                }),
-              ),
+              child: Container(),
             ),
           ],
         ),

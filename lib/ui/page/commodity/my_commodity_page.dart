@@ -17,49 +17,42 @@ class MyCommodityPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(L10n.of(context).myCommodity),
       ),
-      body: _buildBody(context),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    final viewModel = context.read(commodityViewModelProvider);
-    return ContainerWithLoading(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SearchInputBox(onTextChange: viewModel.fetchCommoditiesByName),
-          Expanded(
-            child: HookBuilder(builder: (context) {
-              final commodities = useProvider(commodityViewModelProvider
-                  .select((value) => value.commodities));
-              final snapshot = useFuture(useMemoized(() {
-                return context
-                    .read(loadingStateProvider)
-                    .whileLoading(viewModel.fetchCommodities);
-              }, [commodities.toString()]));
-
-              if (!snapshot.hasData) return Container();
-
-              return commodities.when(success: (data) {
-                if (data.isEmpty) {
-                  return const Text('Empty screen');
-                }
-                return RefreshIndicator(
-                  child: ListView.builder(
-                      itemCount: data.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (_, index) {
-                        return CommodityListItem(commodity: data[index]);
-                      }),
-                  onRefresh: () async => viewModel.fetchCommodities(),
-                );
-              }, failure: (e) {
-                return Text('Error: $e');
-              });
+      body: ContainerWithLoading(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SearchInputBox(onTextChange: (value) async {
+              context
+                  .read(commodityViewModelProvider)
+                  .fetchCommoditiesByName(name: value);
             }),
-          ),
-        ],
+            Expanded(
+              child: HookBuilder(builder: (context) {
+                final viewModel = context.read(commodityViewModelProvider);
+                final commodities = useProvider(commodityViewModelProvider
+                    .select((value) => value.commodities));
+
+                return commodities.when(success: (data) {
+                  if (data.isEmpty) {
+                    return const Text('😭Empty result');
+                  }
+                  return RefreshIndicator(
+                    child: ListView.builder(
+                        itemCount: data.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (_, index) {
+                          return CommodityListItem(commodity: data[index]);
+                        }),
+                    onRefresh: () async => viewModel.fetchCommoditiesByName,
+                  );
+                }, failure: (e) {
+                  return Text('Error: $e');
+                });
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

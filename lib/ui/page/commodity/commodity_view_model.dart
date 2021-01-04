@@ -8,7 +8,7 @@ import '../../../data/model/result.dart';
 import '../../../data/provider/commodity_repository_provider.dart';
 import '../../../data/repository/commodity_repository.dart';
 
-final commodityViewModelProvider = Provider<CommodityViewModel>(
+final commodityViewModelProvider = ChangeNotifierProvider(
     (ref) => CommodityViewModel(ref.read(commodityRepositoryProvider)));
 
 class CommodityViewModel extends ChangeNotifier {
@@ -19,18 +19,10 @@ class CommodityViewModel extends ChangeNotifier {
   Result<List<Commodity>> _commodities;
   Result<List<Commodity>> get commodities => _commodities;
 
-  Future fetchCommodities() {
-    return _commodityRepository
-        .getCommodities()
-        .then((value) => _commodities = Result.success(data: value))
-        .whenComplete(notifyListeners);
-  }
-
-  Future fetchCommoditiesByName(String name) {
+  Future fetchCommoditiesByName({String name = ''}) {
     return _commodityRepository.getCommoditiesByName(name).then((value) {
-      if (name.isNotEmpty) {
-        _commodities = Result.success(data: value);
-      }
+      debugPrint(value.toString());
+      _commodities = Result.success(data: value);
     }).whenComplete(notifyListeners);
   }
 
