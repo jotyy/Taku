@@ -1,7 +1,7 @@
-import 'package:app/data/app_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../data/app_error.dart';
 import '../../../data/local/app_database.dart';
 import '../../../data/model/result.dart';
 import '../../../data/provider/commodity_repository_provider.dart';
@@ -16,18 +16,19 @@ class QRScannerViewModel extends ChangeNotifier {
   QRScannerViewModel(this._commodityRepository);
 
   Result<Commodity> _commodity;
+
   Result<Commodity> get commodity => _commodity;
 
   Future getCommodityByCode(String code) {
     return _commodityRepository
-        .getCommoditiyByCode(code)
+        .getCommodityByCode(code)
         .then((value) {
           if (value == null) {
-            _commodity = Result.failure(error: AppError(Exception('未找到该商品')));
+            _commodity = Result.failure(error: AppError(Exception('未找到商品')));
           }
-          _commodity = Result.success(data: value);
+          _commodity = value;
         })
-        .catchError((e) => _commodity = Result.failure(error: e))
+        .catchError((e) => _commodity = e)
         .whenComplete(notifyListeners);
   }
 }

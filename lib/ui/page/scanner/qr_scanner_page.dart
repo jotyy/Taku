@@ -4,6 +4,7 @@ import 'package:app/ui/page/scanner/qr_scanner_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -39,11 +40,10 @@ class _QRScannerPageState extends State<QRScannerPage> {
         provider: qrScannerViewModelProvider,
         onChange: (context, value) {
           final commodity = (value as QRScannerViewModel).commodity;
-          commodity.ifFailure(
-              (e) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(e.message),
-                    duration: const Duration(seconds: 1),
-                  )));
+          commodity.when(
+              success: (data) => Get.defaultDialog(
+                  title: '${data.name}', middleText: '${data.code}'),
+              failure: (e) => Get.snackbar('Failure', '${e.message}'));
         },
         child: Stack(
           children: <Widget>[

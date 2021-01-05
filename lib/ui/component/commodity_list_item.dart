@@ -35,7 +35,6 @@ class CommodityListItem extends StatelessWidget {
               .read(commodityViewModelProvider)
               .removeCommodity(commodity.id);
         });
-    ;
   }
 
   Widget _buildItem(BuildContext context) {

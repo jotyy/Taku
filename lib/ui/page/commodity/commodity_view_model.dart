@@ -22,7 +22,7 @@ class CommodityViewModel extends ChangeNotifier {
   Future fetchCommoditiesByName({String name = ''}) {
     return _commodityRepository
         .getCommoditiesByName(name)
-        .then((value) => _commodities = Result.success(data: value))
+        .then((value) => _commodities = value)
         .whenComplete(notifyListeners);
   }
 

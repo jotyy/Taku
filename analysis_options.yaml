@@ -3,6 +3,7 @@ analyzer:
   exclude:
     - "lib/generated_plugin_registrant.dart"
     - "lib/l10n/messages_*.dart"
+    - "lib/data/local/app_database.g.dart"
     - "lib/data/model/*.g.dart"
     - "lib/data/model/*.freezed.dart"
 
