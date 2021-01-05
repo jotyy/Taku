@@ -8,4 +8,6 @@ abstract class CommodityRepository {
   Future<Commodity> getCommoditiyByCode(String code);
 
   Future addCommodity(CommoditiesCompanion commodity);
+
+  Future deleteCommodity(int id);
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyButton extends StatelessWidget {
   const MyButton({
     Key key,
-    this.text = '',
+    this.text,
     @required this.onPressed,
   }) : super(key: key);
 
@@ -14,6 +14,8 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
       onPressed: onPressed,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(6.0))),
       child: Container(
         color: Colors.transparent,
         height: 48,

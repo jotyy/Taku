@@ -16,7 +16,6 @@ class CommodityViewModel extends ChangeNotifier {
 
   CommodityViewModel(this._commodityRepository);
 
-  String searchText = '';
   Result<List<Commodity>> _commodities;
   Result<List<Commodity>> get commodities => _commodities;
 
@@ -37,5 +36,12 @@ class CommodityViewModel extends ChangeNotifier {
     return _commodityRepository
         .addCommodity(commodity)
         .then((value) => getx.Get.back());
+  }
+
+  Future removeCommodity(int id) {
+    return _commodityRepository
+        .deleteCommodity(id)
+        .then((value) => fetchCommoditiesByName())
+        .whenComplete(notifyListeners);
   }
 }

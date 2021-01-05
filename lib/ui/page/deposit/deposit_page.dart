@@ -1,3 +1,6 @@
+import 'package:app/ui/component/search_input_box.dart';
+import 'package:app/ui/widgets/my_button.dart';
+import 'package:app/ui/widgets/my_scoll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,40 +19,35 @@ import 'deposit_view_model.dart';
 class DepositPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read(depositViewModelProvider);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(L10n.of(context).deposit,
-            style: Theme.of(context).textTheme.headline1),
+        title: Text(L10n.of(context).deposit),
         actions: [
-          IconButton(icon: const Icon(Icons.add_box), onPressed: () {})
+          IconButton(
+              icon: Assets.svgs.icScanner.svg(
+                width: 24,
+                height: 24,
+                color: Theme.of(context).primaryIconTheme.color,
+              ),
+              onPressed: () => Get.toNamed(Constants.pageQRScanner))
         ],
       ),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 76.0,
-              padding: const EdgeInsets.all(10.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                    hintText: "请输入物品名称",
-                    prefixIcon: Icon(Icons.search_rounded)),
+      body: MyScrollView(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SearchInputBox(
+                hintText: '请输入商品名称',
               ),
-            ),
-            Expanded(
-              child: Container(),
-            ),
-          ],
+            ],
+          ),
+        ],
+        bottomButton: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: MyButton(text: '提交', onPressed: () {}),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => Get.toNamed(Constants.pageQRScanner),
-          child: Assets.svgs.icScanner.svg(width: 24, height: 24)),
     );
   }
 }

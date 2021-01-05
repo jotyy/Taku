@@ -26,4 +26,9 @@ class CommodityRepositoryImpl extends CommodityRepository {
   Future<Commodity> getCommoditiyByCode(String code) {
     return localSource.getCommodityByCode(code);
   }
+
+  @override
+  Future deleteCommodity(int id) {
+    return localSource.deleteCommodity(id);
+  }
 }

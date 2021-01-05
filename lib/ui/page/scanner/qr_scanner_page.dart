@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:app/ui/page/scanner/qr_scanner_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScannerPage extends StatefulWidget {
@@ -33,41 +35,52 @@ class _QRScannerPageState extends State<QRScannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(child: _buildQrView(context)),
-          Positioned(
-            top: 120,
-            left: 0,
-            right: 0,
-            child: Text(
-              L10n.of(context).scanCode,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.white,
+      body: ProviderListener(
+        provider: qrScannerViewModelProvider,
+        onChange: (context, value) {
+          final commodity = (value as QRScannerViewModel).commodity;
+          commodity.ifFailure(
+              (e) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(e.message),
+                    duration: const Duration(seconds: 1),
+                  )));
+        },
+        child: Stack(
+          children: <Widget>[
+            Container(child: _buildQrView(context)),
+            Positioned(
+              top: 120,
+              left: 0,
+              right: 0,
+              child: Text(
+                L10n.of(context).scanCode,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 100,
-            left: 0,
-            right: 0,
-            child: IconButton(
-              icon: isFlashOn
-                  ? const Icon(Icons.flash_off, color: Colors.white, size: 36)
-                  : const Icon(Icons.flash_on, color: Colors.white, size: 36),
-              onPressed: () {
-                if (controller != null) {
-                  controller.toggleFlash();
-                  setState(() {
-                    isFlashOn = !isFlashOn;
-                  });
-                }
-              },
+            Positioned(
+              bottom: 100,
+              left: 0,
+              right: 0,
+              child: IconButton(
+                icon: isFlashOn
+                    ? const Icon(Icons.flash_off, color: Colors.white, size: 36)
+                    : const Icon(Icons.flash_on, color: Colors.white, size: 36),
+                onPressed: () {
+                  if (controller != null) {
+                    controller.toggleFlash();
+                    setState(() {
+                      isFlashOn = !isFlashOn;
+                    });
+                  }
+                },
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -87,7 +100,14 @@ class _QRScannerPageState extends State<QRScannerPage> {
             key: const Key('qr-size-notifier'),
             child: QRView(
               key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+              onQRViewCreated: (controller) {
+                this.controller = controller;
+                controller.scannedDataStream.listen((scanData) {
+                  context
+                      .read(qrScannerViewModelProvider)
+                      .getCommodityByCode(scanData.code);
+                });
+              },
               overlay: QrScannerOverlayShape(
                 borderColor: Colors.red,
                 borderRadius: 10,
@@ -96,15 +116,6 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 cutOutSize: scanArea,
               ),
             )));
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
   }
 
   @override

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SearchInputBox extends HookWidget {
+  final String hintText;
   final Future Function(String) onTextChange;
 
-  SearchInputBox({this.onTextChange});
+  SearchInputBox({this.hintText, this.onTextChange});
 
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController();
+    final controller =
+        useTextEditingController.fromValue(TextEditingValue.empty);
     controller.addListener(() {
       onTextChange(controller.text.toString());
     });
@@ -16,12 +18,15 @@ class SearchInputBox extends HookWidget {
       margin: const EdgeInsets.all(16.0),
       child: TextField(
         controller: controller,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+            hintText: hintText,
             contentPadding: EdgeInsets.zero,
-            border: OutlineInputBorder(
-                borderSide: BorderSide(width: 0.5),
+            filled: true,
+            fillColor: Colors.grey.withAlpha(30),
+            border: const OutlineInputBorder(
+                borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(46.0))),
-            prefixIcon: Icon(Icons.search)),
+            prefixIcon: const Icon(Icons.search)),
       ),
     );
   }

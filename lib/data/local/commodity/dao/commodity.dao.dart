@@ -21,5 +21,6 @@ class CommodityDao extends DatabaseAccessor<AppDatabase>
   Future insertCommodity(CommoditiesCompanion commodity) =>
       into(commodities).insert(commodity);
 
-  Future deleteCommodity(int id) => deleteCommodity(id);
+  Future deleteCommodity(int id) =>
+      (delete(commodities)..where((c) => c.id.equals(id))).go();
 }

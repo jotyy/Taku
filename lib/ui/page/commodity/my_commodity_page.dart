@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../util/ext/async_snapshot.dart';
 import '../../component/commodity_list_item.dart';
 import '../../component/container_with_loading.dart';
 import '../../component/search_input_box.dart';
@@ -22,22 +23,22 @@ class MyCommodityPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SearchInputBox(onTextChange: (value) async {
-              final viewModel = context.read(commodityViewModelProvider);
-              viewModel.searchText = value;
-              viewModel.fetchCommoditiesByName(name: value);
-            }),
+            SearchInputBox(
+                onTextChange: (value) => context
+                    .read(commodityViewModelProvider)
+                    .fetchCommoditiesByName(name: value)),
             Expanded(
               child: HookBuilder(builder: (context) {
                 final viewModel = context.read(commodityViewModelProvider);
                 final commodities = useProvider(commodityViewModelProvider
                     .select((value) => value.commodities));
-
-                useFuture(useMemoized(() {
-                  return context.read(loadingStateProvider).whileLoading(() =>
-                      viewModel.fetchCommoditiesByName(
-                          name: viewModel.searchText.toString()));
+                final snapshot = useFuture(useMemoized(() {
+                  return context
+                      .read(loadingStateProvider)
+                      .whileLoading(viewModel.fetchCommoditiesByName);
                 }));
+
+                if (!snapshot.isDone) return Container();
 
                 return commodities.when(success: (data) {
                   if (data.isEmpty) {
@@ -48,9 +49,32 @@ class MyCommodityPage extends StatelessWidget {
                         itemCount: data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (_, index) {
-                          return CommodityListItem(commodity: data[index]);
+                          return Dismissible(
+                              key: ValueKey(data[index].id),
+                              direction: DismissDirection.endToStart,
+                              child: CommodityListItem(commodity: data[index]),
+                              background: Container(
+                                color: Colors.red,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ListTile(
+                                    tileColor: Colors.red,
+                                    trailing: Icon(
+                                      Icons.delete,
+                                      color: Theme.of(context)
+                                          .primaryIconTheme
+                                          .color,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              onDismissed: (direction) {
+                                context
+                                    .read(commodityViewModelProvider)
+                                    .removeCommodity(data[index].id);
+                              });
                         }),
-                    onRefresh: () async => viewModel.fetchCommoditiesByName,
+                    onRefresh: viewModel.fetchCommoditiesByName,
                   );
                 }, failure: (e) {
                   return Text('Error: $e');
