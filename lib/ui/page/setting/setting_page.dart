@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../component/setting_item.dart';
-import '../../widgets/my_scoll_view.dart';
+import '../../widgets/my_scroll_view.dart';
 
 class SettingPage extends StatelessWidget {
   @override

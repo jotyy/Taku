@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:app/ui/page/scanner/qr_scanner_view_model.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'qr_scanner_view_model.dart';
 
 class QRScannerPage extends StatefulWidget {
   const QRScannerPage({

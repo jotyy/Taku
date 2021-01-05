@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../widgets/my_button.dart';
-import '../../widgets/my_scoll_view.dart';
+import '../../widgets/my_scroll_view.dart';
 import '../../widgets/text_field_item.dart';
 import 'commodity_view_model.dart';
 

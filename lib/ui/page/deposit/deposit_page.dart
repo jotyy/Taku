@@ -1,20 +1,12 @@
-import 'package:app/ui/component/search_input_box.dart';
-import 'package:app/ui/widgets/my_button.dart';
-import 'package:app/ui/widgets/my_scoll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:moor/moor.dart' as moor;
 
 import '../../../constants.dart';
-import '../../../data/local/app_database.dart';
 import '../../../gen/assets.gen.dart';
-import '../../component/container_with_loading.dart';
-import '../../component/deposit_list_item.dart';
-import '../../loading_state_view_model.dart';
-import 'deposit_view_model.dart';
+import '../../component/search_input_box.dart';
+import '../../widgets/my_button.dart';
+import '../../widgets/my_scroll_view.dart';
 
 class DepositPage extends StatelessWidget {
   @override
