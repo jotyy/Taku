@@ -16,14 +16,15 @@ class CommodityViewModel extends ChangeNotifier {
 
   CommodityViewModel(this._commodityRepository);
 
+  String searchText = '';
   Result<List<Commodity>> _commodities;
   Result<List<Commodity>> get commodities => _commodities;
 
   Future fetchCommoditiesByName({String name = ''}) {
-    return _commodityRepository.getCommoditiesByName(name).then((value) {
-      debugPrint(value.toString());
-      _commodities = Result.success(data: value);
-    }).whenComplete(notifyListeners);
+    return _commodityRepository
+        .getCommoditiesByName(name)
+        .then((value) => _commodities = Result.success(data: value))
+        .whenComplete(notifyListeners);
   }
 
   Future addCommodity(String name, String desc, String price, String code) {

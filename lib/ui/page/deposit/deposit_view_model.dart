@@ -18,7 +18,7 @@ class DepositViewModel extends ChangeNotifier {
 
   Result<List<DepositRecord>> get records => _records;
 
-  Future fetchCommodities() {
+  Future fetchCommodities({String name = ''}) {
     return _repository
         .getRecords()
         .then((value) => _records = Result.success(data: value))

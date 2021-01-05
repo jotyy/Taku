@@ -23,15 +23,21 @@ class MyCommodityPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SearchInputBox(onTextChange: (value) async {
-              context
-                  .read(commodityViewModelProvider)
-                  .fetchCommoditiesByName(name: value);
+              final viewModel = context.read(commodityViewModelProvider);
+              viewModel.searchText = value;
+              viewModel.fetchCommoditiesByName(name: value);
             }),
             Expanded(
               child: HookBuilder(builder: (context) {
                 final viewModel = context.read(commodityViewModelProvider);
                 final commodities = useProvider(commodityViewModelProvider
                     .select((value) => value.commodities));
+
+                useFuture(useMemoized(() {
+                  return context.read(loadingStateProvider).whileLoading(() =>
+                      viewModel.fetchCommoditiesByName(
+                          name: viewModel.searchText.toString()));
+                }));
 
                 return commodities.when(success: (data) {
                   if (data.isEmpty) {
