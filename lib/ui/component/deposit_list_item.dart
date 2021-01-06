@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants.dart';
+import '../../data/model/deposit_item.dart';
 import '../page/deposit/deposit_view_model.dart';
+import 'item_counter.dart';
 
-final itemCountProvider = Provider((_) => 1);
-
-class DepositListItem extends StatelessWidget {
+class DepositListItem extends HookWidget {
   final DepositItem item;
+  final int index;
 
-  const DepositListItem({Key key, this.item}) : super(key: key);
+  const DepositListItem({Key key, this.item, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final count = useState(item.amount);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
@@ -33,7 +33,7 @@ class DepositListItem extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '\$${item.price * item.amount}',
+                    '\$${item.price * count.value}',
                     style: theme.textTheme.subtitle1
                         .copyWith(color: theme.accentColor),
                   )
@@ -65,73 +65,18 @@ class DepositListItem extends StatelessWidget {
                 ),
               ),
               const Gap(16.0),
-              const ItemCounter()
+              ItemCounter(
+                  startCount: item.amount,
+                  onChange: (value) {
+                    count.value = value;
+                    context
+                        .read(depositViewModelProvider)
+                        .editDepositItem(index, item.copyWith(amount: value));
+                  }),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class ItemCounter extends HookWidget {
-  const ItemCounter({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final count = useProvider(itemCountProvider);
-    return Row(
-      children: [
-        const Spacer(),
-        RoundedIcon(
-          child: Icon(
-            Icons.remove,
-            color: Theme.of(context).iconTheme.color.withAlpha(150),
-          ),
-          onPressed: () => context.read(itemCountProvider) - 1,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Text(
-            '$count',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-        RoundedIcon(
-          child: Icon(
-            Icons.add,
-            color: Theme.of(context).iconTheme.color.withAlpha(150),
-          ),
-          onPressed: () => context.read(itemCountProvider) - 1,
-        ),
-      ],
-    );
-  }
-}
-
-class RoundedIcon extends StatelessWidget {
-  final Widget child;
-  final VoidCallback onPressed;
-
-  const RoundedIcon({
-    Key key,
-    this.child,
-    this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-          padding: const EdgeInsets.all(2.0),
-          decoration: BoxDecoration(
-            color: Colors.grey.withAlpha(20),
-            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-          ),
-          child: Center(child: child)),
-      onTap: onPressed,
     );
   }
 }

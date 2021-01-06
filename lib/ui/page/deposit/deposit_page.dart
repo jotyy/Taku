@@ -46,7 +46,10 @@ class DepositPage extends StatelessWidget {
         ],
         bottomButton: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: MyButton(text: '提交', onPressed: () {}),
+          child: MyButton(
+            text: '提交',
+            onPressed: () => context.read(depositViewModelProvider).submit(),
+          ),
         ),
       ),
     );
@@ -66,6 +69,7 @@ class DepositList extends HookWidget {
             itemCount: viewModel.depositList.length,
             itemBuilder: (context, index) {
               return DepositListItem(
+                index: index,
                 item: viewModel.depositList[index],
               );
             });
