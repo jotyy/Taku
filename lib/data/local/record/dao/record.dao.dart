@@ -17,7 +17,8 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
   Future<List<Record>> getWithdrawRecords() =>
       (select(records)..where((tbl) => tbl.status.equals(1))).get();
 
-  Future insertRecord(RecordsCompanion record) => into(records).insert(record);
+  Future<int> insertRecord(RecordsCompanion record) =>
+      into(records).insert(record);
 
   Future deleteRecord(int id) => deleteRecord(id);
 }

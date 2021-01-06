@@ -32,7 +32,7 @@ class DepositRepositoryImpl extends DepositRepository {
   }
 
   @override
-  Future addRecord(String code, int amount) {
+  Future<int> addRecord(String code, int amount) {
     final params = RecordsCompanion(
       code: Value(code),
       amount: Value(amount),

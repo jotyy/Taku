@@ -1,8 +1,8 @@
-import 'package:app/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../constants.dart';
 import '../../../data/local/app_database.dart';
 import '../../../data/model/deposit_item.dart';
 import '../../../data/provider/deposit_repository_provider.dart';
@@ -46,7 +46,7 @@ class DepositViewModel extends ChangeNotifier {
         textConfirm: '确认',
         onConfirm: () {
           Get.back();
-          Get.toNamed(Constants.pageDepositDetail);
+          Get.toNamed(Constants.pageDepositHistory);
         });
     notifyListeners();
   }
