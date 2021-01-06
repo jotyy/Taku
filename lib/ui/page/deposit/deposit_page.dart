@@ -1,5 +1,3 @@
-import 'package:app/data/local/app_database.dart';
-import 'package:app/ui/component/deposit_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -9,7 +7,9 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants.dart';
+import '../../../data/local/app_database.dart';
 import '../../../gen/assets.gen.dart';
+import '../../component/deposit_list_item.dart';
 import '../../component/search_input_box.dart';
 import '../../widgets/my_button.dart';
 import '../../widgets/my_scroll_view.dart';
@@ -39,15 +39,10 @@ class DepositPage extends StatelessWidget {
       ),
       body: MyScrollView(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SearchInputBox(
-                hintText: '请输入商品名称',
-              ),
-              Container(child: DepositList()),
-            ],
+          SearchInputBox(
+            hintText: '请输入商品名称',
           ),
+          DepositList(),
         ],
         bottomButton: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -64,14 +59,15 @@ class DepositList extends HookWidget {
     final viewModel = useProvider(depositViewModelProvider);
 
     return viewModel.depositList.isEmpty
-        ? Container(
-            child: const Text('Empty screen'),
-          )
+        ? Container()
         : ListView.builder(
             shrinkWrap: true,
+            scrollDirection: Axis.vertical,
             itemCount: viewModel.depositList.length,
             itemBuilder: (context, index) {
-              return DepositListItem(item: viewModel.depositList[index],);
+              return DepositListItem(
+                item: viewModel.depositList[index],
+              );
             });
   }
 }

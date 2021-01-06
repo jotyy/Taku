@@ -23,7 +23,7 @@ class DepositViewModel extends ChangeNotifier {
 
   DepositViewModel(this._depositRepository);
 
-  List<DepositItem> _depositList = [];
+  final List<DepositItem> _depositList = [];
 
   List<DepositItem> get depositList => _depositList;
 
