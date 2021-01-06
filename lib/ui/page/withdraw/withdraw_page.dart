@@ -45,38 +45,7 @@ class _WithdrawPageState extends State<WithdrawPage>
           )
         ],
       ),
-      body: ContainerWithLoading(child: HookBuilder(builder: (context) {
-        final commodities = useProvider(
-            withdrawViewModelProvider.select((value) => value.commodities));
-        final snapshot = useFuture(useMemoized(() {
-          return context
-              .read(loadingStateProvider)
-              .whileLoading(viewModel.fetchCommodities);
-        }, [commodities.toString()]));
-
-        if (!snapshot.hasData) return Container();
-
-        return commodities.when(success: (data) {
-          if (data.isEmpty) {
-            return const Center(child: Text('Empty screen'));
-          }
-          return RefreshIndicator(
-            child: ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (_, index) {
-                  return DepositListItem(
-                    commodity: data[index],
-                  );
-                }),
-            onRefresh: viewModel.fetchCommodities,
-          );
-        }, failure: (e) {
-          return Center(
-            child: Text("Failure $e"),
-          );
-        });
-      })),
+      body: Container()
     );
   }
 }

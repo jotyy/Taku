@@ -3,12 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
-import '../../data/local/app_database.dart';
+import '../page/deposit/deposit_view_model.dart';
 
 class DepositListItem extends StatelessWidget {
-  final Commodity commodity;
+  final DepositItem item;
 
-  const DepositListItem({Key key, this.commodity}) : super(key: key);
+  const DepositListItem({Key key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class DepositListItem extends StatelessWidget {
       child: Card(
         child: InkWell(
           onTap: () =>
-              Get.toNamed(Constants.pageDepositDetail, arguments: commodity),
+              Get.toNamed(Constants.pageDepositDetail, arguments: item),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Hero(
-                  tag: "${commodity.id}",
+                  tag: "${item.code}",
                   child: const CircleAvatar(
                     child: Icon(Icons.ac_unit),
                   ),
@@ -35,10 +35,10 @@ class DepositListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("${commodity.name}",
+                    Text("${item.name}",
                         style: Theme.of(context).textTheme.subtitle1),
                     const Gap(5),
-                    Text("${commodity.description}",
+                    Text("${item.description}",
                         style: Theme.of(context).textTheme.caption)
                   ],
                 ))

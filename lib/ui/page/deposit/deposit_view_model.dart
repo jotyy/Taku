@@ -1,27 +1,43 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/model/deposit_record.dart';
-import '../../../data/model/result.dart';
+import '../../../data/local/app_database.dart';
 import '../../../data/provider/deposit_repository_provider.dart';
 import '../../../data/repository/deposit_repository.dart';
 
 final depositViewModelProvider = ChangeNotifierProvider(
     (ref) => DepositViewModel(ref.read(depositRepositoryProvider)));
 
+class DepositItem {
+  final String name;
+  final String code;
+  final double price;
+  final int amount;
+  final String description;
+
+  DepositItem(this.name, this.code, this.price, this.amount, this.description);
+}
+
 class DepositViewModel extends ChangeNotifier {
-  final DepositRepository _repository;
+  final DepositRepository _depositRepository;
 
-  DepositViewModel(this._repository);
+  DepositViewModel(this._depositRepository);
 
-  Result<List<DepositRecord>> _records;
+  List<DepositItem> _depositList = [];
 
-  Result<List<DepositRecord>> get records => _records;
+  List<DepositItem> get depositList => _depositList;
 
-  Future fetchCommodities({String name = ''}) {
-    return _repository
-        .getRecords()
-        .then((value) => _records = Result.success(data: value))
-        .whenComplete(notifyListeners);
+  void addDepositItem(int amount, Commodity commodity) {
+    _depositList.add(DepositItem(commodity.name, commodity.code,
+        commodity.price, amount, commodity.description));
+    notifyListeners();
+  }
+
+  Future submit() async {
+    for (var item in depositList) {
+      _depositRepository.addRecord(item.code, item.amount);
+    }
+    _depositList.clear();
+    notifyListeners();
   }
 }

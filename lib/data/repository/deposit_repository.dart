@@ -1,7 +1,8 @@
 import '../model/deposit_record.dart';
+import '../model/result.dart';
 
 abstract class DepositRepository {
-  Future<List<DepositRecord>> getRecords();
+  Future<Result<List<DepositRecord>>> getRecords();
   Future addRecord(String code, int amount);
   Future deleteRecord(int id);
 }

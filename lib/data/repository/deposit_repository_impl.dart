@@ -4,6 +4,7 @@ import '../local/app_database.dart';
 import '../local/commodity/commodity_local_data_source.dart';
 import '../local/record/record_local_data_source.dart';
 import '../model/deposit_record.dart';
+import '../model/result.dart';
 import 'deposit_repository.dart';
 
 class DepositRepositoryImpl extends DepositRepository {
@@ -14,7 +15,11 @@ class DepositRepositoryImpl extends DepositRepository {
       this._recordLocalSource, this._commodityLocalDataSource);
 
   @override
-  Future<List<DepositRecord>> getRecords() async {
+  Future<Result<List<DepositRecord>>> getRecords() async {
+    return Result.guardFuture(_records);
+  }
+
+  Future<List<DepositRecord>> _records() async {
     final result = <DepositRecord>[];
     final records = await _recordLocalSource.getDepositRecords();
     for (var record in records) {

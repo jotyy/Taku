@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app/data/local/app_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -42,8 +43,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
         onChange: (context, value) {
           final commodity = (value as QRScannerViewModel).commodity;
           commodity.when(
-              success: (data) => Get.defaultDialog(
-                  title: '${data.name}', middleText: '${data.code}'),
+              success: (data) => Get.back(result: data),
               failure: (e) => Get.snackbar('Failure', '${e.message}'));
         },
         child: Stack(
@@ -104,6 +104,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
               onQRViewCreated: (controller) {
                 this.controller = controller;
                 controller.scannedDataStream.listen((scanData) {
+                  controller.pauseCamera();
                   context
                       .read(qrScannerViewModelProvider)
                       .getCommodityByCode(scanData.code);
@@ -123,5 +124,20 @@ class _QRScannerPageState extends State<QRScannerPage> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  /// Confirmation dialog body
+  Widget _buildConfirmationDialog(BuildContext context, Commodity data) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+      child: Column(
+        children: [
+          Text('添加商品', style: Theme.of(context).textTheme.headline6),
+          Row(
+            children: [Text('Name'), Spacer(), Text('item0')],
+          )
+        ],
+      ),
+    );
   }
 }
