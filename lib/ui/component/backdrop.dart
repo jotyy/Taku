@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants.dart';
+import '../../gen/assets.gen.dart';
 import '../../util/error_snackbar.dart';
 import '../app_theme.dart';
 

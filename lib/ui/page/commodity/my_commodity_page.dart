@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../util/ext/async_snapshot.dart';
@@ -45,35 +46,47 @@ class MyCommodityPage extends StatelessWidget {
                     return const Text('😭Empty result');
                   }
                   return RefreshIndicator(
-                    child: ListView.builder(
-                        itemCount: data.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (_, index) {
-                          return Dismissible(
-                              key: ValueKey(data[index].id),
-                              direction: DismissDirection.endToStart,
-                              child: CommodityListItem(commodity: data[index]),
-                              background: Container(
-                                color: Colors.red,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListTile(
-                                    tileColor: Colors.red,
-                                    trailing: Icon(
-                                      Icons.delete,
-                                      color: Theme.of(context)
-                                          .primaryIconTheme
-                                          .color,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Gap(20),
+                            Text('共${data.length}件商品'),
+                          ],
+                        ),
+                        ListView.builder(
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (_, index) {
+                              return Dismissible(
+                                  key: ValueKey(data[index].id),
+                                  direction: DismissDirection.endToStart,
+                                  child:
+                                      CommodityListItem(commodity: data[index]),
+                                  background: Container(
+                                    color: Colors.red,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: ListTile(
+                                        tileColor: Colors.red,
+                                        trailing: Icon(
+                                          Icons.delete,
+                                          color: Theme.of(context)
+                                              .primaryIconTheme
+                                              .color,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                              onDismissed: (direction) {
-                                context
-                                    .read(commodityViewModelProvider)
-                                    .removeCommodity(data[index].id);
-                              });
-                        }),
+                                  onDismissed: (direction) {
+                                    context
+                                        .read(commodityViewModelProvider)
+                                        .removeCommodity(data[index].id);
+                                  });
+                            }),
+                      ],
+                    ),
                     onRefresh: viewModel.fetchCommoditiesByName,
                   );
                 }, failure: (e) {
