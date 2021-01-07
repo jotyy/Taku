@@ -19,10 +19,18 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  SvgGenImage get calendar => const SvgGenImage('assets/svgs/calendar.svg');
+  SvgGenImage get chart => const SvgGenImage('assets/svgs/chart.svg');
+  SvgGenImage get filter => const SvgGenImage('assets/svgs/filter.svg');
   SvgGenImage get icHomeIn => const SvgGenImage('assets/svgs/ic_home_in.svg');
   SvgGenImage get icHomeOut => const SvgGenImage('assets/svgs/ic_home_out.svg');
   SvgGenImage get icList => const SvgGenImage('assets/svgs/ic_list.svg');
   SvgGenImage get icScanner => const SvgGenImage('assets/svgs/ic_scanner.svg');
+  SvgGenImage get image => const SvgGenImage('assets/svgs/image.svg');
+  SvgGenImage get menu => const SvgGenImage('assets/svgs/menu.svg');
+  SvgGenImage get scan => const SvgGenImage('assets/svgs/scan.svg');
+  SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
+  SvgGenImage get setting => const SvgGenImage('assets/svgs/setting.svg');
 }
 
 class Assets {

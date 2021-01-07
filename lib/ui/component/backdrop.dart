@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -77,11 +78,12 @@ class _BackdropState extends State<Backdrop>
       child: Row(
         children: [
           IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
+              icon:
+                  Assets.svgs.menu.svg(color: Get.theme.accentIconTheme.color),
               onPressed: _toggleBackdropLayerVisibility),
           const Spacer(),
           IconButton(
-            icon: const Icon(Icons.color_lens, color: Colors.white),
+            icon: Assets.svgs.scan.svg(color: Get.theme.accentIconTheme.color),
             onPressed: () async => context
                 .read(appThemeNotifierProvider)
                 .toggle()
@@ -91,7 +93,8 @@ class _BackdropState extends State<Backdrop>
             }),
           ),
           IconButton(
-              icon: const Icon(Icons.settings, color: Colors.white),
+              icon: Assets.svgs.setting
+                  .svg(color: Get.theme.accentIconTheme.color),
               onPressed: () => Get.toNamed(Constants.pageSetting))
         ],
       ),
