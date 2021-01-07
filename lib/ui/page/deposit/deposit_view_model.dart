@@ -5,11 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants.dart';
 import '../../../data/local/app_database.dart';
 import '../../../data/model/deposit_item.dart';
-import '../../../data/provider/deposit_repository_provider.dart';
-import '../../../data/repository/deposit_repository.dart';
+import '../../../data/provider/record_repository_provider.dart';
+import '../../../data/repository/record_repository.dart';
 
 final depositViewModelProvider = ChangeNotifierProvider(
-    (ref) => DepositViewModel(ref.read(depositRepositoryProvider)));
+    (ref) => DepositViewModel(ref.read(recordRepositoryProvider)));
 
 class DepositViewModel extends ChangeNotifier {
   final RecordRepository _depositRepository;

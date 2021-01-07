@@ -6,13 +6,13 @@ import '../local/record/record_local_data_source.dart';
 import '../local/record/table/record.table.dart';
 import '../model/deposit_record.dart';
 import '../model/result.dart';
-import 'deposit_repository.dart';
+import 'record_repository.dart';
 
-class DepositRepositoryImpl extends RecordRepository {
+class RecordRepositoryImpl extends RecordRepository {
   final RecordLocalDataSource _recordLocalSource;
   final CommodityLocalDataSource _commodityLocalDataSource;
 
-  DepositRepositoryImpl(
+  RecordRepositoryImpl(
       this._recordLocalSource, this._commodityLocalDataSource);
 
   @override

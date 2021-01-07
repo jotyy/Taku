@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../data/local/record/table/record.table.dart';
 import '../../../data/model/deposit_record.dart';
 import '../../../data/model/result.dart';
-import '../../../data/provider/deposit_repository_provider.dart';
-import '../../../data/repository/deposit_repository.dart';
+import '../../../data/provider/record_repository_provider.dart';
+import '../../../data/repository/record_repository.dart';
 
 final withdrawViewModelProvider = ChangeNotifierProvider(
-    (ref) => WithdrawViewModel(ref.read(depositRepositoryProvider)));
+    (ref) => WithdrawViewModel(ref.read(recordRepositoryProvider)));
 
 class WithdrawViewModel extends ChangeNotifier {
   WithdrawViewModel(this._depositRepository);
