@@ -28,6 +28,7 @@ class _WithdrawPageState extends State<WithdrawPage>
           L10n.of(context).withdraw,
         ),
         bottom: TabBar(
+          indicatorSize: TabBarIndicatorSize.label,
           controller: _controller,
           tabs: _tabs.map((e) => Tab(text: e)).toList(),
         ),

@@ -1,5 +1,10 @@
 import 'package:moor/moor.dart';
 
+class RecordStatus {
+  static const deposited = 0;
+  static const withdrawed = 1;
+}
+
 class Records extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get code => text().withLength(min: 1, max: 20)();
@@ -7,7 +12,8 @@ class Records extends Table {
   // status
   // 0. 入库
   // 1. 出库
-  IntColumn get status => integer().withDefault(const Constant(0))();
+  IntColumn get status =>
+      integer().withDefault(const Constant(RecordStatus.deposited))();
   DateTimeColumn get depositAt =>
       dateTime().withDefault(Constant(DateTime.now()))();
 }

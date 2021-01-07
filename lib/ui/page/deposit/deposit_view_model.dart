@@ -12,7 +12,7 @@ final depositViewModelProvider = ChangeNotifierProvider(
     (ref) => DepositViewModel(ref.read(depositRepositoryProvider)));
 
 class DepositViewModel extends ChangeNotifier {
-  final DepositRepository _depositRepository;
+  final RecordRepository _depositRepository;
 
   DepositViewModel(this._depositRepository);
 

@@ -20,5 +20,9 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
   Future<int> insertRecord(RecordsCompanion record) =>
       into(records).insert(record);
 
+  Future updateStatus(int id, int status) =>
+      (update(records)..where((tbl) => tbl.id.equals(id)))
+          .write(RecordsCompanion(status: Value(status)));
+
   Future deleteRecord(int id) => deleteRecord(id);
 }

@@ -1,3 +1,4 @@
+import 'package:app/data/local/record/table/record.table.dart';
 import 'package:moor/moor.dart';
 
 import '../local/app_database.dart';
@@ -7,7 +8,7 @@ import '../model/deposit_record.dart';
 import '../model/result.dart';
 import 'deposit_repository.dart';
 
-class DepositRepositoryImpl extends DepositRepository {
+class DepositRepositoryImpl extends RecordRepository {
   final RecordLocalDataSource _recordLocalSource;
   final CommodityLocalDataSource _commodityLocalDataSource;
 
@@ -32,6 +33,36 @@ class DepositRepositoryImpl extends DepositRepository {
   }
 
   @override
+  Future<Result<List<DepositRecord>>> getUnWithdrawRecords() {
+    return Result.guardFuture(() => _recordsWithStatus(RecordStatus.deposited));
+  }
+
+  @override
+  Future<Result<List<DepositRecord>>> getWithdrawedRecords() {
+    return Result.guardFuture(
+        () => _recordsWithStatus(RecordStatus.withdrawed));
+  }
+
+  Future<List<DepositRecord>> _recordsWithStatus(int status) async {
+    final result = <DepositRecord>[];
+    final records = await _recordLocalSource.getDepositRecords();
+    for (var record in records) {
+      if (record.status == RecordStatus.deposited) {
+        result.add(DepositRecord(
+            record: record,
+            commodity: await _commodityLocalDataSource
+                .getCommodityByCode(record.code)));
+      } else if (record.status == RecordStatus.withdrawed) {
+        result.add(DepositRecord(
+            record: record,
+            commodity: await _commodityLocalDataSource
+                .getCommodityByCode(record.code)));
+      }
+    }
+    return result;
+  }
+
+  @override
   Future<int> addRecord(String code, int amount) {
     final params = RecordsCompanion(
       code: Value(code),
@@ -39,6 +70,11 @@ class DepositRepositoryImpl extends DepositRepository {
     );
 
     return _recordLocalSource.addRecord(params);
+  }
+
+  @override
+  Future editRecordStatus(int id, int status) {
+    return _recordLocalSource.updateRecordStatus(id, status);
   }
 
   @override
