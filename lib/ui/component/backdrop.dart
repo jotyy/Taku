@@ -146,7 +146,7 @@ class _FrontLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 16.0,
-      color: Theme.of(context).primaryColorDark,
+      color: Theme.of(context).primaryColorLight,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(36.0), topRight: Radius.circular(36.0)),
@@ -165,7 +165,7 @@ class _FrontLayer extends StatelessWidget {
           Expanded(
             child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).primaryColorDark,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24.0),
                       topRight: Radius.circular(24.0),

@@ -1,10 +1,9 @@
-import 'package:app/data/local/record/table/record.table.dart';
-import 'package:app/data/model/deposit_item.dart';
-import 'package:app/data/model/deposit_record.dart';
-import 'package:app/data/model/result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../data/local/record/table/record.table.dart';
+import '../../../data/model/deposit_record.dart';
+import '../../../data/model/result.dart';
 import '../../../data/provider/deposit_repository_provider.dart';
 import '../../../data/repository/deposit_repository.dart';
 

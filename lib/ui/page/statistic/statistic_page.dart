@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import '../../component/bar_chart_sample.dart';
 import '../../component/pie_chart_sample.dart';
@@ -9,7 +10,7 @@ class StatisticPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("数据统计", style: Theme.of(context).textTheme.headline1),
+        title: Text(L10n.of(context).statistic),
       ),
       body: SingleChildScrollView(
         child: Column(

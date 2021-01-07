@@ -1,9 +1,9 @@
-import 'package:app/data/local/record/table/record.table.dart';
 import 'package:moor/moor.dart';
 
 import '../local/app_database.dart';
 import '../local/commodity/commodity_local_data_source.dart';
 import '../local/record/record_local_data_source.dart';
+import '../local/record/table/record.table.dart';
 import '../model/deposit_record.dart';
 import '../model/result.dart';
 import 'deposit_repository.dart';
@@ -47,12 +47,7 @@ class DepositRepositoryImpl extends RecordRepository {
     final result = <DepositRecord>[];
     final records = await _recordLocalSource.getDepositRecords();
     for (var record in records) {
-      if (record.status == RecordStatus.deposited) {
-        result.add(DepositRecord(
-            record: record,
-            commodity: await _commodityLocalDataSource
-                .getCommodityByCode(record.code)));
-      } else if (record.status == RecordStatus.withdrawed) {
+      if (record.status == status) {
         result.add(DepositRecord(
             record: record,
             commodity: await _commodityLocalDataSource

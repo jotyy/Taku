@@ -18,8 +18,8 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
   Future<List<Record>> getWithdrawRecords() => _recordDao.getWithdrawRecords();
 
   @override
-  Future<int> updateRecordStatus(int id, int status) {
-    _recordDao.updateStatus(id, status);
+  Future updateRecordStatus(int id, int status) {
+    return _recordDao.updateStatus(id, status);
   }
 
   @override

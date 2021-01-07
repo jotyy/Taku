@@ -35,7 +35,7 @@ class HomeItem extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                      color: Colors.amber.withAlpha(100),
+                      color: Theme.of(context).accentColor.withAlpha(160),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(4.0),
                           bottomLeft: Radius.circular(4.0)),
@@ -46,7 +46,10 @@ class HomeItem extends StatelessWidget {
                           child: Icon(
                         icon,
                         size: 36.0,
-                        color: Theme.of(context).iconTheme.color.withAlpha(150),
+                        color: Theme.of(context)
+                            .primaryIconTheme
+                            .color
+                            .withAlpha(180),
                       )),
                     ),
                   ),

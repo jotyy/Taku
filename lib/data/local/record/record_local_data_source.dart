@@ -4,6 +4,6 @@ abstract class RecordLocalDataSource {
   Future<List<Record>> getDepositRecords();
   Future<List<Record>> getWithdrawRecords();
   Future<int> addRecord(RecordsCompanion record);
-  Future<int> updateRecordStatus(int id, int status);
+  Future updateRecordStatus(int id, int status);
   Future deleteRecord(int id);
 }

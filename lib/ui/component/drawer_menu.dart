@@ -51,7 +51,7 @@ class DrawerMenu extends StatelessWidget {
             Container(
               width: 100.0,
               height: 1.0,
-              color: theme.accentColor.withAlpha(200),
+              color: Colors.white.withAlpha(50),
             ),
           ],
         ));

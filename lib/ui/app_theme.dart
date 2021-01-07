@@ -1,3 +1,4 @@
+import 'package:app/ui/component/indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,17 +53,17 @@ const buttonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const lPrimaryColor = Color(0xff344955);
-const lPrimaryColorDark = Color(0xff232f34);
-const lPrimaryColorLight = Color(0xff4a6572);
+const lPrimaryColor = Color(0xff1652f0);
+const lSecondryColor = Color(0xff1652f0);
+const lSecondryColorDark = Color(0xff002abc);
+const lSecondryColorLight = Color(0xff6c7eff);
+const lTextColorOnPrimary = Color(0x00000000);
 const lShadowColor = Color(0x26344955);
-const accentColor = Color(0xfff9aa33);
 const errorColor = Color(0xffff5544);
 
 const cardTheme = CardTheme(
   clipBehavior: Clip.antiAlias,
   elevation: 2,
-  shadowColor: Color(0x26f9aa33),
 );
 
 ThemeData get lightTheme {
@@ -73,25 +74,64 @@ ThemeData get lightTheme {
       headline1: headline1,
     ),
     primaryColor: lPrimaryColor,
-    primaryColorDark: lPrimaryColorDark,
-    primaryColorLight: lPrimaryColorLight,
-    accentColor: accentColor,
-    errorColor: errorColor,
+    primaryColorBrightness: Brightness.dark,
+    accentColor: lSecondryColor,
+    buttonTheme: const ButtonThemeData(
+        buttonColor: lSecondryColor, textTheme: ButtonTextTheme.primary),
     cardTheme: cardTheme,
+    highlightColor: lSecondryColor.withAlpha(10),
+    splashColor: lSecondryColor.withAlpha(20),
+    errorColor: errorColor,
     shadowColor: lShadowColor,
-    bottomAppBarColor: lPrimaryColor,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: lSecondryColorDark,
+      elevation: 20.0,
+    ),
+    tabBarTheme: const TabBarTheme(
+        indicatorSize: TabBarIndicatorSize.label,
+        indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(
+          color: Colors.white,
+          width: 2,
+        ))),
+    bottomAppBarColor: lSecondryColor,
   );
 }
+
+const dPrimaryColor = Color(0xff212a3b);
+const dSecondryColor = Color(0xff212a3b);
+const dSecondryColorDark = Color(0xff000016);
+const dSecondryColorLight = Color(0xff4a5265);
+const dTextColorOnPrimary = Color(0x00000000);
+const dBackgroundColor = Color(0xff272a30);
+const dShadowColor = Color(0x26344955);
 
 ThemeData get darkTheme {
   return ThemeData.dark().copyWith(
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    textTheme:
-        GoogleFonts.notoSansTextTheme(ThemeData.dark().textTheme).copyWith(
-      headline1: headline1,
-    ),
-    accentColor: accentColor,
+    primaryColor: dPrimaryColor,
+    primaryColorBrightness: Brightness.dark,
+    accentColor: dSecondryColor,
+    scaffoldBackgroundColor: dBackgroundColor,
+    buttonTheme: const ButtonThemeData(
+        buttonColor: dSecondryColor, textTheme: ButtonTextTheme.primary),
+    cardTheme: cardTheme,
+    highlightColor: dSecondryColor.withAlpha(10),
+    splashColor: dSecondryColor.withAlpha(20),
     errorColor: errorColor,
+    shadowColor: dShadowColor,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: dSecondryColorLight,
+      elevation: 20.0,
+    ),
+    tabBarTheme: const TabBarTheme(
+        indicatorSize: TabBarIndicatorSize.label,
+        indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(
+          color: Colors.white,
+          width: 2,
+        ))),
+    bottomAppBarColor: dSecondryColor,
   );
 }
 

@@ -13,20 +13,23 @@ class SettingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 48,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              Text(title),
-              const Spacer(),
-              Text(
-                hintText,
-                style: Theme.of(context).textTheme.caption,
-              ),
-              const Gap(8),
-              const Icon(Icons.chevron_right),
-            ],
+        InkWell(
+          onTap: onPressed,
+          child: Container(
+            height: 48,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Text(title),
+                const Spacer(),
+                Text(
+                  hintText,
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                const Gap(8),
+                const Icon(Icons.chevron_right),
+              ],
+            ),
           ),
         ),
         const Padding(
