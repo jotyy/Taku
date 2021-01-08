@@ -1,7 +1,10 @@
+import 'package:app/data/local/record/table/record.table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/model/deposit_record.dart';
+import '../../../../gen/assets.gen.dart';
+import '../../../../util/date_util.dart';
 import '../../../component/deposit_detail_item.dart';
 
 class DepositDetailPage extends StatelessWidget {
@@ -10,32 +13,39 @@ class DepositDetailPage extends StatelessWidget {
     final DepositRecord detail = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "入库详情",
-          style: Theme.of(context).textTheme.headline1,
-        ),
+        title: const Text('入库详情'),
       ),
       body: Column(
         children: [
-          const DepositDetailItem(
-            name: "名称",
-            value: "Materila001",
+          Assets.images.articlePlaceholder.image(),
+          DepositDetailItem(
+            name: "入库编号",
+            value: '${detail.record.uuid}',
           ),
-          const DepositDetailItem(
-            name: "编号",
-            value: "CODE-129291089",
-          ),
-          const DepositDetailItem(
-            name: "数量",
-            value: "201",
-          ),
-          const DepositDetailItem(
+          DepositDetailItem(
             name: "入库时间",
-            value: "2020.10.20 11:30:20",
+            value: '${DateUtil.formatDate(detail.record.depositAt)}',
           ),
-          const DepositDetailItem(
-            name: "入库人员",
-            value: "Jotyy",
+          DepositDetailItem(
+            name: "当前状态",
+            value:
+                detail.record.status == RecordStatus.deposited ? '未出库' : '已出库',
+          ),
+          DepositDetailItem(
+            name: '商品名称',
+            value: '${detail.commodity.name}',
+          ),
+          DepositDetailItem(
+            name: '商品条码',
+            value: '${detail.commodity.code}',
+          ),
+          DepositDetailItem(
+            name: '商品数量',
+            value: '${detail.record.amount}',
+          ),
+          DepositDetailItem(
+            name: '商品总额',
+            value: '${detail.record.amount * detail.commodity.price}',
           ),
         ],
       ),
