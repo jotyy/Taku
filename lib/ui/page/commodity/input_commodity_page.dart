@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../gen/assets.gen.dart';
@@ -21,6 +22,8 @@ class InputCommodityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String code = Get.arguments;
+    _codeController.text = code;
     final viewModel = context.read(commodityViewModelProvider);
     return Scaffold(
       appBar: AppBar(
@@ -97,6 +100,7 @@ class InputCommodityPage extends StatelessWidget {
         controller: _priceController,
         title: '商品价格',
         hintText: '请填写商品价格',
+        keyboardType: TextInputType.number,
       ),
       Stack(
         children: [

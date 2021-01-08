@@ -29,7 +29,8 @@ class DepositListItem extends HookWidget {
                 children: [
                   Text(
                     item.name,
-                    style: theme.textTheme.headline6,
+                    style: theme.textTheme.subtitle1
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   const Spacer(),
                   Text(
@@ -39,7 +40,7 @@ class DepositListItem extends HookWidget {
                   )
                 ],
               ),
-              const Gap(6.0),
+              const Gap(8.0),
               const Divider(height: 1),
               const Gap(6.0),
               Padding(

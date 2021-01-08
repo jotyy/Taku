@@ -101,6 +101,7 @@ ThemeData get lightTheme {
     splashColor: lSecondryColor.withAlpha(20),
     errorColor: errorColor,
     shadowColor: lShadowColor,
+    appBarTheme: const AppBarTheme(elevation: 0.5),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: lSecondryColorDark,
       elevation: 20.0,
@@ -112,7 +113,7 @@ ThemeData get lightTheme {
           color: lSecondryColor,
           width: 2,
         ))),
-    bottomAppBarColor: lSecondryColor,
+    bottomAppBarColor: lPrimaryColor,
   );
 }
 
@@ -133,6 +134,7 @@ ThemeData get darkTheme {
     primaryColorDark: dPrimaryColorDark,
     primaryColorLight: dPrimaryColorLight,
     primaryColorBrightness: Brightness.light,
+    primaryIconTheme: const IconThemeData(color: Colors.white),
     accentColor: dSecondryColor,
     scaffoldBackgroundColor: dBackgroundColor,
     buttonTheme: const ButtonThemeData(

@@ -22,13 +22,7 @@ class QRScannerViewModel extends ChangeNotifier {
   Future getCommodityByCode(String code) {
     return _commodityRepository
         .getCommodityByCode(code)
-        .then((value) {
-          if (value == null) {
-            _commodity = Result.failure(error: AppError(Exception('未找到商品')));
-          }
-          _commodity = value;
-        })
-        .catchError((e) => _commodity = e)
+        .then((value) => _commodity = value)
         .whenComplete(notifyListeners);
   }
 }

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
+import '../../../gen/assets.gen.dart';
 import '../../component/backdrop.dart';
 import '../../component/drawer_menu.dart';
 import '../../component/home_item.dart';
@@ -23,17 +24,29 @@ class HomePage extends StatelessWidget {
         const Gap(50.0),
         HomeItem(
           title: L10n.of(context).deposit,
-          icon: Icons.inbox,
+          icon: Assets.svgs.icHomeIn.svg(
+            width: 36,
+            height: 36,
+            color: Theme.of(context).accentIconTheme.color.withAlpha(200),
+          ),
           onTap: () => Get.toNamed(Constants.pageDeposit),
         ),
         HomeItem(
           title: L10n.of(context).withdraw,
-          icon: Icons.outbox,
+          icon: Assets.svgs.icHomeOut.svg(
+            width: 36,
+            height: 36,
+            color: Theme.of(context).accentIconTheme.color.withAlpha(200),
+          ),
           onTap: () => Get.toNamed(Constants.pageWithdraw),
         ),
         HomeItem(
           title: L10n.of(context).statistic,
-          icon: Icons.multiline_chart,
+          icon: Assets.svgs.chart.svg(
+            width: 36,
+            height: 36,
+            color: Theme.of(context).accentIconTheme.color.withAlpha(200),
+          ),
           onTap: () => Get.toNamed(Constants.pageStatistic),
         )
       ],

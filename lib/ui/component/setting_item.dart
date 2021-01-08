@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 class SettingItem extends StatelessWidget {
   final String title;
@@ -20,7 +21,10 @@ class SettingItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                Text(title),
+                Text(
+                  title,
+                  style: Get.theme.textTheme.subtitle2,
+                ),
                 const Spacer(),
                 Text(
                   hintText,

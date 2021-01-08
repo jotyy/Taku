@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 /// Item of home page
 class HomeItem extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final Widget icon;
   final VoidCallback onTap;
 
   const HomeItem({Key key, this.title, this.icon, this.onTap})
@@ -42,15 +42,7 @@ class HomeItem extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Center(
-                          child: Icon(
-                        icon,
-                        size: 36.0,
-                        color: Theme.of(context)
-                            .primaryIconTheme
-                            .color
-                            .withAlpha(180),
-                      )),
+                      child: Center(child: icon),
                     ),
                   ),
                   const Gap(30.0),

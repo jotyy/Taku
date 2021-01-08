@@ -78,12 +78,13 @@ class _BackdropState extends State<Backdrop>
       child: Row(
         children: [
           IconButton(
-              icon:
-                  Assets.svgs.menu.svg(color: Get.theme.accentIconTheme.color),
+              icon: Assets.svgs.menu
+                  .svg(color: Theme.of(context).iconTheme.color),
               onPressed: _toggleBackdropLayerVisibility),
           const Spacer(),
           IconButton(
-            icon: Assets.svgs.scan.svg(color: Get.theme.accentIconTheme.color),
+            icon: Assets.svgs.search
+                .svg(color: Theme.of(context).iconTheme.color),
             onPressed: () async => context
                 .read(appThemeNotifierProvider)
                 .toggle()
@@ -94,7 +95,7 @@ class _BackdropState extends State<Backdrop>
           ),
           IconButton(
               icon: Assets.svgs.setting
-                  .svg(color: Get.theme.accentIconTheme.color),
+                  .svg(color: Theme.of(context).iconTheme.color),
               onPressed: () => Get.toNamed(Constants.pageSetting))
         ],
       ),

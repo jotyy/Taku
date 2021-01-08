@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:app/ui/component/dialog.dart';
+
+import '../../../util/ext/dialog_ext.dart';
+import 'package:app/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -42,8 +46,21 @@ class _QRScannerPageState extends State<QRScannerPage> {
         onChange: (context, value) {
           final commodity = (value as QRScannerViewModel).commodity;
           commodity.when(
-              success: (data) => Get.back(result: data),
-              failure: (e) => Get.snackbar('Failure', '${e.message}'));
+              success: (data) {
+                if (data == null) {
+                  showSimpleDialog(context, title: '未找到商品', text: '是否前往添加该商品？',
+                      onPressed: () {
+                    Get.toNamed(
+                      Constants.pageInputCommodity,
+                      arguments: result.code,
+                    );
+                    Get.back();
+                  });
+                } else {
+                  Get.back(result: data);
+                }
+              },
+              failure: (e) => Get.snackbar('${e.message}', ''));
         },
         child: Stack(
           children: <Widget>[
@@ -67,8 +84,8 @@ class _QRScannerPageState extends State<QRScannerPage> {
               right: 0,
               child: IconButton(
                 icon: isFlashOn
-                    ? const Icon(Icons.flash_off, color: Colors.white, size: 36)
-                    : const Icon(Icons.flash_on, color: Colors.white, size: 36),
+                    ? const Icon(Icons.flash_off, color: Colors.white, size: 32)
+                    : const Icon(Icons.flash_on, color: Colors.white, size: 32),
                 onPressed: () {
                   if (controller != null) {
                     controller.toggleFlash();
@@ -103,6 +120,9 @@ class _QRScannerPageState extends State<QRScannerPage> {
               onQRViewCreated: (controller) {
                 this.controller = controller;
                 controller.scannedDataStream.listen((scanData) {
+                  setState(() {
+                    result = scanData;
+                  });
                   controller.pauseCamera();
                   context
                       .read(qrScannerViewModelProvider)

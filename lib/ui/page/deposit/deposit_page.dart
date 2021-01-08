@@ -10,7 +10,6 @@ import '../../../constants.dart';
 import '../../../data/local/app_database.dart';
 import '../../../gen/assets.gen.dart';
 import '../../component/deposit_list_item.dart';
-import '../../component/search_input_box.dart';
 import '../../widgets/my_button.dart';
 import '../../widgets/my_scroll_view.dart';
 import 'deposit_view_model.dart';
@@ -30,17 +29,30 @@ class DepositPage extends StatelessWidget {
               ),
               onPressed: () async {
                 var scanResult = await Get.toNamed(Constants.pageQRScanner);
-                debugPrint((scanResult as Commodity).toString());
-                context
-                    .read(depositViewModelProvider)
-                    .addDepositItem(1, scanResult as Commodity);
+                if (scanResult != null) {
+                  context
+                      .read(depositViewModelProvider)
+                      .addDepositItem(1, scanResult as Commodity);
+                }
               })
         ],
       ),
       body: MyScrollView(
         children: [
-          SearchInputBox(
-            hintText: '请输入商品名称',
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: '请扫描/输入商品编码',
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                filled: true,
+                fillColor: Colors.grey.withAlpha(30),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(Radius.circular(46.0))),
+              ),
+            ),
           ),
           DepositList(),
         ],
