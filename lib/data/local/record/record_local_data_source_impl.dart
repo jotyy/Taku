@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:intl/intl.dart';
+import 'package:moor/moor.dart';
 import '../app_database.dart';
 import 'dao/record.dao.dart';
 import 'record_local_data_source.dart';
@@ -9,7 +13,15 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
 
   @override
   Future<int> addRecord(RecordsCompanion record) =>
-      _recordDao.insertRecord(record);
+      _recordDao.insertRecord(record.copyWith(
+        uuid: Value(_generateUuid()),
+      ));
+
+  String _generateUuid() =>
+      // ignore: lines_longer_than_80_chars
+      'DC${DateFormat('yyMMddHHmmss').format(DateTime.now())}${_random(1001, 9999)}';
+
+  int _random(int min, int max) => min + Random().nextInt(max - min);
 
   @override
   Future<List<Record>> getDepositRecords() => _recordDao.getDepositRecords();

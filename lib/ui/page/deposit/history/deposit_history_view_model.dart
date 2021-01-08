@@ -18,10 +18,18 @@ class DepositHistoryViewModel extends ChangeNotifier {
 
   Result<List<DepositRecord>> get records => _records;
 
-  Future fetchDepositHistory() {
+  Future fetchDepositHistory({DateTime dateTime}) {
+    if (dateTime == null) dateTime = DateTime.now();
     return _depositRepository
-        .getRecords()
+        .getRecordsByDate(dateTime)
         .then((value) => _records = value)
+        .whenComplete(notifyListeners);
+  }
+
+  Future deleteHistory(int id) {
+    return _depositRepository
+        .deleteRecord(id)
+        .then((value) => fetchDepositHistory())
         .whenComplete(notifyListeners);
   }
 }

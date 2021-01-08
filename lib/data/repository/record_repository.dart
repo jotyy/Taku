@@ -3,6 +3,7 @@ import '../model/result.dart';
 
 abstract class RecordRepository {
   Future<Result<List<DepositRecord>>> getRecords();
+  Future<Result<List<DepositRecord>>> getRecordsByDate(DateTime dateTime);
   Future<Result<List<DepositRecord>>> getUnWithdrawRecords();
   Future<Result<List<DepositRecord>>> getWithdrawedRecords();
   Future<int> addRecord(String code, int amount);

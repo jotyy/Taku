@@ -24,5 +24,6 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
       (update(records)..where((tbl) => tbl.id.equals(id)))
           .write(RecordsCompanion(status: Value(status)));
 
-  Future deleteRecord(int id) => deleteRecord(id);
+  Future deleteRecord(int id) =>
+      (delete(records)..where((tbl) => tbl.id.equals(id))).go();
 }

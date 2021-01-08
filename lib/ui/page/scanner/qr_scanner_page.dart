@@ -1,9 +1,5 @@
 import 'dart:io';
 
-import 'package:app/ui/component/dialog.dart';
-
-import '../../../util/ext/dialog_ext.dart';
-import 'package:app/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -11,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../../constants.dart';
+import '../../component/dialog.dart';
 import 'qr_scanner_view_model.dart';
 
 class QRScannerPage extends StatefulWidget {

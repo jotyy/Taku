@@ -6,6 +6,7 @@ analyzer:
     - "lib/data/local/app_database.g.dart"
     - "lib/data/model/*.g.dart"
     - "lib/data/model/*.freezed.dart"
+    - "lib/util/*.dart"
 
 linter:
   rules:
