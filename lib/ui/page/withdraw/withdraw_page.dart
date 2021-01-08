@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../gen/assets.gen.dart';
 import '../../../util/ext/async_snapshot.dart';
 import '../../component/container_with_loading.dart';
 import '../../loading_state_view_model.dart';
@@ -13,6 +14,7 @@ class WithdrawPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateTime = useState(DateTime.now());
     final tabController = useTabController(initialLength: 2, keys: _tabs);
 
     return Scaffold(
@@ -27,8 +29,17 @@ class WithdrawPage extends HookWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.calendar_today_sharp),
-              onPressed: () {},
+              icon: Assets.svgs.calendar.svg(),
+              onPressed: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: dateTime.value,
+                  firstDate: DateTime.now().subtract(const Duration(days: 90)),
+                  lastDate: DateTime.now(),
+                ).then((value) {
+                  dateTime.value = value;
+                });
+              },
             )
           ],
         ),
@@ -66,7 +77,7 @@ class UnWithdrawScreen extends StatelessWidget {
                       itemCount: data.length,
                       shrinkWrap: true,
                       itemBuilder: (_, index) {
-                        return ListTile(title: Text(data[index].record.code));
+                        return ListTile(title: Text(data[index].code));
                       }),
                 ),
                 onRefresh: viewModel.fetchUnWithdrawedRecord),
@@ -100,7 +111,7 @@ class WithdrawedScreen extends StatelessWidget {
                       itemCount: data.length,
                       shrinkWrap: true,
                       itemBuilder: (_, index) {
-                        return ListTile(title: Text(data[index].record.code));
+                        return ListTile(title: Text(data[index].code));
                       }),
                 ),
                 onRefresh: viewModel.fetchWithdrawedRecord),

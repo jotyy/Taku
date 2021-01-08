@@ -1,3 +1,4 @@
+import 'package:app/data/model/withdraw_commodity.dart';
 import 'package:moor/moor.dart';
 
 import '../../util/date_util.dart';
@@ -21,12 +22,12 @@ class RecordRepositoryImpl extends RecordRepository {
   }
 
   @override
-  Future<Result<List<DepositRecord>>> getUnWithdrawRecords() {
+  Future<Result<List<WithdrawCommodity>>> getUnWithdrawRecords() {
     return Result.guardFuture(() => _recordsWithStatus(RecordStatus.deposited));
   }
 
   @override
-  Future<Result<List<DepositRecord>>> getWithdrawedRecords() {
+  Future<Result<List<WithdrawCommodity>>> getWithdrawedRecords() {
     return Result.guardFuture(
         () => _recordsWithStatus(RecordStatus.withdrawed));
   }
@@ -66,15 +67,35 @@ class RecordRepositoryImpl extends RecordRepository {
     return result;
   }
 
-  Future<List<DepositRecord>> _recordsWithStatus(int status) async {
-    final result = <DepositRecord>[];
+  Future<List<WithdrawCommodity>> _recordsWithStatus(int status) async {
+    final result = <WithdrawCommodity>[];
+    final commodities = <Commodity>[];
     final records = await _recordLocalSource.getDepositRecords();
     for (var record in records) {
       if (record.status == status) {
-        result.add(DepositRecord(
-            record: record,
-            commodity: await _commodityLocalDataSource
-                .getCommodityByCode(record.code)));
+        commodities.add(
+            await _commodityLocalDataSource.getCommodityByCode(record.code));
+      }
+    }
+
+    Commodity cacheCommodity;
+    var commodityCount = 0;
+    for (var commodity in commodities) {
+      if (commodityCount == 0) {
+        cacheCommodity = commodity;
+      } else {
+        if (cacheCommodity.name == commodity.name) {
+          commodityCount++;
+        } else {
+          result.add(
+            WithdrawCommodity(
+                cacheCommodity.name,
+                cacheCommodity.code,
+                cacheCommodity.description,
+                commodityCount,
+                cacheCommodity.price * commodityCount),
+          );
+        }
       }
     }
     return result;

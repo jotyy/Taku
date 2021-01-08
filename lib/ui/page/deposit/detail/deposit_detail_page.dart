@@ -1,7 +1,7 @@
-import 'package:app/data/local/record/table/record.table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/local/record/table/record.table.dart';
 import '../../../../data/model/deposit_record.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../util/date_util.dart';
