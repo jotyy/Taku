@@ -27,12 +27,20 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
   Future<List<Record>> getDepositRecords() => _recordDao.getDepositRecords();
 
   @override
+  Future<List<Record>> getDepositRecordsWithCode(String code) =>
+      _recordDao.getDepositRecordsWithCode(code);
+
+  @override
   Future<List<Record>> getWithdrawRecords() => _recordDao.getWithdrawRecords();
 
   @override
   Future updateRecordStatus(int id, int status) {
     return _recordDao.updateStatus(id, status);
   }
+
+  @override
+  Future updateRecordAmount(int id, int num) =>
+      _recordDao.updateAmount(id, num);
 
   @override
   Future deleteRecord(int id) => _recordDao.deleteRecord(id);

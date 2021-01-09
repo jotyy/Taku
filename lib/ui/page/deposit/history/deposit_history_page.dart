@@ -38,19 +38,19 @@ class DepositHistoryPage extends HookWidget {
               })
         ],
       ),
-      body: DepositHistoryBody(
-          DateUtil.formatDate(dateTime.value, format: 'yyyy/MM/dd')),
+      body: DepositHistoryBody(dateTime.value),
     );
   }
 }
 
 class DepositHistoryBody extends HookWidget {
-  final String date;
+  final DateTime date;
 
   DepositHistoryBody(this.date);
 
   @override
   Widget build(BuildContext context) {
+    final dateStr = DateUtil.formatDate(date, format: 'yyyy/MM/dd');
     final viewModel = useProvider(depositHistoryViewModelProvider);
     final snapshot = useFuture(useMemoized(viewModel.fetchDepositHistory));
 
@@ -60,7 +60,7 @@ class DepositHistoryBody extends HookWidget {
         depositHistoryViewModelProvider.select((value) => value.records));
     return records.when(
         success: (data) => RefreshIndicator(
-              onRefresh: viewModel.fetchDepositHistory,
+              onRefresh: () => viewModel.fetchDepositHistory(dateTime: date),
               child: Column(
                 children: [
                   const Gap(20.0),
@@ -69,7 +69,7 @@ class DepositHistoryBody extends HookWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(date),
+                        Text(dateStr),
                         const Gap(5.0),
                         Text('共${data.length}条记录'),
                         const Gap(20.0)

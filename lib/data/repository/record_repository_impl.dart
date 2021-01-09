@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:app/data/model/withdraw_commodity.dart';
 import 'package:moor/moor.dart';
 
@@ -48,6 +50,27 @@ class RecordRepositoryImpl extends RecordRepository {
   }
 
   @override
+  Future withdrawCommodities(int num, String code) {
+    return Result.guardFuture(() => _withdraw(num, code));
+  }
+
+  Future _withdraw(int num, String code) async {
+    final records = await _recordLocalSource.getDepositRecordsWithCode(code);
+    for (var record in records) {
+      if (record.amount >= num) {
+        await _recordLocalSource.updateRecordAmount(
+            record.id, record.amount - num);
+        break;
+      } else {
+        await _recordLocalSource.updateRecordAmount(record.id, 0);
+        await _recordLocalSource.updateRecordStatus(
+            record.id, RecordStatus.withdrawed);
+        num = num - record.amount;
+      }
+    }
+  }
+
+  @override
   Future deleteRecord(int id) => _recordLocalSource.deleteRecord(id);
 
   @override
@@ -67,36 +90,30 @@ class RecordRepositoryImpl extends RecordRepository {
     return result;
   }
 
+  /// TODO redo this later
   Future<List<WithdrawCommodity>> _recordsWithStatus(int status) async {
     final result = <WithdrawCommodity>[];
-    final commodities = <Commodity>[];
+    final commodities = <CacheCommodity>[];
     final records = await _recordLocalSource.getDepositRecords();
+
     for (var record in records) {
       if (record.status == status) {
-        commodities.add(
-            await _commodityLocalDataSource.getCommodityByCode(record.code));
+        final commodity =
+            await _commodityLocalDataSource.getCommodityByCode(record.code);
+        commodities.add(CacheCommodity(commodity, record.amount));
       }
     }
 
-    Commodity cacheCommodity;
-    var commodityCount = 0;
-    for (var commodity in commodities) {
-      if (commodityCount == 0) {
-        cacheCommodity = commodity;
-      } else {
-        if (cacheCommodity.name == commodity.name) {
-          commodityCount++;
-        } else {
-          result.add(
-            WithdrawCommodity(
-                cacheCommodity.name,
-                cacheCommodity.code,
-                cacheCommodity.description,
-                commodityCount,
-                cacheCommodity.price * commodityCount),
-          );
-        }
-      }
+    for (var item in commodities) {
+      result.add(
+        WithdrawCommodity(
+          item.commodity.name,
+          item.commodity.code,
+          item.commodity.description,
+          item.amount,
+          item.commodity.price * item.amount,
+        ),
+      );
     }
     return result;
   }
@@ -114,4 +131,11 @@ class RecordRepositoryImpl extends RecordRepository {
     }
     return result;
   }
+}
+
+class CacheCommodity {
+  final Commodity commodity;
+  final int amount;
+
+  CacheCommodity(this.commodity, this.amount);
 }

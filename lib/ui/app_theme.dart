@@ -103,7 +103,7 @@ ThemeData get lightTheme {
     shadowColor: lShadowColor,
     appBarTheme: const AppBarTheme(elevation: 0.5),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: lSecondryColorDark,
+      backgroundColor: lSecondryColor,
       elevation: 20.0,
     ),
     tabBarTheme: const TabBarTheme(
@@ -145,7 +145,7 @@ ThemeData get darkTheme {
     errorColor: errorColor,
     shadowColor: dShadowColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: dSecondryColorLight,
+      backgroundColor: dSecondryColor,
       elevation: 20.0,
     ),
     tabBarTheme: const TabBarTheme(

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/local/record/table/record.table.dart';
 import '../../../data/model/result.dart';
 import '../../../data/model/withdraw_commodity.dart';
 import '../../../data/provider/record_repository_provider.dart';
@@ -34,9 +33,9 @@ class WithdrawViewModel extends ChangeNotifier {
         .whenComplete(notifyListeners);
   }
 
-  Future withdraw(int id) {
+  Future withdraw(int num, String code) {
     return _repository
-        .editRecordStatus(id, RecordStatus.withdrawed)
+        .withdrawCommodities(num, code)
         .then((value) {
       fetchUnWithdrawedRecord();
       fetchWithdrawedRecord();

@@ -48,11 +48,11 @@ class _QRScannerPageState extends State<QRScannerPage> {
                 if (data == null) {
                   showSimpleDialog(context, title: '未找到商品', text: '是否前往添加该商品？',
                       onPressed: () {
-                    Get.toNamed(
+                    Get.back();
+                    Get.offNamed(
                       Constants.pageInputCommodity,
                       arguments: result.code,
                     );
-                    Get.back();
                   });
                 } else {
                   Get.back(result: data);

@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../util/ext/async_snapshot.dart';
 import '../../component/container_with_loading.dart';
+import '../../component/withdraw_item.dart';
 import '../../loading_state_view_model.dart';
 import 'withdraw_view_model.dart';
 
@@ -71,15 +72,19 @@ class UnWithdrawScreen extends StatelessWidget {
 
         return listData.when(
             success: (data) => RefreshIndicator(
-                child: Container(
-                  height: double.infinity,
-                  child: ListView.builder(
-                      itemCount: data.length,
-                      shrinkWrap: true,
-                      itemBuilder: (_, index) {
-                        return ListTile(title: Text(data[index].code));
-                      }),
-                ),
+                child: data.isNotEmpty
+                    ? Container(
+                        height: double.infinity,
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (_, index) {
+                              return WithdrawItem(detail: data[index]);
+                            }),
+                      )
+                    : const Center(
+                        child: Text('Empty screen'),
+                      ),
                 onRefresh: viewModel.fetchUnWithdrawedRecord),
             failure: (error) => const Center(child: Text('Error screen')));
       }),
@@ -105,15 +110,19 @@ class WithdrawedScreen extends StatelessWidget {
 
         return listData.when(
             success: (data) => RefreshIndicator(
-                child: Container(
-                  height: double.infinity,
-                  child: ListView.builder(
-                      itemCount: data.length,
-                      shrinkWrap: true,
-                      itemBuilder: (_, index) {
-                        return ListTile(title: Text(data[index].code));
-                      }),
-                ),
+                child: data.isNotEmpty
+                    ? Container(
+                        height: double.infinity,
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (_, index) {
+                              return WithdrawItem(detail: data[index]);
+                            }),
+                      )
+                    : const Center(
+                        child: Text('Empty screen'),
+                      ),
                 onRefresh: viewModel.fetchWithdrawedRecord),
             failure: (error) => const Center(child: Text('Error screen')));
       }),

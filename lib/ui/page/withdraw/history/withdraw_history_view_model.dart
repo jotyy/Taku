@@ -6,7 +6,7 @@ import '../../../../data/model/withdraw_commodity.dart';
 import '../../../../data/provider/record_repository_provider.dart';
 import '../../../../data/repository/record_repository.dart';
 
-final withdrawViewModelProvider = ChangeNotifierProvider(
+final withdrawHistoryViewModelProvider = ChangeNotifierProvider(
     (ref) => WithdrawHistoryViewModel(ref.read(recordRepositoryProvider)));
 
 class WithdrawHistoryViewModel extends ChangeNotifier {
