@@ -14,12 +14,12 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
   @override
   Future<int> addRecord(RecordsCompanion record) =>
       _recordDao.insertRecord(record.copyWith(
-        uuid: Value(_generateUuid()),
+        uuid: Value(_generateUuid('DC')),
       ));
 
-  String _generateUuid() =>
+  String _generateUuid(String prefix) =>
       // ignore: lines_longer_than_80_chars
-      'DC${DateFormat('yyMMddHHmmss').format(DateTime.now())}${_random(1001, 9999)}';
+      '$prefix${DateFormat('yyMMddHHmmss').format(DateTime.now())}${_random(1001, 9999)}';
 
   int _random(int min, int max) => min + Random().nextInt(max - min);
 
@@ -35,7 +35,8 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
 
   @override
   Future updateRecordStatus(int id, int status) {
-    return _recordDao.updateStatus(id, status);
+    final wdUuid = _generateUuid('WD');
+    return _recordDao.updateStatus(id, status, wdUuid);
   }
 
   @override

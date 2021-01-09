@@ -1,6 +1,3 @@
-import 'dart:collection';
-
-import 'package:app/data/model/withdraw_commodity.dart';
 import 'package:moor/moor.dart';
 
 import '../../util/date_util.dart';
@@ -10,6 +7,7 @@ import '../local/record/record_local_data_source.dart';
 import '../local/record/table/record.table.dart';
 import '../model/deposit_record.dart';
 import '../model/result.dart';
+import '../model/withdraw_commodity.dart';
 import 'record_repository.dart';
 
 class RecordRepositoryImpl extends RecordRepository {

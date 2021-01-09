@@ -427,6 +427,7 @@ class Record extends DataClass implements Insertable<Record> {
   final int amount;
   final int status;
   final String uuid;
+  final String wdUuid;
   final DateTime depositAt;
   final DateTime withdrawAt;
   Record(
@@ -435,6 +436,7 @@ class Record extends DataClass implements Insertable<Record> {
       @required this.amount,
       @required this.status,
       @required this.uuid,
+      @required this.wdUuid,
       @required this.depositAt,
       @required this.withdrawAt});
   factory Record.fromData(Map<String, dynamic> data, GeneratedDatabase db,
@@ -449,6 +451,8 @@ class Record extends DataClass implements Insertable<Record> {
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
       status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
+      wdUuid:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}wd_uuid']),
       depositAt: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}deposit_at']),
       withdrawAt: dateTimeType
@@ -473,6 +477,9 @@ class Record extends DataClass implements Insertable<Record> {
     if (!nullToAbsent || uuid != null) {
       map['uuid'] = Variable<String>(uuid);
     }
+    if (!nullToAbsent || wdUuid != null) {
+      map['wd_uuid'] = Variable<String>(wdUuid);
+    }
     if (!nullToAbsent || depositAt != null) {
       map['deposit_at'] = Variable<DateTime>(depositAt);
     }
@@ -491,6 +498,8 @@ class Record extends DataClass implements Insertable<Record> {
       status:
           status == null && nullToAbsent ? const Value.absent() : Value(status),
       uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
+      wdUuid:
+          wdUuid == null && nullToAbsent ? const Value.absent() : Value(wdUuid),
       depositAt: depositAt == null && nullToAbsent
           ? const Value.absent()
           : Value(depositAt),
@@ -509,6 +518,7 @@ class Record extends DataClass implements Insertable<Record> {
       amount: serializer.fromJson<int>(json['amount']),
       status: serializer.fromJson<int>(json['status']),
       uuid: serializer.fromJson<String>(json['uuid']),
+      wdUuid: serializer.fromJson<String>(json['wdUuid']),
       depositAt: serializer.fromJson<DateTime>(json['depositAt']),
       withdrawAt: serializer.fromJson<DateTime>(json['withdrawAt']),
     );
@@ -522,6 +532,7 @@ class Record extends DataClass implements Insertable<Record> {
       'amount': serializer.toJson<int>(amount),
       'status': serializer.toJson<int>(status),
       'uuid': serializer.toJson<String>(uuid),
+      'wdUuid': serializer.toJson<String>(wdUuid),
       'depositAt': serializer.toJson<DateTime>(depositAt),
       'withdrawAt': serializer.toJson<DateTime>(withdrawAt),
     };
@@ -533,6 +544,7 @@ class Record extends DataClass implements Insertable<Record> {
           int amount,
           int status,
           String uuid,
+          String wdUuid,
           DateTime depositAt,
           DateTime withdrawAt}) =>
       Record(
@@ -541,6 +553,7 @@ class Record extends DataClass implements Insertable<Record> {
         amount: amount ?? this.amount,
         status: status ?? this.status,
         uuid: uuid ?? this.uuid,
+        wdUuid: wdUuid ?? this.wdUuid,
         depositAt: depositAt ?? this.depositAt,
         withdrawAt: withdrawAt ?? this.withdrawAt,
       );
@@ -552,6 +565,7 @@ class Record extends DataClass implements Insertable<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
+          ..write('wdUuid: $wdUuid, ')
           ..write('depositAt: $depositAt, ')
           ..write('withdrawAt: $withdrawAt')
           ..write(')'))
@@ -567,8 +581,10 @@ class Record extends DataClass implements Insertable<Record> {
               amount.hashCode,
               $mrjc(
                   status.hashCode,
-                  $mrjc(uuid.hashCode,
-                      $mrjc(depositAt.hashCode, withdrawAt.hashCode)))))));
+                  $mrjc(
+                      uuid.hashCode,
+                      $mrjc(wdUuid.hashCode,
+                          $mrjc(depositAt.hashCode, withdrawAt.hashCode))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -578,6 +594,7 @@ class Record extends DataClass implements Insertable<Record> {
           other.amount == this.amount &&
           other.status == this.status &&
           other.uuid == this.uuid &&
+          other.wdUuid == this.wdUuid &&
           other.depositAt == this.depositAt &&
           other.withdrawAt == this.withdrawAt);
 }
@@ -588,6 +605,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
   final Value<int> amount;
   final Value<int> status;
   final Value<String> uuid;
+  final Value<String> wdUuid;
   final Value<DateTime> depositAt;
   final Value<DateTime> withdrawAt;
   const RecordsCompanion({
@@ -596,6 +614,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     this.amount = const Value.absent(),
     this.status = const Value.absent(),
     this.uuid = const Value.absent(),
+    this.wdUuid = const Value.absent(),
     this.depositAt = const Value.absent(),
     this.withdrawAt = const Value.absent(),
   });
@@ -605,11 +624,13 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     @required int amount,
     this.status = const Value.absent(),
     @required String uuid,
+    @required String wdUuid,
     @required DateTime depositAt,
     @required DateTime withdrawAt,
   })  : code = Value(code),
         amount = Value(amount),
         uuid = Value(uuid),
+        wdUuid = Value(wdUuid),
         depositAt = Value(depositAt),
         withdrawAt = Value(withdrawAt);
   static Insertable<Record> custom({
@@ -618,6 +639,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     Expression<int> amount,
     Expression<int> status,
     Expression<String> uuid,
+    Expression<String> wdUuid,
     Expression<DateTime> depositAt,
     Expression<DateTime> withdrawAt,
   }) {
@@ -627,6 +649,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       if (amount != null) 'amount': amount,
       if (status != null) 'status': status,
       if (uuid != null) 'uuid': uuid,
+      if (wdUuid != null) 'wd_uuid': wdUuid,
       if (depositAt != null) 'deposit_at': depositAt,
       if (withdrawAt != null) 'withdraw_at': withdrawAt,
     });
@@ -638,6 +661,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       Value<int> amount,
       Value<int> status,
       Value<String> uuid,
+      Value<String> wdUuid,
       Value<DateTime> depositAt,
       Value<DateTime> withdrawAt}) {
     return RecordsCompanion(
@@ -646,6 +670,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       amount: amount ?? this.amount,
       status: status ?? this.status,
       uuid: uuid ?? this.uuid,
+      wdUuid: wdUuid ?? this.wdUuid,
       depositAt: depositAt ?? this.depositAt,
       withdrawAt: withdrawAt ?? this.withdrawAt,
     );
@@ -669,6 +694,9 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     if (uuid.present) {
       map['uuid'] = Variable<String>(uuid.value);
     }
+    if (wdUuid.present) {
+      map['wd_uuid'] = Variable<String>(wdUuid.value);
+    }
     if (depositAt.present) {
       map['deposit_at'] = Variable<DateTime>(depositAt.value);
     }
@@ -686,6 +714,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
+          ..write('wdUuid: $wdUuid, ')
           ..write('depositAt: $depositAt, ')
           ..write('withdrawAt: $withdrawAt')
           ..write(')'))
@@ -748,6 +777,18 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     );
   }
 
+  final VerificationMeta _wdUuidMeta = const VerificationMeta('wdUuid');
+  GeneratedTextColumn _wdUuid;
+  @override
+  GeneratedTextColumn get wdUuid => _wdUuid ??= _constructWdUuid();
+  GeneratedTextColumn _constructWdUuid() {
+    return GeneratedTextColumn(
+      'wd_uuid',
+      $tableName,
+      false,
+    );
+  }
+
   final VerificationMeta _depositAtMeta = const VerificationMeta('depositAt');
   GeneratedDateTimeColumn _depositAt;
   @override
@@ -775,7 +816,7 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, code, amount, status, uuid, depositAt, withdrawAt];
+      [id, code, amount, status, uuid, wdUuid, depositAt, withdrawAt];
   @override
   $RecordsTable get asDslTable => this;
   @override
@@ -811,6 +852,12 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
           _uuidMeta, uuid.isAcceptableOrUnknown(data['uuid'], _uuidMeta));
     } else if (isInserting) {
       context.missing(_uuidMeta);
+    }
+    if (data.containsKey('wd_uuid')) {
+      context.handle(_wdUuidMeta,
+          wdUuid.isAcceptableOrUnknown(data['wd_uuid'], _wdUuidMeta));
+    } else if (isInserting) {
+      context.missing(_wdUuidMeta);
     }
     if (data.containsKey('deposit_at')) {
       context.handle(_depositAtMeta,

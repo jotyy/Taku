@@ -14,7 +14,12 @@ class Records extends Table {
   // 1. 出库
   IntColumn get status =>
       integer().withDefault(const Constant(RecordStatus.deposited))();
+
+  /// 入库uuid
   TextColumn get uuid => text()();
+
+  /// 出库uuid
+  TextColumn get wdUuid => text()();
   DateTimeColumn get depositAt => dateTime()();
   DateTimeColumn get withdrawAt => dateTime()();
 }
