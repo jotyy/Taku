@@ -12,10 +12,18 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
   RecordLocalSourceImpl(this._recordDao);
 
   @override
-  Future<int> addRecord(RecordsCompanion record) =>
-      _recordDao.insertRecord(record.copyWith(
-        uuid: Value(_generateUuid('DC')),
-      ));
+  Future<int> addRecord(RecordsCompanion record) {
+    return _recordDao.insertRecord(record.copyWith(
+      uuid: Value(_generateUuid('DC')),
+    ));
+  }
+
+  @override
+  Future<int> addWithdrawRecord(WithdrawsCompanion withdraw) {
+    return _recordDao.insertWithdrawRecord(withdraw.copyWith(
+      uuid: Value(_generateUuid('WD')),
+    ));
+  }
 
   String _generateUuid(String prefix) =>
       // ignore: lines_longer_than_80_chars
@@ -31,12 +39,12 @@ class RecordLocalSourceImpl extends RecordLocalDataSource {
       _recordDao.getDepositRecordsWithCode(code);
 
   @override
-  Future<List<Record>> getWithdrawRecords() => _recordDao.getWithdrawRecords();
+  Future<List<Withdraw>> getWithdrawRecords() =>
+      _recordDao.getWithdrawRecords();
 
   @override
   Future updateRecordStatus(int id, int status) {
-    final wdUuid = _generateUuid('WD');
-    return _recordDao.updateStatus(id, status, wdUuid);
+    return _recordDao.updateStatus(id, status);
   }
 
   @override

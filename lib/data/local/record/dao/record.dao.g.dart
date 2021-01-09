@@ -8,4 +8,5 @@ part of 'record.dao.dart';
 
 mixin _$RecordDaoMixin on DatabaseAccessor<AppDatabase> {
   $RecordsTable get records => attachedDatabase.records;
+  $WithdrawsTable get withdraws => attachedDatabase.withdraws;
 }

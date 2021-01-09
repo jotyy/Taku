@@ -1,11 +1,12 @@
 import 'package:moor/moor.dart';
 
 import '../../app_database.dart';
+import '../../withdraw/table/withdraw.table.dart';
 import '../table/record.table.dart';
 
 part 'record.dao.g.dart';
 
-@UseDao(tables: [Records])
+@UseDao(tables: [Records, Withdraws])
 class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
   RecordDao(AppDatabase db) : super(db);
 
@@ -21,18 +22,19 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
             ..orderBy([(t) => OrderingTerm(expression: t.id)]))
           .get();
 
-  Future<List<Record>> getWithdrawRecords() =>
-      (select(records)..where((tbl) => tbl.status.equals(1))).get();
+  Future<List<Withdraw>> getWithdrawRecords() => select(withdraws).get();
 
   Future<int> insertRecord(RecordsCompanion record) =>
       into(records).insert(record.copyWith(depositAt: Value(DateTime.now())));
 
-  Future updateStatus(int id, int status, String wdUuid) =>
+  Future insertWithdrawRecord(WithdrawsCompanion withdraw) => into(withdraws)
+      .insert(withdraw.copyWith(withdrawAt: Value(DateTime.now())));
+
+  Future updateStatus(int id, int status) =>
       (update(records)..where((tbl) => tbl.id.equals(id)))
           .write(RecordsCompanion(
         status: Value(status),
         withdrawAt: Value(DateTime.now()),
-        wdUuid: Value(wdUuid)
       ));
 
   Future updateAmount(int id, int amount) =>

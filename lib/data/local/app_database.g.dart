@@ -427,7 +427,6 @@ class Record extends DataClass implements Insertable<Record> {
   final int amount;
   final int status;
   final String uuid;
-  final String wdUuid;
   final DateTime depositAt;
   final DateTime withdrawAt;
   Record(
@@ -436,9 +435,8 @@ class Record extends DataClass implements Insertable<Record> {
       @required this.amount,
       @required this.status,
       @required this.uuid,
-      @required this.wdUuid,
       @required this.depositAt,
-      @required this.withdrawAt});
+      this.withdrawAt});
   factory Record.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -451,8 +449,6 @@ class Record extends DataClass implements Insertable<Record> {
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
       status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
-      wdUuid:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}wd_uuid']),
       depositAt: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}deposit_at']),
       withdrawAt: dateTimeType
@@ -477,9 +473,6 @@ class Record extends DataClass implements Insertable<Record> {
     if (!nullToAbsent || uuid != null) {
       map['uuid'] = Variable<String>(uuid);
     }
-    if (!nullToAbsent || wdUuid != null) {
-      map['wd_uuid'] = Variable<String>(wdUuid);
-    }
     if (!nullToAbsent || depositAt != null) {
       map['deposit_at'] = Variable<DateTime>(depositAt);
     }
@@ -498,8 +491,6 @@ class Record extends DataClass implements Insertable<Record> {
       status:
           status == null && nullToAbsent ? const Value.absent() : Value(status),
       uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
-      wdUuid:
-          wdUuid == null && nullToAbsent ? const Value.absent() : Value(wdUuid),
       depositAt: depositAt == null && nullToAbsent
           ? const Value.absent()
           : Value(depositAt),
@@ -518,7 +509,6 @@ class Record extends DataClass implements Insertable<Record> {
       amount: serializer.fromJson<int>(json['amount']),
       status: serializer.fromJson<int>(json['status']),
       uuid: serializer.fromJson<String>(json['uuid']),
-      wdUuid: serializer.fromJson<String>(json['wdUuid']),
       depositAt: serializer.fromJson<DateTime>(json['depositAt']),
       withdrawAt: serializer.fromJson<DateTime>(json['withdrawAt']),
     );
@@ -532,7 +522,6 @@ class Record extends DataClass implements Insertable<Record> {
       'amount': serializer.toJson<int>(amount),
       'status': serializer.toJson<int>(status),
       'uuid': serializer.toJson<String>(uuid),
-      'wdUuid': serializer.toJson<String>(wdUuid),
       'depositAt': serializer.toJson<DateTime>(depositAt),
       'withdrawAt': serializer.toJson<DateTime>(withdrawAt),
     };
@@ -544,7 +533,6 @@ class Record extends DataClass implements Insertable<Record> {
           int amount,
           int status,
           String uuid,
-          String wdUuid,
           DateTime depositAt,
           DateTime withdrawAt}) =>
       Record(
@@ -553,7 +541,6 @@ class Record extends DataClass implements Insertable<Record> {
         amount: amount ?? this.amount,
         status: status ?? this.status,
         uuid: uuid ?? this.uuid,
-        wdUuid: wdUuid ?? this.wdUuid,
         depositAt: depositAt ?? this.depositAt,
         withdrawAt: withdrawAt ?? this.withdrawAt,
       );
@@ -565,7 +552,6 @@ class Record extends DataClass implements Insertable<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
-          ..write('wdUuid: $wdUuid, ')
           ..write('depositAt: $depositAt, ')
           ..write('withdrawAt: $withdrawAt')
           ..write(')'))
@@ -581,10 +567,8 @@ class Record extends DataClass implements Insertable<Record> {
               amount.hashCode,
               $mrjc(
                   status.hashCode,
-                  $mrjc(
-                      uuid.hashCode,
-                      $mrjc(wdUuid.hashCode,
-                          $mrjc(depositAt.hashCode, withdrawAt.hashCode))))))));
+                  $mrjc(uuid.hashCode,
+                      $mrjc(depositAt.hashCode, withdrawAt.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -594,7 +578,6 @@ class Record extends DataClass implements Insertable<Record> {
           other.amount == this.amount &&
           other.status == this.status &&
           other.uuid == this.uuid &&
-          other.wdUuid == this.wdUuid &&
           other.depositAt == this.depositAt &&
           other.withdrawAt == this.withdrawAt);
 }
@@ -605,7 +588,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
   final Value<int> amount;
   final Value<int> status;
   final Value<String> uuid;
-  final Value<String> wdUuid;
   final Value<DateTime> depositAt;
   final Value<DateTime> withdrawAt;
   const RecordsCompanion({
@@ -614,7 +596,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     this.amount = const Value.absent(),
     this.status = const Value.absent(),
     this.uuid = const Value.absent(),
-    this.wdUuid = const Value.absent(),
     this.depositAt = const Value.absent(),
     this.withdrawAt = const Value.absent(),
   });
@@ -624,22 +605,18 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     @required int amount,
     this.status = const Value.absent(),
     @required String uuid,
-    @required String wdUuid,
     @required DateTime depositAt,
-    @required DateTime withdrawAt,
+    this.withdrawAt = const Value.absent(),
   })  : code = Value(code),
         amount = Value(amount),
         uuid = Value(uuid),
-        wdUuid = Value(wdUuid),
-        depositAt = Value(depositAt),
-        withdrawAt = Value(withdrawAt);
+        depositAt = Value(depositAt);
   static Insertable<Record> custom({
     Expression<int> id,
     Expression<String> code,
     Expression<int> amount,
     Expression<int> status,
     Expression<String> uuid,
-    Expression<String> wdUuid,
     Expression<DateTime> depositAt,
     Expression<DateTime> withdrawAt,
   }) {
@@ -649,7 +626,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       if (amount != null) 'amount': amount,
       if (status != null) 'status': status,
       if (uuid != null) 'uuid': uuid,
-      if (wdUuid != null) 'wd_uuid': wdUuid,
       if (depositAt != null) 'deposit_at': depositAt,
       if (withdrawAt != null) 'withdraw_at': withdrawAt,
     });
@@ -661,7 +637,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       Value<int> amount,
       Value<int> status,
       Value<String> uuid,
-      Value<String> wdUuid,
       Value<DateTime> depositAt,
       Value<DateTime> withdrawAt}) {
     return RecordsCompanion(
@@ -670,7 +645,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       amount: amount ?? this.amount,
       status: status ?? this.status,
       uuid: uuid ?? this.uuid,
-      wdUuid: wdUuid ?? this.wdUuid,
       depositAt: depositAt ?? this.depositAt,
       withdrawAt: withdrawAt ?? this.withdrawAt,
     );
@@ -694,9 +668,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     if (uuid.present) {
       map['uuid'] = Variable<String>(uuid.value);
     }
-    if (wdUuid.present) {
-      map['wd_uuid'] = Variable<String>(wdUuid.value);
-    }
     if (depositAt.present) {
       map['deposit_at'] = Variable<DateTime>(depositAt.value);
     }
@@ -714,7 +685,6 @@ class RecordsCompanion extends UpdateCompanion<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
-          ..write('wdUuid: $wdUuid, ')
           ..write('depositAt: $depositAt, ')
           ..write('withdrawAt: $withdrawAt')
           ..write(')'))
@@ -777,18 +747,6 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     );
   }
 
-  final VerificationMeta _wdUuidMeta = const VerificationMeta('wdUuid');
-  GeneratedTextColumn _wdUuid;
-  @override
-  GeneratedTextColumn get wdUuid => _wdUuid ??= _constructWdUuid();
-  GeneratedTextColumn _constructWdUuid() {
-    return GeneratedTextColumn(
-      'wd_uuid',
-      $tableName,
-      false,
-    );
-  }
-
   final VerificationMeta _depositAtMeta = const VerificationMeta('depositAt');
   GeneratedDateTimeColumn _depositAt;
   @override
@@ -810,13 +768,13 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     return GeneratedDateTimeColumn(
       'withdraw_at',
       $tableName,
-      false,
+      true,
     );
   }
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, code, amount, status, uuid, wdUuid, depositAt, withdrawAt];
+      [id, code, amount, status, uuid, depositAt, withdrawAt];
   @override
   $RecordsTable get asDslTable => this;
   @override
@@ -853,12 +811,6 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     } else if (isInserting) {
       context.missing(_uuidMeta);
     }
-    if (data.containsKey('wd_uuid')) {
-      context.handle(_wdUuidMeta,
-          wdUuid.isAcceptableOrUnknown(data['wd_uuid'], _wdUuidMeta));
-    } else if (isInserting) {
-      context.missing(_wdUuidMeta);
-    }
     if (data.containsKey('deposit_at')) {
       context.handle(_depositAtMeta,
           depositAt.isAcceptableOrUnknown(data['deposit_at'], _depositAtMeta));
@@ -870,8 +822,6 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
           _withdrawAtMeta,
           withdrawAt.isAcceptableOrUnknown(
               data['withdraw_at'], _withdrawAtMeta));
-    } else if (isInserting) {
-      context.missing(_withdrawAtMeta);
     }
     return context;
   }
@@ -890,14 +840,352 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   }
 }
 
+class Withdraw extends DataClass implements Insertable<Withdraw> {
+  final int id;
+  final String code;
+  final int amount;
+  final String uuid;
+  final DateTime withdrawAt;
+  Withdraw(
+      {@required this.id,
+      @required this.code,
+      @required this.amount,
+      @required this.uuid,
+      @required this.withdrawAt});
+  factory Withdraw.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return Withdraw(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
+      amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
+      uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
+      withdrawAt: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}withdraw_at']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || code != null) {
+      map['code'] = Variable<String>(code);
+    }
+    if (!nullToAbsent || amount != null) {
+      map['amount'] = Variable<int>(amount);
+    }
+    if (!nullToAbsent || uuid != null) {
+      map['uuid'] = Variable<String>(uuid);
+    }
+    if (!nullToAbsent || withdrawAt != null) {
+      map['withdraw_at'] = Variable<DateTime>(withdrawAt);
+    }
+    return map;
+  }
+
+  WithdrawsCompanion toCompanion(bool nullToAbsent) {
+    return WithdrawsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      code: code == null && nullToAbsent ? const Value.absent() : Value(code),
+      amount:
+          amount == null && nullToAbsent ? const Value.absent() : Value(amount),
+      uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
+      withdrawAt: withdrawAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(withdrawAt),
+    );
+  }
+
+  factory Withdraw.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Withdraw(
+      id: serializer.fromJson<int>(json['id']),
+      code: serializer.fromJson<String>(json['code']),
+      amount: serializer.fromJson<int>(json['amount']),
+      uuid: serializer.fromJson<String>(json['uuid']),
+      withdrawAt: serializer.fromJson<DateTime>(json['withdrawAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'code': serializer.toJson<String>(code),
+      'amount': serializer.toJson<int>(amount),
+      'uuid': serializer.toJson<String>(uuid),
+      'withdrawAt': serializer.toJson<DateTime>(withdrawAt),
+    };
+  }
+
+  Withdraw copyWith(
+          {int id,
+          String code,
+          int amount,
+          String uuid,
+          DateTime withdrawAt}) =>
+      Withdraw(
+        id: id ?? this.id,
+        code: code ?? this.code,
+        amount: amount ?? this.amount,
+        uuid: uuid ?? this.uuid,
+        withdrawAt: withdrawAt ?? this.withdrawAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Withdraw(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('amount: $amount, ')
+          ..write('uuid: $uuid, ')
+          ..write('withdrawAt: $withdrawAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(code.hashCode,
+          $mrjc(amount.hashCode, $mrjc(uuid.hashCode, withdrawAt.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Withdraw &&
+          other.id == this.id &&
+          other.code == this.code &&
+          other.amount == this.amount &&
+          other.uuid == this.uuid &&
+          other.withdrawAt == this.withdrawAt);
+}
+
+class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
+  final Value<int> id;
+  final Value<String> code;
+  final Value<int> amount;
+  final Value<String> uuid;
+  final Value<DateTime> withdrawAt;
+  const WithdrawsCompanion({
+    this.id = const Value.absent(),
+    this.code = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.uuid = const Value.absent(),
+    this.withdrawAt = const Value.absent(),
+  });
+  WithdrawsCompanion.insert({
+    this.id = const Value.absent(),
+    @required String code,
+    @required int amount,
+    @required String uuid,
+    @required DateTime withdrawAt,
+  })  : code = Value(code),
+        amount = Value(amount),
+        uuid = Value(uuid),
+        withdrawAt = Value(withdrawAt);
+  static Insertable<Withdraw> custom({
+    Expression<int> id,
+    Expression<String> code,
+    Expression<int> amount,
+    Expression<String> uuid,
+    Expression<DateTime> withdrawAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (code != null) 'code': code,
+      if (amount != null) 'amount': amount,
+      if (uuid != null) 'uuid': uuid,
+      if (withdrawAt != null) 'withdraw_at': withdrawAt,
+    });
+  }
+
+  WithdrawsCompanion copyWith(
+      {Value<int> id,
+      Value<String> code,
+      Value<int> amount,
+      Value<String> uuid,
+      Value<DateTime> withdrawAt}) {
+    return WithdrawsCompanion(
+      id: id ?? this.id,
+      code: code ?? this.code,
+      amount: amount ?? this.amount,
+      uuid: uuid ?? this.uuid,
+      withdrawAt: withdrawAt ?? this.withdrawAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (code.present) {
+      map['code'] = Variable<String>(code.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<int>(amount.value);
+    }
+    if (uuid.present) {
+      map['uuid'] = Variable<String>(uuid.value);
+    }
+    if (withdrawAt.present) {
+      map['withdraw_at'] = Variable<DateTime>(withdrawAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WithdrawsCompanion(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('amount: $amount, ')
+          ..write('uuid: $uuid, ')
+          ..write('withdrawAt: $withdrawAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $WithdrawsTable extends Withdraws
+    with TableInfo<$WithdrawsTable, Withdraw> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $WithdrawsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _codeMeta = const VerificationMeta('code');
+  GeneratedTextColumn _code;
+  @override
+  GeneratedTextColumn get code => _code ??= _constructCode();
+  GeneratedTextColumn _constructCode() {
+    return GeneratedTextColumn(
+      'code',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _amountMeta = const VerificationMeta('amount');
+  GeneratedIntColumn _amount;
+  @override
+  GeneratedIntColumn get amount => _amount ??= _constructAmount();
+  GeneratedIntColumn _constructAmount() {
+    return GeneratedIntColumn(
+      'amount',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _uuidMeta = const VerificationMeta('uuid');
+  GeneratedTextColumn _uuid;
+  @override
+  GeneratedTextColumn get uuid => _uuid ??= _constructUuid();
+  GeneratedTextColumn _constructUuid() {
+    return GeneratedTextColumn(
+      'uuid',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _withdrawAtMeta = const VerificationMeta('withdrawAt');
+  GeneratedDateTimeColumn _withdrawAt;
+  @override
+  GeneratedDateTimeColumn get withdrawAt =>
+      _withdrawAt ??= _constructWithdrawAt();
+  GeneratedDateTimeColumn _constructWithdrawAt() {
+    return GeneratedDateTimeColumn(
+      'withdraw_at',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, code, amount, uuid, withdrawAt];
+  @override
+  $WithdrawsTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'withdraws';
+  @override
+  final String actualTableName = 'withdraws';
+  @override
+  VerificationContext validateIntegrity(Insertable<Withdraw> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('code')) {
+      context.handle(
+          _codeMeta, code.isAcceptableOrUnknown(data['code'], _codeMeta));
+    } else if (isInserting) {
+      context.missing(_codeMeta);
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount'], _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('uuid')) {
+      context.handle(
+          _uuidMeta, uuid.isAcceptableOrUnknown(data['uuid'], _uuidMeta));
+    } else if (isInserting) {
+      context.missing(_uuidMeta);
+    }
+    if (data.containsKey('withdraw_at')) {
+      context.handle(
+          _withdrawAtMeta,
+          withdrawAt.isAcceptableOrUnknown(
+              data['withdraw_at'], _withdrawAtMeta));
+    } else if (isInserting) {
+      context.missing(_withdrawAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Withdraw map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Withdraw.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $WithdrawsTable createAlias(String alias) {
+    return $WithdrawsTable(_db, alias);
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $CommoditiesTable _commodities;
   $CommoditiesTable get commodities => _commodities ??= $CommoditiesTable(this);
   $RecordsTable _records;
   $RecordsTable get records => _records ??= $RecordsTable(this);
+  $WithdrawsTable _withdraws;
+  $WithdrawsTable get withdraws => _withdraws ??= $WithdrawsTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [commodities, records];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [commodities, records, withdraws];
 }

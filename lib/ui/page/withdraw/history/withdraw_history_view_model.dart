@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../data/local/app_database.dart';
 import '../../../../data/model/result.dart';
-import '../../../../data/model/withdraw_commodity.dart';
 import '../../../../data/provider/record_repository_provider.dart';
 import '../../../../data/repository/record_repository.dart';
 
@@ -14,12 +14,13 @@ class WithdrawHistoryViewModel extends ChangeNotifier {
 
   WithdrawHistoryViewModel(this._recordRepository);
 
-  Result<List<WithdrawCommodity>> _recordList;
-  Result<List<WithdrawCommodity>> get recordList => _recordList;
+  Result<List<Withdraw>> _recordList;
+  Result<List<Withdraw>> get recordList => _recordList;
 
-  Future fetchWithdrawHistory() {
+  Future fetchWithdrawHistory({DateTime dateTime}) {
+    if (dateTime == null) dateTime = DateTime.now();
     return _recordRepository
-        .getWithdrawedRecords()
+        .getWithdrawedRecords(dateTime)
         .then((value) => _recordList = value)
         .whenComplete(notifyListeners);
   }

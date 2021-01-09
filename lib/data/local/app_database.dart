@@ -7,10 +7,11 @@ import 'package:path_provider/path_provider.dart';
 
 import 'commodity/table/commodity.table.dart';
 import 'record/table/record.table.dart';
+import 'withdraw/table/withdraw.table.dart';
 
 part 'app_database.g.dart';
 
-@UseMoor(tables: [Commodities, Records])
+@UseMoor(tables: [Commodities, Records, Withdraws])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

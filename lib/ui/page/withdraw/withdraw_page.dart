@@ -117,7 +117,9 @@ class WithdrawedScreen extends StatelessWidget {
                             itemCount: data.length,
                             shrinkWrap: true,
                             itemBuilder: (_, index) {
-                              return WithdrawItem(detail: data[index]);
+                              return ListTile(
+                                title: Text(data[index].uuid),
+                              );
                             }),
                       )
                     : const Center(

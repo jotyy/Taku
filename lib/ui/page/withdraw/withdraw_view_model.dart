@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../data/local/app_database.dart';
 import '../../../data/model/result.dart';
 import '../../../data/model/withdraw_commodity.dart';
 import '../../../data/provider/record_repository_provider.dart';
@@ -14,8 +15,8 @@ class WithdrawViewModel extends ChangeNotifier {
 
   final RecordRepository _repository;
 
-  Result<List<WithdrawCommodity>> _withdrawedList;
-  Result<List<WithdrawCommodity>> get withdrawedList => _withdrawedList;
+  Result<List<Withdraw>> _withdrawedList;
+  Result<List<Withdraw>> get withdrawedList => _withdrawedList;
   Result<List<WithdrawCommodity>> _unWithdrawList;
   Result<List<WithdrawCommodity>> get unWithdrawList => _unWithdrawList;
 
@@ -26,17 +27,16 @@ class WithdrawViewModel extends ChangeNotifier {
         .whenComplete(notifyListeners);
   }
 
-  Future fetchWithdrawedRecord() {
+  Future fetchWithdrawedRecord({DateTime dateTime}) {
+    if (dateTime == null) dateTime = DateTime.now();
     return _repository
-        .getWithdrawedRecords()
+        .getWithdrawedRecords(dateTime)
         .then((value) => _withdrawedList = value)
         .whenComplete(notifyListeners);
   }
 
   Future withdraw(int num, String code) {
-    return _repository
-        .withdrawCommodities(num, code)
-        .then((value) {
+    return _repository.withdrawCommodities(num, code).then((value) {
       fetchUnWithdrawedRecord();
       fetchWithdrawedRecord();
     }).whenComplete(notifyListeners);

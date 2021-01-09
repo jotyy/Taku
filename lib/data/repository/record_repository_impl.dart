@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:moor/moor.dart';
 
 import '../../util/date_util.dart';
@@ -27,9 +28,8 @@ class RecordRepositoryImpl extends RecordRepository {
   }
 
   @override
-  Future<Result<List<WithdrawCommodity>>> getWithdrawedRecords() {
-    return Result.guardFuture(
-        () => _recordsWithStatus(RecordStatus.withdrawed));
+  Future<Result<List<Withdraw>>> getWithdrawedRecords(DateTime dateTime) {
+    return Result.guardFuture(() => _recordsWithdrawed(dateTime));
   }
 
   @override
@@ -66,6 +66,8 @@ class RecordRepositoryImpl extends RecordRepository {
         num = num - record.amount;
       }
     }
+    _recordLocalSource.addWithdrawRecord(
+        WithdrawsCompanion(code: Value(code), amount: Value(num)));
   }
 
   @override
@@ -74,6 +76,13 @@ class RecordRepositoryImpl extends RecordRepository {
   @override
   Future<Result<List<DepositRecord>>> getRecordsByDate(DateTime dateTime) {
     return Result.guardFuture(() => _recordsFilterWithDate(dateTime));
+  }
+
+  Future<List<Withdraw>> _recordsWithdrawed(DateTime dateTime) async {
+    final records = await _recordLocalSource.getWithdrawRecords();
+    return records
+        .where((value) => DateUtils.isSameDay(value.withdrawAt, dateTime))
+        .toList();
   }
 
   Future<List<DepositRecord>> _records() async {
