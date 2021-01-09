@@ -25,11 +25,14 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
       (select(records)..where((tbl) => tbl.status.equals(1))).get();
 
   Future<int> insertRecord(RecordsCompanion record) =>
-      into(records).insert(record);
+      into(records).insert(record.copyWith(depositAt: Value(DateTime.now())));
 
   Future updateStatus(int id, int status) =>
       (update(records)..where((tbl) => tbl.id.equals(id)))
-          .write(RecordsCompanion(status: Value(status)));
+          .write(RecordsCompanion(
+        status: Value(status),
+        withdrawAt: Value(DateTime.now()),
+      ));
 
   Future updateAmount(int id, int amount) =>
       (update(records)..where((tbl) => tbl.id.equals(id)))

@@ -15,6 +15,6 @@ class Records extends Table {
   IntColumn get status =>
       integer().withDefault(const Constant(RecordStatus.deposited))();
   TextColumn get uuid => text()();
-  DateTimeColumn get depositAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+  DateTimeColumn get depositAt => dateTime()();
+  DateTimeColumn get withdrawAt => dateTime()();
 }

@@ -194,10 +194,11 @@ class CommoditiesCompanion extends UpdateCompanion<Commodity> {
     this.price = const Value.absent(),
     @required String code,
     this.status = const Value.absent(),
-    this.createdAt = const Value.absent(),
+    @required DateTime createdAt,
   })  : name = Value(name),
         description = Value(description),
-        code = Value(code);
+        code = Value(code),
+        createdAt = Value(createdAt);
   static Insertable<Commodity> custom({
     Expression<int> id,
     Expression<String> name,
@@ -345,8 +346,11 @@ class $CommoditiesTable extends Commodities
   @override
   GeneratedDateTimeColumn get createdAt => _createdAt ??= _constructCreatedAt();
   GeneratedDateTimeColumn _constructCreatedAt() {
-    return GeneratedDateTimeColumn('created_at', $tableName, false,
-        defaultValue: Constant(DateTime.now()));
+    return GeneratedDateTimeColumn(
+      'created_at',
+      $tableName,
+      false,
+    );
   }
 
   @override
@@ -397,6 +401,8 @@ class $CommoditiesTable extends Commodities
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at'], _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     return context;
   }
@@ -422,13 +428,15 @@ class Record extends DataClass implements Insertable<Record> {
   final int status;
   final String uuid;
   final DateTime depositAt;
+  final DateTime withdrawAt;
   Record(
       {@required this.id,
       @required this.code,
       @required this.amount,
       @required this.status,
       @required this.uuid,
-      @required this.depositAt});
+      @required this.depositAt,
+      @required this.withdrawAt});
   factory Record.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -443,6 +451,8 @@ class Record extends DataClass implements Insertable<Record> {
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
       depositAt: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}deposit_at']),
+      withdrawAt: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}withdraw_at']),
     );
   }
   @override
@@ -466,6 +476,9 @@ class Record extends DataClass implements Insertable<Record> {
     if (!nullToAbsent || depositAt != null) {
       map['deposit_at'] = Variable<DateTime>(depositAt);
     }
+    if (!nullToAbsent || withdrawAt != null) {
+      map['withdraw_at'] = Variable<DateTime>(withdrawAt);
+    }
     return map;
   }
 
@@ -481,6 +494,9 @@ class Record extends DataClass implements Insertable<Record> {
       depositAt: depositAt == null && nullToAbsent
           ? const Value.absent()
           : Value(depositAt),
+      withdrawAt: withdrawAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(withdrawAt),
     );
   }
 
@@ -494,6 +510,7 @@ class Record extends DataClass implements Insertable<Record> {
       status: serializer.fromJson<int>(json['status']),
       uuid: serializer.fromJson<String>(json['uuid']),
       depositAt: serializer.fromJson<DateTime>(json['depositAt']),
+      withdrawAt: serializer.fromJson<DateTime>(json['withdrawAt']),
     );
   }
   @override
@@ -506,6 +523,7 @@ class Record extends DataClass implements Insertable<Record> {
       'status': serializer.toJson<int>(status),
       'uuid': serializer.toJson<String>(uuid),
       'depositAt': serializer.toJson<DateTime>(depositAt),
+      'withdrawAt': serializer.toJson<DateTime>(withdrawAt),
     };
   }
 
@@ -515,7 +533,8 @@ class Record extends DataClass implements Insertable<Record> {
           int amount,
           int status,
           String uuid,
-          DateTime depositAt}) =>
+          DateTime depositAt,
+          DateTime withdrawAt}) =>
       Record(
         id: id ?? this.id,
         code: code ?? this.code,
@@ -523,6 +542,7 @@ class Record extends DataClass implements Insertable<Record> {
         status: status ?? this.status,
         uuid: uuid ?? this.uuid,
         depositAt: depositAt ?? this.depositAt,
+        withdrawAt: withdrawAt ?? this.withdrawAt,
       );
   @override
   String toString() {
@@ -532,7 +552,8 @@ class Record extends DataClass implements Insertable<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
-          ..write('depositAt: $depositAt')
+          ..write('depositAt: $depositAt, ')
+          ..write('withdrawAt: $withdrawAt')
           ..write(')'))
         .toString();
   }
@@ -544,8 +565,10 @@ class Record extends DataClass implements Insertable<Record> {
           code.hashCode,
           $mrjc(
               amount.hashCode,
-              $mrjc(status.hashCode,
-                  $mrjc(uuid.hashCode, depositAt.hashCode))))));
+              $mrjc(
+                  status.hashCode,
+                  $mrjc(uuid.hashCode,
+                      $mrjc(depositAt.hashCode, withdrawAt.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -555,7 +578,8 @@ class Record extends DataClass implements Insertable<Record> {
           other.amount == this.amount &&
           other.status == this.status &&
           other.uuid == this.uuid &&
-          other.depositAt == this.depositAt);
+          other.depositAt == this.depositAt &&
+          other.withdrawAt == this.withdrawAt);
 }
 
 class RecordsCompanion extends UpdateCompanion<Record> {
@@ -565,6 +589,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
   final Value<int> status;
   final Value<String> uuid;
   final Value<DateTime> depositAt;
+  final Value<DateTime> withdrawAt;
   const RecordsCompanion({
     this.id = const Value.absent(),
     this.code = const Value.absent(),
@@ -572,6 +597,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     this.status = const Value.absent(),
     this.uuid = const Value.absent(),
     this.depositAt = const Value.absent(),
+    this.withdrawAt = const Value.absent(),
   });
   RecordsCompanion.insert({
     this.id = const Value.absent(),
@@ -579,10 +605,13 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     @required int amount,
     this.status = const Value.absent(),
     @required String uuid,
-    this.depositAt = const Value.absent(),
+    @required DateTime depositAt,
+    @required DateTime withdrawAt,
   })  : code = Value(code),
         amount = Value(amount),
-        uuid = Value(uuid);
+        uuid = Value(uuid),
+        depositAt = Value(depositAt),
+        withdrawAt = Value(withdrawAt);
   static Insertable<Record> custom({
     Expression<int> id,
     Expression<String> code,
@@ -590,6 +619,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     Expression<int> status,
     Expression<String> uuid,
     Expression<DateTime> depositAt,
+    Expression<DateTime> withdrawAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -598,6 +628,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       if (status != null) 'status': status,
       if (uuid != null) 'uuid': uuid,
       if (depositAt != null) 'deposit_at': depositAt,
+      if (withdrawAt != null) 'withdraw_at': withdrawAt,
     });
   }
 
@@ -607,7 +638,8 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       Value<int> amount,
       Value<int> status,
       Value<String> uuid,
-      Value<DateTime> depositAt}) {
+      Value<DateTime> depositAt,
+      Value<DateTime> withdrawAt}) {
     return RecordsCompanion(
       id: id ?? this.id,
       code: code ?? this.code,
@@ -615,6 +647,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
       status: status ?? this.status,
       uuid: uuid ?? this.uuid,
       depositAt: depositAt ?? this.depositAt,
+      withdrawAt: withdrawAt ?? this.withdrawAt,
     );
   }
 
@@ -639,6 +672,9 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     if (depositAt.present) {
       map['deposit_at'] = Variable<DateTime>(depositAt.value);
     }
+    if (withdrawAt.present) {
+      map['withdraw_at'] = Variable<DateTime>(withdrawAt.value);
+    }
     return map;
   }
 
@@ -650,7 +686,8 @@ class RecordsCompanion extends UpdateCompanion<Record> {
           ..write('amount: $amount, ')
           ..write('status: $status, ')
           ..write('uuid: $uuid, ')
-          ..write('depositAt: $depositAt')
+          ..write('depositAt: $depositAt, ')
+          ..write('withdrawAt: $withdrawAt')
           ..write(')'))
         .toString();
   }
@@ -716,13 +753,29 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   @override
   GeneratedDateTimeColumn get depositAt => _depositAt ??= _constructDepositAt();
   GeneratedDateTimeColumn _constructDepositAt() {
-    return GeneratedDateTimeColumn('deposit_at', $tableName, false,
-        defaultValue: Constant(DateTime.now()));
+    return GeneratedDateTimeColumn(
+      'deposit_at',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _withdrawAtMeta = const VerificationMeta('withdrawAt');
+  GeneratedDateTimeColumn _withdrawAt;
+  @override
+  GeneratedDateTimeColumn get withdrawAt =>
+      _withdrawAt ??= _constructWithdrawAt();
+  GeneratedDateTimeColumn _constructWithdrawAt() {
+    return GeneratedDateTimeColumn(
+      'withdraw_at',
+      $tableName,
+      false,
+    );
   }
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, code, amount, status, uuid, depositAt];
+      [id, code, amount, status, uuid, depositAt, withdrawAt];
   @override
   $RecordsTable get asDslTable => this;
   @override
@@ -762,6 +815,16 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     if (data.containsKey('deposit_at')) {
       context.handle(_depositAtMeta,
           depositAt.isAcceptableOrUnknown(data['deposit_at'], _depositAtMeta));
+    } else if (isInserting) {
+      context.missing(_depositAtMeta);
+    }
+    if (data.containsKey('withdraw_at')) {
+      context.handle(
+          _withdrawAtMeta,
+          withdrawAt.isAcceptableOrUnknown(
+              data['withdraw_at'], _withdrawAtMeta));
+    } else if (isInserting) {
+      context.missing(_withdrawAtMeta);
     }
     return context;
   }

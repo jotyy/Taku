@@ -18,8 +18,8 @@ class CommodityDao extends DatabaseAccessor<AppDatabase>
 
   Future<List<Commodity>> getCommodities() => select(commodities).get();
 
-  Future insertCommodity(CommoditiesCompanion commodity) =>
-      into(commodities).insert(commodity);
+  Future insertCommodity(CommoditiesCompanion commodity) => into(commodities)
+      .insert(commodity.copyWith(createdAt: Value(DateTime.now())));
 
   Future deleteCommodity(int id) =>
       (delete(commodities)..where((c) => c.id.equals(id))).go();

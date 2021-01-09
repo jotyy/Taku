@@ -9,6 +9,5 @@ class Commodities extends Table {
   RealColumn get price => real().withDefault(const Constant(0.0))();
   TextColumn get code => text().withLength(min: 1, max: 50)();
   IntColumn get status => integer().withDefault(const Constant(0))();
-  DateTimeColumn get createdAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+  DateTimeColumn get createdAt => dateTime()();
 }
