@@ -32,12 +32,16 @@ class DateSelecter extends HookWidget {
               initialDate: selectedDate.value,
               firstDate: DateTime.now().subtract(const Duration(days: 90)),
               lastDate: DateTime.now(),
-            ).then((value) => selectedDate.value = value);
+            ).then((value) {
+              if (value != null) {
+                selectedDate.value = value;
+              }
+            });
           },
           child: Text(
             '${DateUtil.formatDate(selectedDate.value, format: 'yyyy/MM/dd')}',
             style: const TextStyle(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

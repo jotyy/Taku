@@ -94,14 +94,18 @@ class UnWithdrawScreen extends StatelessWidget {
   }
 }
 
-class WithdrawedScreen extends StatelessWidget {
+class WithdrawedScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final date = useState(DateTime.now());
     return Column(
       children: [
         DateSelecter(
           onDateSelected: (value) {
-            print(value);
+            date.value = value;
+            context
+                .read(withdrawViewModelProvider)
+                .fetchWithdrawedRecord(dateTime: date.value);
           },
         ),
         Expanded(
@@ -111,9 +115,8 @@ class WithdrawedScreen extends StatelessWidget {
               final listData = useProvider(withdrawViewModelProvider
                   .select((value) => value.withdrawedList));
               final snapshot = useFuture(useMemoized(() {
-                return context
-                    .read(loadingStateProvider)
-                    .whileLoading(viewModel.fetchWithdrawedRecord);
+                return context.read(loadingStateProvider).whileLoading(() =>
+                    viewModel.fetchWithdrawedRecord(dateTime: date.value));
               }));
 
               if (!snapshot.isDone) return Container();
@@ -133,7 +136,8 @@ class WithdrawedScreen extends StatelessWidget {
                           : const Center(
                               child: Text('Empty screen'),
                             ),
-                      onRefresh: viewModel.fetchWithdrawedRecord),
+                      onRefresh: () => viewModel.fetchWithdrawedRecord(
+                          dateTime: date.value)),
                   failure: (error) =>
                       const Center(child: Text('Error screen')));
             }),
