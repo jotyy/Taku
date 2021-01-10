@@ -35,8 +35,8 @@ class WithdrawViewModel extends ChangeNotifier {
         .whenComplete(notifyListeners);
   }
 
-  Future withdraw(int num, String code) {
-    return _repository.withdrawCommodities(num, code).then((value) {
+  Future withdraw(int num, String code, String name) {
+    return _repository.withdrawCommodities(num, code, name).then((value) {
       fetchUnWithdrawedRecord();
       fetchWithdrawedRecord();
     }).whenComplete(notifyListeners);

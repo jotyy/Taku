@@ -6,7 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../util/ext/async_snapshot.dart';
 import '../../component/container_with_loading.dart';
+import '../../component/date_selecter.dart';
 import '../../component/withdraw_item.dart';
+import '../../component/withdrawed_item.dart';
 import '../../loading_state_view_model.dart';
 import 'withdraw_view_model.dart';
 
@@ -95,39 +97,49 @@ class UnWithdrawScreen extends StatelessWidget {
 class WithdrawedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ContainerWithLoading(
-      child: HookBuilder(builder: (context) {
-        final viewModel = useProvider(withdrawViewModelProvider);
-        final listData = useProvider(
-            withdrawViewModelProvider.select((value) => value.withdrawedList));
-        final snapshot = useFuture(useMemoized(() {
-          return context
-              .read(loadingStateProvider)
-              .whileLoading(viewModel.fetchWithdrawedRecord);
-        }));
+    return Column(
+      children: [
+        DateSelecter(
+          onDateSelected: (value) {
+            print(value);
+          },
+        ),
+        Expanded(
+          child: ContainerWithLoading(
+            child: HookBuilder(builder: (context) {
+              final viewModel = useProvider(withdrawViewModelProvider);
+              final listData = useProvider(withdrawViewModelProvider
+                  .select((value) => value.withdrawedList));
+              final snapshot = useFuture(useMemoized(() {
+                return context
+                    .read(loadingStateProvider)
+                    .whileLoading(viewModel.fetchWithdrawedRecord);
+              }));
 
-        if (!snapshot.isDone) return Container();
+              if (!snapshot.isDone) return Container();
 
-        return listData.when(
-            success: (data) => RefreshIndicator(
-                child: data.isNotEmpty
-                    ? Container(
-                        height: double.infinity,
-                        child: ListView.builder(
-                            itemCount: data.length,
-                            shrinkWrap: true,
-                            itemBuilder: (_, index) {
-                              return ListTile(
-                                title: Text(data[index].uuid),
-                              );
-                            }),
-                      )
-                    : const Center(
-                        child: Text('Empty screen'),
-                      ),
-                onRefresh: viewModel.fetchWithdrawedRecord),
-            failure: (error) => const Center(child: Text('Error screen')));
-      }),
+              return listData.when(
+                  success: (data) => RefreshIndicator(
+                      child: data.isNotEmpty
+                          ? Container(
+                              height: double.infinity,
+                              child: ListView.builder(
+                                  itemCount: data.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (_, index) {
+                                    return WithdrawedItem(detail: data[index]);
+                                  }),
+                            )
+                          : const Center(
+                              child: Text('Empty screen'),
+                            ),
+                      onRefresh: viewModel.fetchWithdrawedRecord),
+                  failure: (error) =>
+                      const Center(child: Text('Error screen')));
+            }),
+          ),
+        ),
+      ],
     );
   }
 }

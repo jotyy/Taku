@@ -843,12 +843,14 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
 class Withdraw extends DataClass implements Insertable<Withdraw> {
   final int id;
   final String code;
+  final String name;
   final int amount;
   final String uuid;
   final DateTime withdrawAt;
   Withdraw(
       {@required this.id,
       @required this.code,
+      @required this.name,
       @required this.amount,
       @required this.uuid,
       @required this.withdrawAt});
@@ -861,6 +863,7 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     return Withdraw(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       code: stringType.mapFromDatabaseResponse(data['${effectivePrefix}code']),
+      name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
       withdrawAt: dateTimeType
@@ -875,6 +878,9 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     }
     if (!nullToAbsent || code != null) {
       map['code'] = Variable<String>(code);
+    }
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
     }
     if (!nullToAbsent || amount != null) {
       map['amount'] = Variable<int>(amount);
@@ -892,6 +898,7 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     return WithdrawsCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       code: code == null && nullToAbsent ? const Value.absent() : Value(code),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       amount:
           amount == null && nullToAbsent ? const Value.absent() : Value(amount),
       uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
@@ -907,6 +914,7 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     return Withdraw(
       id: serializer.fromJson<int>(json['id']),
       code: serializer.fromJson<String>(json['code']),
+      name: serializer.fromJson<String>(json['name']),
       amount: serializer.fromJson<int>(json['amount']),
       uuid: serializer.fromJson<String>(json['uuid']),
       withdrawAt: serializer.fromJson<DateTime>(json['withdrawAt']),
@@ -918,6 +926,7 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'code': serializer.toJson<String>(code),
+      'name': serializer.toJson<String>(name),
       'amount': serializer.toJson<int>(amount),
       'uuid': serializer.toJson<String>(uuid),
       'withdrawAt': serializer.toJson<DateTime>(withdrawAt),
@@ -927,12 +936,14 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
   Withdraw copyWith(
           {int id,
           String code,
+          String name,
           int amount,
           String uuid,
           DateTime withdrawAt}) =>
       Withdraw(
         id: id ?? this.id,
         code: code ?? this.code,
+        name: name ?? this.name,
         amount: amount ?? this.amount,
         uuid: uuid ?? this.uuid,
         withdrawAt: withdrawAt ?? this.withdrawAt,
@@ -942,6 +953,7 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
     return (StringBuffer('Withdraw(')
           ..write('id: $id, ')
           ..write('code: $code, ')
+          ..write('name: $name, ')
           ..write('amount: $amount, ')
           ..write('uuid: $uuid, ')
           ..write('withdrawAt: $withdrawAt')
@@ -952,14 +964,19 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
   @override
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
-      $mrjc(code.hashCode,
-          $mrjc(amount.hashCode, $mrjc(uuid.hashCode, withdrawAt.hashCode)))));
+      $mrjc(
+          code.hashCode,
+          $mrjc(
+              name.hashCode,
+              $mrjc(amount.hashCode,
+                  $mrjc(uuid.hashCode, withdrawAt.hashCode))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is Withdraw &&
           other.id == this.id &&
           other.code == this.code &&
+          other.name == this.name &&
           other.amount == this.amount &&
           other.uuid == this.uuid &&
           other.withdrawAt == this.withdrawAt);
@@ -968,12 +985,14 @@ class Withdraw extends DataClass implements Insertable<Withdraw> {
 class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
   final Value<int> id;
   final Value<String> code;
+  final Value<String> name;
   final Value<int> amount;
   final Value<String> uuid;
   final Value<DateTime> withdrawAt;
   const WithdrawsCompanion({
     this.id = const Value.absent(),
     this.code = const Value.absent(),
+    this.name = const Value.absent(),
     this.amount = const Value.absent(),
     this.uuid = const Value.absent(),
     this.withdrawAt = const Value.absent(),
@@ -981,16 +1000,19 @@ class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
   WithdrawsCompanion.insert({
     this.id = const Value.absent(),
     @required String code,
+    @required String name,
     @required int amount,
     @required String uuid,
     @required DateTime withdrawAt,
   })  : code = Value(code),
+        name = Value(name),
         amount = Value(amount),
         uuid = Value(uuid),
         withdrawAt = Value(withdrawAt);
   static Insertable<Withdraw> custom({
     Expression<int> id,
     Expression<String> code,
+    Expression<String> name,
     Expression<int> amount,
     Expression<String> uuid,
     Expression<DateTime> withdrawAt,
@@ -998,6 +1020,7 @@ class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (code != null) 'code': code,
+      if (name != null) 'name': name,
       if (amount != null) 'amount': amount,
       if (uuid != null) 'uuid': uuid,
       if (withdrawAt != null) 'withdraw_at': withdrawAt,
@@ -1007,12 +1030,14 @@ class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
   WithdrawsCompanion copyWith(
       {Value<int> id,
       Value<String> code,
+      Value<String> name,
       Value<int> amount,
       Value<String> uuid,
       Value<DateTime> withdrawAt}) {
     return WithdrawsCompanion(
       id: id ?? this.id,
       code: code ?? this.code,
+      name: name ?? this.name,
       amount: amount ?? this.amount,
       uuid: uuid ?? this.uuid,
       withdrawAt: withdrawAt ?? this.withdrawAt,
@@ -1027,6 +1052,9 @@ class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
     }
     if (code.present) {
       map['code'] = Variable<String>(code.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -1045,6 +1073,7 @@ class WithdrawsCompanion extends UpdateCompanion<Withdraw> {
     return (StringBuffer('WithdrawsCompanion(')
           ..write('id: $id, ')
           ..write('code: $code, ')
+          ..write('name: $name, ')
           ..write('amount: $amount, ')
           ..write('uuid: $uuid, ')
           ..write('withdrawAt: $withdrawAt')
@@ -1074,6 +1103,18 @@ class $WithdrawsTable extends Withdraws
   GeneratedTextColumn _constructCode() {
     return GeneratedTextColumn(
       'code',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nameMeta = const VerificationMeta('name');
+  GeneratedTextColumn _name;
+  @override
+  GeneratedTextColumn get name => _name ??= _constructName();
+  GeneratedTextColumn _constructName() {
+    return GeneratedTextColumn(
+      'name',
       $tableName,
       false,
     );
@@ -1117,7 +1158,8 @@ class $WithdrawsTable extends Withdraws
   }
 
   @override
-  List<GeneratedColumn> get $columns => [id, code, amount, uuid, withdrawAt];
+  List<GeneratedColumn> get $columns =>
+      [id, code, name, amount, uuid, withdrawAt];
   @override
   $WithdrawsTable get asDslTable => this;
   @override
@@ -1137,6 +1179,12 @@ class $WithdrawsTable extends Withdraws
           _codeMeta, code.isAcceptableOrUnknown(data['code'], _codeMeta));
     } else if (isInserting) {
       context.missing(_codeMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
     }
     if (data.containsKey('amount')) {
       context.handle(_amountMeta,

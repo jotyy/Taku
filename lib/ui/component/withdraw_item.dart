@@ -77,6 +77,7 @@ class WithdrawItem extends StatelessWidget {
                                             .withdraw(
                                               int.parse(controller.text),
                                               detail.code,
+                                              detail.name,
                                             );
                                         Get.back();
                                       },

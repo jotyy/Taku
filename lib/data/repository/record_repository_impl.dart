@@ -48,16 +48,20 @@ class RecordRepositoryImpl extends RecordRepository {
   }
 
   @override
-  Future withdrawCommodities(int num, String code) {
-    return Result.guardFuture(() => _withdraw(num, code));
+  Future withdrawCommodities(int num, String code, String name) {
+    return Result.guardFuture(() => _withdraw(num, code, name));
   }
 
-  Future _withdraw(int num, String code) async {
+  Future _withdraw(int num, String code, String name) async {
     final records = await _recordLocalSource.getDepositRecordsWithCode(code);
     for (var record in records) {
       if (record.amount >= num) {
         await _recordLocalSource.updateRecordAmount(
             record.id, record.amount - num);
+        if (record.amount == num) {
+          await _recordLocalSource.updateRecordStatus(
+              record.id, RecordStatus.withdrawed);
+        }
         break;
       } else {
         await _recordLocalSource.updateRecordAmount(record.id, 0);
@@ -66,8 +70,11 @@ class RecordRepositoryImpl extends RecordRepository {
         num = num - record.amount;
       }
     }
-    _recordLocalSource.addWithdrawRecord(
-        WithdrawsCompanion(code: Value(code), amount: Value(num)));
+    _recordLocalSource.addWithdrawRecord(WithdrawsCompanion(
+      name: Value(name),
+      code: Value(code),
+      amount: Value(num),
+    ));
   }
 
   @override
