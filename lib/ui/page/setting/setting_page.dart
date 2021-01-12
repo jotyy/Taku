@@ -29,6 +29,10 @@ class SettingPage extends StatelessWidget {
         onPressed: () {},
       ),
       SettingItem(
+        title: '使用帮助',
+        onPressed: () {},
+      ),
+      SettingItem(
         title: '关于',
         onPressed: () {},
       ),

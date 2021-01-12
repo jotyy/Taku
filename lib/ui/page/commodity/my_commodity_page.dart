@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../constants.dart';
 import '../../../util/ext/async_snapshot.dart';
 import '../../component/commodity_list_item.dart';
 import '../../component/container_with_loading.dart';
 import '../../component/search_input_box.dart';
 import '../../loading_state_view_model.dart';
 import 'commodity_view_model.dart';
+
+enum MenuItem { add, import }
 
 class MyCommodityPage extends StatelessWidget {
   @override
@@ -18,6 +22,38 @@ class MyCommodityPage extends StatelessWidget {
       backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(
         title: Text(L10n.of(context).myCommodity),
+        actions: [
+          PopupMenuButton<MenuItem>(
+            onSelected: (value) {
+              switch (value) {
+                case MenuItem.add:
+                  Get.toNamed(Constants.pageInputCommodity);
+                  break;
+                case MenuItem.import:
+                  break;
+              }
+            },
+            icon: const Icon(Icons.add),
+            itemBuilder: (context) {
+              return <PopupMenuEntry<MenuItem>>[
+                PopupMenuItem<MenuItem>(
+                  value: MenuItem.add,
+                  child: Text(
+                    '添加商品',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
+                PopupMenuItem<MenuItem>(
+                  value: MenuItem.import,
+                  child: Text(
+                    '批量导入',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
+              ];
+            },
+          )
+        ],
       ),
       body: ContainerWithLoading(
         child: Column(
