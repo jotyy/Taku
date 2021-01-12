@@ -90,7 +90,7 @@ class DepositHistoryItem extends StatelessWidget {
         ? Chip(
             label: const Text(
               '未出库',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 12.0),
             ),
             backgroundColor: Theme.of(context).accentColor.withAlpha(160),
           )

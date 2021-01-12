@@ -8,6 +8,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(
         title: const Text('设置'),
       ),
@@ -20,11 +21,6 @@ class SettingPage extends StatelessWidget {
       const Gap(16),
       SettingItem(
         title: '检查更新',
-        onPressed: () {},
-      ),
-      SettingItem(
-        title: '清除缓存',
-        hintText: '12MB',
         onPressed: () {},
       ),
       SettingItem(

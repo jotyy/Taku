@@ -15,26 +15,29 @@ class WithdrawItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      height: 136,
+      margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
       child: Card(
-        child: InkWell(
-          onTap: () {},
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Assets.images.articlePlaceholder.image(
-                height: 100,
-                width: 100,
-                fit: BoxFit.cover,
+              Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                child: Assets.images.articlePlaceholder.image(
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
-              const Gap(12.0),
+              const Gap(16.0),
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Gap(8.0),
                     Text(
                       detail.name,
                       style: Theme.of(context)
@@ -46,10 +49,14 @@ class WithdrawItem extends StatelessWidget {
                       detail.code,
                       style: Theme.of(context).textTheme.caption,
                     ),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('剩余${detail.balance}件'),
+                        Text(
+                          '剩余${detail.balance}件',
+                          style: const TextStyle(fontSize: 14.0),
+                        ),
                         FlatButton(
                             onPressed: () {
                               final controller =
@@ -81,16 +88,16 @@ class WithdrawItem extends StatelessWidget {
                                             );
                                         Get.back();
                                       },
-                                      child: const Text('OK'),
+                                      child: const Text('确定'),
                                     )
                                   ],
                                 ),
                               );
-                              // return context
-                              //     .read(withdrawViewModelProvider)
-                              //     .withdraw(detail.balance, detail.code);
                             },
-                            child: const Text('出库'))
+                            child: const Text(
+                              '出库',
+                              style: TextStyle(fontSize: 14.0),
+                            ))
                       ],
                     ),
                   ],

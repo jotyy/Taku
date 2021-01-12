@@ -54,7 +54,6 @@ dependencies:
 
   # For scan code
   qr_code_scanner: ^0.2.1
-  flutter_barcode_scanner: ^1.0.2
 
   # For UIs
   gap: ^1.2.0

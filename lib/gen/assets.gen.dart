@@ -12,13 +12,21 @@ class $AssetsImagesGen {
 
   AssetGenImage get articlePlaceholder =>
       const AssetGenImage('assets/images/article_placeholder.webp');
+  AssetGenImage get bgHeader =>
+      const AssetGenImage('assets/images/bg_header.png');
   AssetGenImage get iconPlaceholder =>
       const AssetGenImage('assets/images/icon_placeholder.jpg');
+  AssetGenImage get iconSelected =>
+      const AssetGenImage('assets/images/icon_selected.png');
+  AssetGenImage get jyetj => const AssetGenImage('assets/images/jyetj.png');
+  AssetGenImage get sjzs => const AssetGenImage('assets/images/sjzs.png');
+  AssetGenImage get sptj => const AssetGenImage('assets/images/sptj.png');
 }
 
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  SvgGenImage get bgHeader => const SvgGenImage('assets/svgs/bg_header.svg');
   SvgGenImage get calendar => const SvgGenImage('assets/svgs/calendar.svg');
   SvgGenImage get chart => const SvgGenImage('assets/svgs/chart.svg');
   SvgGenImage get filter => const SvgGenImage('assets/svgs/filter.svg');

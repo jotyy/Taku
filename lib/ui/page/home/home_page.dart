@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
   Widget _homeScreen(BuildContext context) {
     return Column(
       children: [
-        const Gap(50.0),
+        const Gap(60.0),
         HomeItem(
           title: L10n.of(context).deposit,
           icon: Assets.svgs.icHomeIn.svg(

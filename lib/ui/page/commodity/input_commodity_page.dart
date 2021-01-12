@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../component/bar_code_scanner.dart';
 import '../../widgets/my_button.dart';
 import '../../widgets/my_scroll_view.dart';
 import '../../widgets/text_field_item.dart';
@@ -118,7 +119,10 @@ class InputCommodityPage extends StatelessWidget {
                 height: 24,
                 color: Theme.of(context).iconTheme.color.withAlpha(180),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                final code = await Get.to(const BarCodeScanner());
+                _codeController.text = code;
+              },
             ),
           )
         ],
