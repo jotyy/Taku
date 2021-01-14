@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class SettingItem extends StatelessWidget {
   final String title;
-  final String hintText;
+  final Widget child;
   final VoidCallback onPressed;
 
-  const SettingItem({Key key, this.title, this.hintText = '', this.onPressed})
+  const SettingItem({Key key, this.title, this.child, this.onPressed})
       : super(key: key);
 
   @override
@@ -26,12 +25,7 @@ class SettingItem extends StatelessWidget {
                   style: Get.theme.textTheme.subtitle2,
                 ),
                 const Spacer(),
-                Text(
-                  hintText,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-                const Gap(8),
-                const Icon(Icons.chevron_right),
+                child == null ? const Icon(Icons.chevron_right) : child,
               ],
             ),
           ),
