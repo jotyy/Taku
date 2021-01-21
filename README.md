@@ -175,10 +175,4 @@ $ make run-prd
 1. Edit [*.arb](https://github.com/wasabeef/flutter-architecture-blueprints/tree/main/lib/l10n) files.
 2. Run generate the `flutter pub get`
 
-## Special Thanks.
-
-- [News API](https://newsapi.org/)
-
-**Contributors**
-- [lcdsmao](https://github.com/lcdsmao)
 
