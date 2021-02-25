@@ -65,7 +65,8 @@ class DepositHistoryItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('金额'),
-                    Text('\$${detail.record.amount * detail.commodity.price}'),
+                    Text(
+                        '\$${(detail.record.amount * detail.commodity.price).toStringAsFixed(2)}'),
                   ],
                 ),
                 Row(

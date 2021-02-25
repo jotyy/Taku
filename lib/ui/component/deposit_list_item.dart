@@ -34,7 +34,7 @@ class DepositListItem extends HookWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '\$${item.price * count.value}',
+                    '\$${(item.price * count.value).toStringAsFixed(2)}',
                     style: theme.textTheme.subtitle1
                         .copyWith(color: theme.accentColor),
                   )

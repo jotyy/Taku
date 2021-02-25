@@ -83,17 +83,6 @@ class _BackdropState extends State<Backdrop>
               onPressed: _toggleBackdropLayerVisibility),
           const Spacer(),
           IconButton(
-            icon: Assets.svgs.search
-                .svg(color: Theme.of(context).iconTheme.color),
-            onPressed: () async => context
-                .read(appThemeNotifierProvider)
-                .toggle()
-                .catchError((error) {
-              showErrorSnackbar(
-                  L10n.of(context).error, L10n.of(context).failedSwitchTheme);
-            }),
-          ),
-          IconButton(
               icon: Assets.svgs.setting
                   .svg(color: Theme.of(context).iconTheme.color),
               onPressed: () => Get.toNamed(Constants.pageSetting))

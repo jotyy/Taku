@@ -101,7 +101,7 @@ class InputCommodityPage extends StatelessWidget {
         controller: _priceController,
         title: '商品价格',
         hintText: '请填写商品价格',
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
       ),
       Stack(
         children: [

@@ -13,6 +13,7 @@ import 'ui/page/deposit/detail/deposit_detail_page.dart';
 import 'ui/page/deposit/history/deposit_history_page.dart';
 import 'ui/page/home/home_page.dart';
 import 'ui/page/scanner/qr_scanner_page.dart';
+import 'ui/page/setting/about_page.dart';
 import 'ui/page/setting/setting_page.dart';
 import 'ui/page/signIn/sign_in_page.dart';
 import 'ui/page/statistic/statistic_page.dart';
@@ -45,6 +46,7 @@ class App extends HookWidget {
         Constants.pageInputCommodity: (context) => InputCommodityPage(),
         Constants.pageMyCommodity: (context) => MyCommodityPage(),
         Constants.pageDepositHistory: (context) => DepositHistoryPage(),
+        Constants.pageAbout: (context) => AboutPage(),
       },
     );
   }
